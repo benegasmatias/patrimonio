@@ -10,6 +10,7 @@ import { NavbarClientesComponent } from './navbar-clientes.component';
   imports: [
     CommonModule,
     NavbarClientesRoutingModule
-  ]
+  ],
+  bootstrap: [NavbarClientesComponent]
 })
 export class NavbarClientesModule { }
