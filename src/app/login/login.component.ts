@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
      console.log(data )
      usuario = data
       this.loginService.setToken(usuario.api_token)
-      this.route.navigateByUrl('incidencia')
+      this.route.navigateByUrl('navbar')
      
      },
     err=>{console.log(err)
