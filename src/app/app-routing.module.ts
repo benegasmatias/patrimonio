@@ -17,7 +17,8 @@ const routes: Routes = [{
       canActivate:[authGuard]
     },
   {path: 'logn', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-  { path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule) }]
+  { path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule)
+  }]
  
 
 @NgModule({

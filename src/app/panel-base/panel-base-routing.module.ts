@@ -3,7 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PanelBaseComponent } from './panel-base.component';
 
-const routes: Routes = [{ path: '', component: PanelBaseComponent },];
+const routes: Routes = [
+  {
+    path: '', component: PanelBaseComponent,
+    children: [
+      { path: 'logn', loadChildren: () => import('../login/login.module').then(m => m.LoginModule) },
+      {
+        path: 'navbar', loadChildren: () => import('../navbar-clientes/navbar-clientes.module').then(m => m.NavbarClientesModule),
+      },
+    ]
+  }
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
