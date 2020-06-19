@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoginUser } from 'src/app/models/login-user';
+import { LoginUser } from 'src/app/login/models/login-user';
 import {LoginService} from './services/login.service';
 import {Router} from '@angular/router';
 
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
      console.log(data )
      usuario = data
       this.loginService.setToken(usuario.api_token)
-      this.route.navigateByUrl('incidencia')
+      this.route.navigateByUrl('navbar')
      
      },
     err=>{console.log(err)
