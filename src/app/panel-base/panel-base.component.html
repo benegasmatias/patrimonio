@@ -1,0 +1,44 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <!--toolbar -->
+  
+  <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" routerLink='#'>
+        Creando Academias
+      </a>
+
+      <input class="form-control mr-sm-2 col-6" type="search" placeholder="Search" aria-label="Search">
+
+      <div class="btn-group float-right" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Usuario
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+          <a class="dropdown-item" href="#">Dropdown link</a>
+          <a class="dropdown-item" href="#">Dropdown link</a>
+        </div>
+      </div>
+    </nav>
+
+
+  <!-- sideNav -->
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'side' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56" opened disableClose>
+
+      <!-- items sideNav-->
+      <mat-nav-list>
+        <div *ngFor="let nav of fillerNav" class="mx-2"> 
+        <a mat-list-item routerLink="{{nav.route}}">
+          <mat-icon class="mx-3">{{nav.icon}}</mat-icon>
+          <p class="mt-3">{{nav.name}}</p>
+        </a>
+      </div>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>
