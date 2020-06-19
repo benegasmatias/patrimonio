@@ -16,7 +16,8 @@ const routes: Routes = [{
       loadChildren: () => import('./navbar-clientes/navbar-clientes.module').then(m => m.NavbarClientesModule),
       canActivate:[authGuard]
     },
-  {path: 'logn', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) }]
+  {path: 'logn', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+  { path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule) }]
  
 
 @NgModule({
