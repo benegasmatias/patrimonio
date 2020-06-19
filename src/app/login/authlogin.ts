@@ -23,7 +23,7 @@ export class authlogin implements CanActivate {
 
     this.router.navigateByUrl(
       this.router.createUrlTree(
-        ['navbar'], {
+        ['panel'], {
           queryParams: {
             redirectUrl
           }
