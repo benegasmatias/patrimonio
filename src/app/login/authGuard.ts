@@ -20,7 +20,7 @@ export class authGuard implements CanActivate {
 
     this.router.navigateByUrl(
       this.router.createUrlTree(
-        [''], {
+        ['login'], {
           queryParams: {
             redirectUrl
           }
