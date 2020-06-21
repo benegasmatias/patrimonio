@@ -4,6 +4,8 @@ import { LoginUser } from 'src/app/login/models/login-user';
 import {LoginService} from './services/login.service';
 import {Router} from '@angular/router';
 
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,6 +25,12 @@ export class LoginComponent implements OnInit {
   };
  
   isloged=false;
+  spinner=false;
+
+  form = new FormGroup({
+    username: new FormControl('',Validators.required),
+    password: new FormControl('',Validators.required),
+  });
  
    constructor(private loginService:LoginService,protected route:Router) { }
  
@@ -30,19 +38,25 @@ export class LoginComponent implements OnInit {
    }
  
    login(){
-     let usuario
+    let usuario
+    this.spinner=true
+    this.isloged=false
  
-    this.loginService.login(this.user).
+    this.loginService.login(this.form.value).
     subscribe(data=>{
       this.loginService.setUser(this.user) 
      console.log(data )
      usuario = data
       this.loginService.setToken(usuario.api_token)
-      this.route.navigateByUrl('navbar')
      
+
+      this.route.navigateByUrl('panel')
+      
+
      },
     err=>{console.log(err)
-     this.isloged=true },
+     this.isloged=true
+     this.spinner=false },
      ()=>{})
    }
 }
