@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoginUser } from 'src/app/login/models/login-user';
 import {LoginService} from './services/login.service';
 import {Router} from '@angular/router';
 
@@ -13,16 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  user:LoginUser={
-    api_token:"",
-    created_at: "",
-    email: "",
-    id: "",
-    name: "",
-    updated_at: "",
-    username: "",
-    password :""
-  };
+
  
   isloged=false;
   spinner=false;
@@ -44,7 +34,7 @@ export class LoginComponent implements OnInit {
  
     this.loginService.login(this.form.value).
     subscribe(data=>{
-      this.loginService.setUser(this.user) 
+      this.loginService.setUser(this.form.value) 
      console.log(data )
      usuario = data
       this.loginService.setToken(usuario.api_token)

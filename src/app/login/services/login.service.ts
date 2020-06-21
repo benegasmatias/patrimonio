@@ -30,7 +30,7 @@ export class LoginService {
   return ; 
  }
 
- setUser(user:LoginUser)
+ setUser(user)
  {
       let login_user = JSON.stringify(user);
       sessionStorage.setItem("currentUser", login_user);
