@@ -14,15 +14,16 @@ export class PanelBaseComponent implements OnDestroy {
 
   fillerNav = [
     {
-    name: 'navbar',
-    route : 'navbar',
+      name: 'Home',
+      route :'home',
+      icon:'home'
+     },
+    {
+    name: 'Listar Cliente',
+    route :'lista',
     icon:'home'
    },
-   {
-    name: 'login',
-    route : 'logn',
-    icon:'home'
-   }
+ 
 ];
 
   private _mobileQueryListener: () => void;
