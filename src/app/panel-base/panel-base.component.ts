@@ -14,6 +14,11 @@ export class PanelBaseComponent implements OnDestroy {
 
   fillerNav = [
     {
+     name: 'inicio',
+     route : 'inicio',
+     icon:'home'
+    },
+    {
     name: 'navbar',
     route : 'navbar',
     icon:'home'
@@ -32,6 +37,7 @@ export class PanelBaseComponent implements OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
+ 
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

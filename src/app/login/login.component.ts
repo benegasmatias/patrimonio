@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       this.loginService.setToken(usuario.api_token)
      
 
-      this.route.navigateByUrl('panel')
+      this.route.navigateByUrl('panel/inicio')
       
 
      },
