@@ -19,11 +19,6 @@ export class PanelBaseComponent implements OnDestroy {
       icon:'home'
      },
     {
-    name: 'Cliente',
-    route :'cliente',
-    icon:'home'
-   },
-    {
     name: 'Nuevo Cliente',
     route :'nuevo-cliente',
     icon:'home'
