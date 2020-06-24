@@ -1,7 +1,6 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <!--toolbar -->
-  
-  <nav class="navbar navbar-light bg-light">
+    <mat-toolbar color="primary" class="example-toolbar">
       <a class="navbar-brand" routerLink='#'>
         Creando Academias
       </a>
@@ -17,7 +16,7 @@
           <a class="dropdown-item" (click)="logout()">Crerrar sesion</a>
         </div>
       </div>
-    </nav>
+    </mat-toolbar>
 
 
   <!-- sideNav -->
@@ -27,7 +26,7 @@
 
       <!-- items sideNav-->
       <mat-nav-list>
-        <div *ngFor="let nav of fillerNav" class="mx-2"> 
+        <div *ngFor="let nav of fillerNav" class="mx-1"> 
         <a mat-list-item routerLink="{{nav.route}}">
           <mat-icon class="mx-3">{{nav.icon}}</mat-icon>
           <p class="mt-3">{{nav.name}}</p>
