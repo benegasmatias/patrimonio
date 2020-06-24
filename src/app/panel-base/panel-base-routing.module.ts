@@ -9,13 +9,16 @@ const routes: Routes = [
     children: [
       { path: 'logn', loadChildren: () => import('../login/login.module').then(m => m.LoginModule) },
       { path: 'lista', loadChildren: () => import('../clientes/clientes.module').then(m => m.ClientesModule) },
-      { path: 'home', loadChildren: () => import('../home/home.module').then(m => m.HomeModule) }
+      { path: 'home', loadChildren: () => import('../home/home.module').then(m => m.HomeModule) },
+      { path: 'inicio',  loadChildren: () => import('../inicio/inicio.module').then(m => m.InicioModule) }
+      
     ]
   }
 ]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  
 })
 export class PanelBaseRoutingModule { }
