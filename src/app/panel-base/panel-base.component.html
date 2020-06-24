@@ -1,12 +1,14 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <!--toolbar -->
   
-  <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" routerLink='#'>
+  <nav class="navbar navbar-light" style="background-color: #1d565f;">
+
+      <a class="navbar-brand text-white" routerLink='#'>
+        <img  src="assets/img/logo.png" style="background-color: white;" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="" loading="lazy">
         Creando Academias
       </a>
 
-      <input class="form-control mr-sm-2 col-6" type="search" placeholder="Search" aria-label="Search">
+    <input class="form-control mr-sm-2 col-4 text-white" id="search" style="background-color: #277380;"  type="search" placeholder="Busqueda" aria-label="Search">
 
       <div class="btn-group float-right" role="group">
         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
