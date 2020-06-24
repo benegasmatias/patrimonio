@@ -24,11 +24,10 @@ export class PanelBaseComponent implements OnDestroy {
       icon:'home'
      },
     {
-    name: 'Listar Cliente',
-    route :'lista',
+    name: 'Nuevo Cliente',
+    route :'nuevo-cliente',
     icon:'home'
-  },
- 
+   }
 ];
 
   private _mobileQueryListener: () => void;
