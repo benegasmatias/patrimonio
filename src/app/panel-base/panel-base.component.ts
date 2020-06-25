@@ -1,7 +1,7 @@
 import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {LoginService} from '../login/services/login.service'
-import { Router } from '@angular/router';
+import { Router, ChildActivationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-panel-base',
@@ -41,6 +41,7 @@ export class PanelBaseComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+
   }
 
   logout(){
