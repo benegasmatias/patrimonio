@@ -32,4 +32,24 @@
   
   mat-sidenav {
     width: 200px;
+    border-width: 0.5px;;
+    border-color: #1d565f;
   }
+  .btnSideNav
+  {
+    //color:  #7478A7;
+    //border-radius: 5px
+  }
+  .btnSideNav:hover, .btnSideNav:focus, .btnSideNav:active {
+    color: #8c96ff;
+    background-color: #8c96ff2b;
+    }
+ 
+
+  .mi-input::placeholder { color: white;}
+
+  mat-list-option[aria-selected="true"] {
+    color: #8c96ff;
+    background-color: #8c96ff2b;
+  }
+  
