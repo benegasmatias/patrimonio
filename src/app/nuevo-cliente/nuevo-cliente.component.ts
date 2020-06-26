@@ -30,25 +30,31 @@ public form = new FormGroup({
 
   ngOnInit(): void {
     this.monedas = [
-      {id: 'ARS', description: 'Pesos argentinos (ARS)'}, 
-      {id: 'BOB', description: 'Bolivianos (BOB)'},    
-      {id: 'BRL', description: 'Reales brasileños (BRL)'},    
-      {id: 'CLP', description: 'Pesos chilenos (CLP)'},    
-      {id: 'COP', description: 'Pesos colombianos (COP)'},    
-      {id: 'EUR', description: 'Euros (EUR)'},    
-      {id: 'MXN', description: 'Pesos mexicanos (MXN)'},    
-      {id: 'PEN', description: 'Soles peruanos (PEN)'},    
-      {id: 'PYG', description: 'Guaraníes (PYG)'},    
-      {id: 'USD', description: 'Dólares estadounidenses (USD)'},    
-      {id: 'UYU', description: 'Pesos uruguayos (UYU)'},    
-
+      {id:1,nombre:"Dolares estadounidenses (USD)"},
+      {id:2,nombre:"Pesos uruguayos (UYU)"},
+      {id:3,nombre:"Guaraníes (PYG)"},
+      {id:4,nombre:"Soles peruanos (PEN)"},
+      {id:5,nombre:"Pesos mexicanos (MXN)"},
+      {id:6,nombre:"Euros (EUR)"},
+      {id:7,nombre:"Pesos colombianos (COP)"},
+      {id:8,nombre:"Pesos chilenos (CLP)"},
+      {id:9,nombre:"Reales brasileños (BRL)"},
+      {id:10,nombre:"Bolivianos (BOB)"},
+      {id:11,nombre:"Pesos argentinos (ARS)"}
     ];    
   }
   enviar(){
-    this.nuevoUsuario.enviar(this.form.value)
+    this.nuevoUsuario.enviar(this.form.value)   
+    .subscribe(
+      result => {
+        console.log(result)
+      },
+      error => {
+        console.log(error)
+      });
   }
 }
 export interface Option {
-  id: string;
-  description: string;
+  id: number;
+  nombre: string;
 }

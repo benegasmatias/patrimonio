@@ -8,11 +8,10 @@ import {HttpClient} from '@angular/common/http';
 export class NuevoUsuarioService {
 
   API_URI=environment.baseUrl;
-
   constructor(private http:HttpClient) { 
 
   }
   enviar(user){
    return this.http.post(`${this.API_URI}/users/client`,user);
-}
+  }
 }
