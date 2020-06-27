@@ -10,10 +10,10 @@ import { Router, ChildActivationEnd } from '@angular/router';
 })
 export class PanelBaseComponent implements OnDestroy {
 
+  datoUser : {name,imagen};
   fillerNav = [
     {
       name: 'inicio',
-      route: 'inicio',
       icon: 'home',
       subMenu:
         [
@@ -43,6 +43,11 @@ export class PanelBaseComponent implements OnDestroy {
   private _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private loginService: LoginService, protected route: Router) {
+    this.datoUser={
+      name : "Usuario",
+      imagen : "assets/img/logo.png"
+    }
+    
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);

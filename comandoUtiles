@@ -5,6 +5,13 @@ https://academia-binaria.com/paginas-y-rutas-angular-spa/?__cf_chl_captcha_tk__=
 //istalar md boostrap
 https://mdbootstrap.com/docs/angular/getting-started/quick-start/
 
+//libreria de iconos
+-- angular material
+https://material.io/resources/icons/?style=baseline
+
+// fa iconos
+
+
 //crear un modulo con un componete
 ng g m (... nombre modulo con el componete...) --route=(... nombre modulo con el componete...) -m app-routing.module.ts
 ng g m home --route=home -m panel-base/panel-base.module.ts

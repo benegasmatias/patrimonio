@@ -2,7 +2,9 @@
   <!--toolbar -->
   <mat-toolbar class="example-toolbar" style="background-color: #1d565f;">
 
-    <button [hidden]="!mobileQuery.matches" mat-icon-button (click)="snav.toggle()" class="btn text-white"><div class="m-auto"><mat-icon>menu</mat-icon></div></button>
+    <button [hidden]="!mobileQuery.matches" mat-icon-button (click)="snav.toggle()" class="btn text-white"  style="margin-left: -10px;">
+      <div class="mt-2"><mat-icon class="m-auto">menu</mat-icon></div>
+    </button>
     <a class="text-white" routerLink='#'>
       <!-- <img src="assets/img/logo.png" style="background-color: white;" width="30" height="30"
         class="d-inline-block align-top rounded-circle" alt="" loading="lazy"> -->
@@ -12,17 +14,15 @@
 
     <div class="col-6 mx-auto">
     <input class="form-control text-white  mi-input" id="search" style="background-color: #277380; border: #1d565f;"
-      type="search" placeholder="Busqueda" aria-label="Search">
+      type="search" placeholder="Busqueda" aria-label="Search" >
     </div>
-
-
     
-    <button class="btn  text-white col-1 mr-2" [matMenuTriggerFor]="menu">
-      <div class="row m-0">
-        <img src="assets/img/logo.png" style="background-color: white;" width="30" height="30"
+    <button class="btn  text-white col-1 mr-3 p-0" [matMenuTriggerFor]="menu">
+      <div class="d-flex flex-row m-0 p-0">
+        <img src="{{datoUser.imagen}}" style="background-color: white;" width="30" height="30"
           class="d-inline-block m-auto rounded-circle" alt="" loading="lazy">
-             <span [hidden]="mobileQuery.matches" class="m-auto my-auto">Usuario</span>
-            <mat-icon  [hidden]="mobileQuery.matches" class="m-auto">arrow_drop_down</mat-icon>
+            <p [hidden]="mobileQuery.matches" class="my-auto ml-1 p-0">{{datoUser.name}} </p>
+            <mat-icon [hidden]="mobileQuery.matches" class="my-auto p-0">arrow_drop_down</mat-icon>
       </div>
     </button>
 
@@ -45,34 +45,32 @@
       fixedTopGap="56" [opened]="!mobileQuery.matches" >
 
       <!-- items sideNav-->
-      <mat-selection-list #shoes [multiple]="false">
-        <mat-accordion>
-        <p [hidden]="!mobileQuery.matches" class="text-center font-weight-bold h5">Creando Academias</p>
-
+      <mat-selection-list #shoes [multiple]="false" class="m-0 p-0">
+        <mat-accordion class="p-0 m-0">
+        <p [hidden]="!mobileQuery.matches" class="text-center font-weight-bold h5 mt-2">Creando Academias</p>
+       
         <p *ngFor="let nav of fillerNav" class="m-0">
 
         <mat-list-option *ngIf="!nav.subMenu; else elseBlock" class="btnSideNav m-0"  routerLink="{{nav.route}}"  (click)="mobileQuery.matches ? snav.toggle() : ''">
           <div class="row">
-            <mat-icon class="my-auto col">{{nav.icon}}</mat-icon>
-            <p class=" my-auto col">{{nav.name}}</p>
+            <mat-icon class="my-auto">{{nav.icon}}</mat-icon>
+            <p class="my-auto ml-2">{{nav.name}}</p>
           </div>
         </mat-list-option>
 
         <ng-template #elseBlock>
           
-        <mat-expansion-panel  class="mat-elevation-z0 btnSideNav m-0 p-0">
+        <mat-expansion-panel  class="mat-elevation-z0 btnSideNav m-0">
 
-          <mat-expansion-panel-header class="m-0">
+          <mat-expansion-panel-header  [collapsedHeight]="'48px'" [expandedHeight]="'48px'" class="m-0 btnSideNav">
             <div class="row">
-              <mat-icon class="my-auto col">{{nav.icon}}</mat-icon>
-              <p class=" my-auto col">{{nav.name}}</p>
+              <mat-icon class="my-auto" style="margin-left: 15px;">{{nav.icon}}</mat-icon>
+              <p class="my-auto ml-2">{{nav.name}}</p>
             </div>
           </mat-expansion-panel-header>
 
-          <mat-list-option  *ngFor="let sub of nav.subMenu" class="m-0"  routerLink="{{sub.route}}"  (click)="mobileQuery.matches ? snav.toggle() : ''">
-            <div class="row">
-              <p class=" my-auto col">{{sub.name}}</p>
-            </div>
+          <mat-list-option  *ngFor="let sub of nav.subMenu" class="m-0 content"  routerLink="{{sub.route}}"  (click)="mobileQuery.matches ? snav.toggle() : ''">
+            <span style="padding-left: 3rem;"> {{sub.name}}</span>
           </mat-list-option>
 
         </mat-expansion-panel>

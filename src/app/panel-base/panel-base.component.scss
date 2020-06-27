@@ -47,9 +47,19 @@
  
 
   .mi-input::placeholder { color: white;}
-
   mat-list-option[aria-selected="true"] {
     color: #8c96ff;
     background-color: #8c96ff2b;
   }
-  
+
+  ::ng-deep{
+  .mat-expansion-panel-body {
+    padding: 0 !important;
+}
+  }
+
+  ::ng-deep{
+  .mat-expansion-panel-header {
+    padding: 0 16px !important;
+  }
+}
