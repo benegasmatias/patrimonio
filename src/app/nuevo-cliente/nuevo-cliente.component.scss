@@ -1,14 +1,17 @@
 body {
     background: #f4f6f8;
     }
-.card {
+.card, .ard-img-top {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     }
-.card:hover {
+.card:hover  ,.card-img-top:hover{
     box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
       }
+.card-header{
+text-align: center;
 
+}
       h1 {
         height: auto;
         width: 100%;
@@ -28,12 +31,11 @@ body {
     height: auto;
     background: #f4f6f8;
     }
-    .container .row .col-5,  .container .row .col-8{
+    .container .row .m-1{
       padding: 25px 16px 25px 10px;
       font-weight: 400;
       overflow: hidden;
-      width: auto;
-      height: auto;
+      width: 450px;
       background: #f4f6f8;
     }
  
@@ -43,7 +45,7 @@ body {
     font-size: 14px;
     }
     
-    .container form .input,.container input[type=text],.container input[type=email],.container input[type=password],  .container label select{
+    .container input[type=text],.container input[type=email],.container input[type=password],  .container label select{
     background: #fbfbfb;
     font-size: 15px;
     line-height: 1;
@@ -53,6 +55,13 @@ body {
     outline: none;
     border: 1px solid #d9d9d9;
     }
+
+    .row input[type=dir]  {
+      background: #fbfbfb;
+      font-size: 15px;
+      border: 1px solid #d9d9d9;
+
+      }
     hr {
       clear: both;
       visibility: hidden;

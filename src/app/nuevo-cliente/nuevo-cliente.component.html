@@ -1,58 +1,118 @@
 <body>
-    <form  [formGroup]="form" ng-submit="enviar()"  class="form mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 ">
+    <form [formGroup]="form" ng-submit="enviar()" class="form mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 ">
         <div class="container .titulo">
             <div class="row">
-   
-                    <h1 class="card">Ingreso de Datos</h1>
-
+                <h1 class="card tit">Perfil de la Acadedemia</h1>
             </div>
         </div>
         <div class="container">
-                <div class="row">
-                    <div class="col-5 card">
-                        <label for="name">Nombre<br />
-                            <input type="text" id="name" class="input"  formControlName="name" size="32" value="" placeholder="Nombre" required /></label>
-                        <label for="apell">Apellido<br />
-                            <input type="text" id="apell" class="input" size="32" value="" formControlName="last_name" placeholder="Apellido" required /></label>
-                        <label for="username">Nombre De Usuario<br />
-                            <input type="text" id="username" class="input" value="" size="32" formControlName="username" placeholder="Nombre de Usuario" required /></label>                    
-                    </div>
-                    <div class="col"></div>
-                    <div class="col-5 card">
-                        <label for="nomAcademia">Nombre de la Academia<br />
-                            <input type="text" id="nomAcademia" class="input" value="" size="32" formControlName="academia" placeholder="Nombre de Academia" required/></label>
-    
-                        <label for="monPago">Moneda de Pago<br />
-                            <select class="uk-width-1-1 uk-form-large" required formControlName="moneda" id="monPago">
-                                    <option *ngFor="let mon of monedas" [ngValue]='mon.id'>{{ mon.nombre}}</option>
-                             </select>
+            <div class="row">
+                <div class="m-1 card">
+                    <div class="card-header">Datos Personales</div>
+                    <hr>
+                    <label for="name">Nombre<br />
+                        <input type="text" id="name" class="input" formControlName="name" size="32" value=""
+                            placeholder="Nombre" required /></label>
+                    <label for="apell">Apellido<br />
+                        <input type="text" id="apell" class="input" size="32" value="" formControlName="last_name"
+                            placeholder="Apellido" required /></label>
+                    <label for="username">Nombre De Usuario<br />
+                        <input type="text" id="username" class="input" value="" size="32" formControlName="username"
+                            placeholder="Nombre de Usuario" required /></label>
+                </div>
+                <div class="m-1 card">
+                    <div class="card-header">Datos de la Acedemia</div>
+                    <hr>
+                    <label for="nomAcademia">Nombre de la Academia<br />
+                        <input type="text" id="nomAcademia" class="input" value="" size="32" formControlName="academia"
+                            placeholder="Nombre de Academia" required /></label>
 
-                        </label>
+                    <label for="monPago">Moneda de Pago<br />
+                        <select class="uk-width-1-1 uk-form-large" required formControlName="moneda" id="monPago">
+                            <option value="" disabled selected>Seleccione la moneda de pago</option>
+                            <option *ngFor="let mon of monedas" [ngValue]='mon.id'>{{ mon.nombre}}</option>
+                        </select>
+
+                    </label>
+
+                    <label for="email">E-mail<br />
+                        <input type="email" id="email" class="input" value="" size="32" formControlName="email"
+                            placeholder="Direccion de Correo" required /></label>
+                    <label for="password">Contraseña<br />
+                        <input type="password" id="password" class="input" value="" size="32" formControlName="password"
+                            placeholder="Contraseña" required /></label>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="card col-3">
+                    <img class="img-fluid" src="assets/img/logo.png" id="icon" alt="User Icon" />
+                </div>
+                <div class="card col-8">
+                    <div class="card-header">Direccion de la Acedemia</div>
+                    <hr>
+
+                    <label for="nomAcademia">Pais<br />
+                        <input type="dir" id="nomAcademia" class="input"  formControlName="academia"
+                            placeholder="Pais" required />
+                    </label>
+
+                    <label for="nomAcademia">Provincia<br />
+                        <input type="dir" id="nomAcademia" class="input"  formControlName="academia"
+                            placeholder="Provincia" required />
+                    </label>
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="nomAcademia">Calle<br />
+                                <input type="dir" id="nomAcademia" class="input"  
+                                    formControlName="academia" placeholder="Calle" required />
+                            </label>
+                        </div>
+
+                        <div class="col-4">
+                            <label for="nomAcademia">Numero<br />
+                                <input type="dir" id="nomAcademia" class="input" 
+                                    formControlName="academia" placeholder="Numero" required />
+                            </label>
+                        </div>
+
+                        <div class="col-4">
+                            <label for="nomAcademia">Piso y/o Departamento<br />
+                                <input type="dir" id="nomAcademia" class="input"
+                                    formControlName="academia" placeholder="Piso y/o Departamento" required />
+                            </label>
+                        </div>
                     </div>
                 </div>
+            </div>
         </div>
         <hr>
-                <div class="container">
-                    <div class="row">
-                        <div class="col"></div>
-                        <div class="col-8 card">
-                            <label for="email">E-mail<br />
-                                <input type="email" id="email" class="input" value="" size="32" formControlName="email" placeholder="Direccion de Correo" required/></label>
-                            <label for="password">Contraseña<br />
-                                <input type="password" id="password" class="input" value="" size="32" formControlName="password" placeholder="Contraseña" required/></label>
-                        </div>
-                        <div class="col"></div>
-                    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-7"></div>
+                <div class="col-4">
+                    <button type="submit" [disabled]="!form.valid" style="width: 100%;" id="register" class="button"
+                        (click)="enviar()" class="btn btn-primary form-control mt-3" value="Guardar">
+                        Guardar
+                    </button>
                 </div>
-            <div class="container">
-                <div class="row">
-                <div class="col-9"></div>
-                <div class="col-3">
-                <button type="submit" [disabled]="!form.valid" style="width: 100%;"  id="register" class="button" (click)="enviar()" class="btn btn-primary form-control mt-3"   value="Guardar">
-                      Guardar                
-                </button>
             </div>
         </div>
-            </div>
     </form>
 </body>
+
+
+
+<!-- 
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-8 card">
+            <label for="email">E-mail<br />
+                <input type="email" id="email" class="input" value="" size="32" formControlName="email" placeholder="Direccion de Correo" required/></label>
+            <label for="password">Contraseña<br />
+                <input type="password" id="password" class="input" value="" size="32" formControlName="password" placeholder="Contraseña" required/></label>
+        </div>
+        <div class="col"></div>
+    </div>
+</div> -->
