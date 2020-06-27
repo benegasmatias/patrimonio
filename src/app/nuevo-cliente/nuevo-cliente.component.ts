@@ -44,6 +44,7 @@ public form = new FormGroup({
     ];    
   }
   enviar(){
+    console.log(this.form.value)
     this.nuevoUsuario.enviar(this.form.value)   
     .subscribe(
       result => {

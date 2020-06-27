@@ -1,11 +1,9 @@
 <body>
-    <form  formGroup="form" ng-submit="enviar()"  class="form mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 ">
+    <form  [formGroup]="form" ng-submit="enviar()"  class="form mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 ">
         <div class="container .titulo">
             <div class="row">
    
-                <div class="col-8">
-                    <h1 class="card" align="center">Ingreso de Datos</h1>
-                </div>
+                    <h1 class="card">Ingreso de Datos</h1>
 
             </div>
         </div>
@@ -26,7 +24,7 @@
     
                         <label for="monPago">Moneda de Pago<br />
                             <select class="uk-width-1-1 uk-form-large" required formControlName="moneda" id="monPago">
-                                    <option *ngFor="let mon of monedas" ngValue="mon.id">{{ mon.nombre}}</option>
+                                    <option *ngFor="let mon of monedas" [ngValue]='mon.id'>{{ mon.nombre}}</option>
                              </select>
 
                         </label>
@@ -46,10 +44,15 @@
                         <div class="col"></div>
                     </div>
                 </div>
-
-
-            <p class="submit">
-                <input type="submit" name="register" id="register" class="button" value="Guardar" (click)=enviar()/>
-            </p>
+            <div class="container">
+                <div class="row">
+                <div class="col-9"></div>
+                <div class="col-3">
+                <button type="submit" [disabled]="!form.valid" style="width: 100%;"  id="register" class="button" (click)="enviar()" class="btn btn-primary form-control mt-3"   value="Guardar">
+                      Guardar                
+                </button>
+            </div>
+        </div>
+            </div>
     </form>
 </body>

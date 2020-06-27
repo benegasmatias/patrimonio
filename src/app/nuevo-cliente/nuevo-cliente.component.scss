@@ -11,7 +11,7 @@ body {
 
       h1 {
         height: auto;
-        width: 300px;
+        width: 100%;
         text-align: center;
         background: #277380;
         color: white;
@@ -57,17 +57,14 @@ body {
       clear: both;
       visibility: hidden;
   }
-    .button{
-    border: solid 1px #1d565f;
-    background: #277380;
-    color: #fff;
-    padding: 7px 12px;
-    border-radius:4px;
-    float: right;
-    cursor: pointer;
-    }
-    
-    .button:hover{
-    background: #c4543d;
-
-    }
+ 
+.btn-primary {
+  color: #fff;
+  background-color: #c4543d;
+  border-color: #c4544d; /*set the color you want here*/
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #c4544d;
+  border-color: #c4543d; /*set the color you want here*/
+}

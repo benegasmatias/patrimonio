@@ -1,7 +1,6 @@
 import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { NuevoClienteRoutingModule } from './nuevo-cliente-routing.module';
 import { NuevoClienteComponent } from './nuevo-cliente.component';
@@ -11,7 +10,9 @@ import { NuevoClienteComponent } from './nuevo-cliente.component';
   declarations: [NuevoClienteComponent],
   imports: [
     CommonModule,
-    NuevoClienteRoutingModule
+    NuevoClienteRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 }) 
 export class NuevoClienteModule { }
