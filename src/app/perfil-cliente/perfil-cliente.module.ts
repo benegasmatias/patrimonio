@@ -1,9 +1,12 @@
-import { NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { PerfilClienteRoutingModule } from './perfil-cliente-routing.module';
+import { PerfilClienteComponent } from './perfil-cliente.component';
+
+
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
-import { NuevoClienteRoutingModule } from './nuevo-cliente-routing.module';
-import { NuevoClienteComponent } from './nuevo-cliente.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
@@ -11,13 +14,13 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
-  declarations: [NuevoClienteComponent],
+  declarations: [PerfilClienteComponent],
   imports: [
     CommonModule,
-    NuevoClienteRoutingModule,
+    PerfilClienteRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,MatIconModule,MatSelectModule, MatCardModule, MatButtonModule
   ]
-}) 
-export class NuevoClienteModule { }
+})
+export class PerfilClienteModule { }

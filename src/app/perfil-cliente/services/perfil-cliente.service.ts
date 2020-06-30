@@ -6,8 +6,8 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class NuevoUsuarioService {
-  
+export class PerfilClienteService {
+
   API_URI=environment.baseUrl;
   constructor(private http:HttpClient) {     
   }
