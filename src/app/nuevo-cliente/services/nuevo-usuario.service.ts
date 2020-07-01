@@ -18,12 +18,12 @@ export class NuevoUsuarioService {
 
  recuperamonedas(){
 
-  const httpOptions = {
-    headers: new HttpHeaders({
+  const  headers= new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
+      'Authorization':'baerer token'
     })
-  };
-    return this.http.get(`${this.API_URI}/monedas` ,httpOptions  );
+  
+    return this.http.get(`${this.API_URI}/monedas`,{headers});
   }
 }
