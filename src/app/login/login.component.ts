@@ -25,7 +25,11 @@ export class LoginComponent implements OnInit {
    constructor(private loginService:LoginService,protected route:Router) { }
  
    ngOnInit() {
-   }
+    //posisiciona el scrol en las coordenadas x y
+
+       document.getElementById('username').focus({'preventScroll':false})
+
+  }
  
    login(){
     let usuario
