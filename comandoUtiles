@@ -14,7 +14,27 @@ https://material.io/resources/icons/?style=baseline
 
 //crear un modulo con un componete
 ng g m (... nombre modulo con el componete...) --route=(... nombre modulo con el componete...) -m app-routing.module.ts
-ng g m home --route=home -m panel-base/panel-base.module.ts
+ng g m suscripciones --route=suscripciones -m app-routing.module.ts
 
 //push en rama sebastian
 git push origin sebastian
+
+//ista de clases para alinear:
+float-left; alinea a la izquierda
+float-right: alinea a la derecha
+clearfix: evita que el contenido se pise en las alineaciones
+floar-[tamaño]-[alineación]: hace que los elementos cambien de alineación, según nos interese en cada tamaño de pantalla.
+mx-auto: para alinear elementos en el centro
+justify-content-start: alinea el contenido horizontalmente a la izquierda
+justify-content-center: alinea el contenido al centro
+justify-content-right: alinea el contenido a la derecha
+justify-content-between: alinea el contenido dejando espacios en blanco entre las columnas
+justify-content-around: es igual que between, pero deja espacio también al principio y al final
+align-items-center: alinea los elementos de forma vertical al centro del contenedor
+align-items-start: alinea los elementos de forma vertical arriba del contenedor(por defecto)
+align-items-end: alinea los elementos de forma vertical abajo del contenedor
+align-self-start: alinea el elemento en si mismo de forma vertical arriba
+align-self-center: alinea el elemento en si mismo de forma vertical centrado
+align-self-end: alinea el elemento en si mismo de forma vertical abajo
+fixed-top: deja fijo el contenido arriba del navegador
+fixed-bottom: deja fijo el contenido abajo del navegador

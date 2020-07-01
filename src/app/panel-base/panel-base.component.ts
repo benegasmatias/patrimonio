@@ -14,6 +14,11 @@ export class PanelBaseComponent implements OnDestroy {
   fillerNav = [
     {
       name: 'inicio',
+      route: 'inicio',
+      icon: 'home'
+    },
+    {
+      name: 'inicio',
       icon: 'home',
       subMenu:
         [
