@@ -1,52 +1,51 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import {environment} from '../../../environments/environment'
-
-
+import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
-  API_URI=environment.baseUrl;
+  API_URI = environment.baseUrl;
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
- login(user){
+  login(user) {
+    let u = {
+      username: user.username,
+      password: user.password,
+    };
 
-     let u={
-       username:user.username,
-      password:user.password
-      }
+    return this.http.post(`${this.API_URI}/users/login`, u);
+  }
+  logout() {
+    let tokenAccess = sessionStorage.getItem('accessToken');
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('currentUser');
+    return;
+  }
 
-    return this.http.post(`${this.API_URI}/users/login`,u);
+  setUser(user) {
+    let login_user = JSON.stringify(user);
+    sessionStorage.setItem('currentUser', login_user);
+  }
 
- }
- logout(){
-   let tokenAccess= sessionStorage.getItem('accessToken');
-   sessionStorage.removeItem("accessToken");
-   sessionStorage.removeItem("currentUser");
-  return ; 
- }
+  setAcademia(academia) {
+    sessionStorage.setItem('academia', academia);
+  }
+  getAcademia() {
+    return sessionStorage.getItem('academia');
+  }
+  setToken(token) {
+    sessionStorage.setItem('accessToken', token);
+  }
+  getToken() {
+    return sessionStorage.getItem('accessToken');
+  }
+  isLogged() {
+    return sessionStorage.getItem('accessToken') != null;
+  }
 
- setUser(user)
- {
-      let login_user = JSON.stringify(user);
-      sessionStorage.setItem("currentUser", login_user);
- }
- setToken(token){
-  sessionStorage.setItem("accessToken",token);
- }
- getToken(){
-   return sessionStorage.getItem("accessToken");
- }
- isLogged(){
-   
-    return (sessionStorage.getItem("accessToken") != null);
-   
- }
-
-
- //login de edit
+  //login de edit
 }
