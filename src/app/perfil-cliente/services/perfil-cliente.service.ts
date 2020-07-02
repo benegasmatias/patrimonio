@@ -6,8 +6,8 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class NuevoUsuarioService {
-  
+export class PerfilClienteService {
+
   API_URI=environment.baseUrl;
   constructor(private http:HttpClient) {     
   }
@@ -18,12 +18,12 @@ export class NuevoUsuarioService {
 
  recuperamonedas(){
 
-  const  headers= new HttpHeaders({
+  const httpOptions = {
+    headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization':'baerer token'
     })
-  
-    return this.http.get(`${this.API_URI}/monedas`,{headers});
+  };
+    return this.http.get(`${this.API_URI}/monedas` ,httpOptions  );
   }
 }

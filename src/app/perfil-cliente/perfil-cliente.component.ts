@@ -1,24 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { NuevoUsuarioService } from './services/nuevo-usuario.service';
+import { PerfilClienteService } from './services/perfil-cliente.service';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators, MinLengthValidator } from '@angular/forms';
-//
+
 @Component({
-  selector: 'app-nuevo-cliente',
-  templateUrl: './nuevo-cliente.component.html',
-  styleUrls: ['./nuevo-cliente.component.scss']
+  selector: 'app-perfil-cliente',
+  templateUrl: './perfil-cliente.component.html',
+  styleUrls: ['./perfil-cliente.component.scss']
 })
+export class PerfilClienteComponent implements OnInit {
 
-
-export class NuevoClienteComponent implements OnInit {
-
-  public nuevoUsuario: NuevoUsuarioService;
-
+  public perfilCliente:PerfilClienteService;
   public monedas2:  OBJ[] =[] ;
   //oculta la contraseña con el boton
   public hide = true;
 
-  
   public form = new FormGroup({
     name: new FormControl('', Validators.required),
     last_name: new FormControl('', Validators.required),
@@ -34,19 +30,18 @@ export class NuevoClienteComponent implements OnInit {
     pisoDepto: new FormControl('')
   });
 
-  constructor(nuevou: NuevoUsuarioService, http: HttpClient) {
-    this.nuevoUsuario = nuevou;
-  }
-
+  constructor(perf:PerfilClienteService,http:HttpClient) {
+    this.perfilCliente=perf;
+   }
 
   ngOnInit(): void {
-  this.tomaMonedas();
-
+    this.tomaMonedas();
   }
+
   enviar() {
     console.log(this.form.value);
 
-    this.nuevoUsuario.enviar(this.form.value)   
+    this.perfilCliente.enviar(this.form.value)   
     .subscribe(
       result => {
         console.log(result)
@@ -59,7 +54,7 @@ export class NuevoClienteComponent implements OnInit {
 
  public tomaMonedas()
   {
-     this.nuevoUsuario.recuperamonedas()   
+     this.perfilCliente.recuperamonedas()   
      .subscribe (res => {
        this.monedas2= res[0];
        console.log (this.monedas2)
@@ -69,8 +64,8 @@ export class NuevoClienteComponent implements OnInit {
         return {};
       });
   }
-
 }
+
 
 export interface Direccion {
 

@@ -19,7 +19,7 @@ export class AthInterceptor implements HttpInterceptor {
         if (isLoggedIn && isApiUrl) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `bearer ${token}`
                 }
             });
         }
