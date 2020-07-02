@@ -16,6 +16,9 @@ https://material.io/resources/icons/?style=baseline
 ng g m (... nombre modulo con el componete...) --route=(... nombre modulo con el componete...) -m app-routing.module.ts
 ng g m suscripciones --route=suscripciones -m app-routing.module.ts
 
+//crear un servio dentro de un modulo
+ng g s suscripciones 
+
 //push en rama sebastian
 git push origin sebastian
 
