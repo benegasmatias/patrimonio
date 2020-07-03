@@ -25,11 +25,11 @@
               <p class="row"><span class="material-icons mr-2">menu_book</span>cursos: {{suscr.limite_cursos}}</p>
               <hr>
               <div class="text-center">
-            <button class="btn btn-primary " *ngIf="!suscr.class; else btnSuscrUse">Elige este plan</button>
+            <button class="btn btn-primary my-auto" *ngIf="!suscr.class; else btnSuscrUse">Elige este plan</button>
             <ng-template  #btnSuscrUse> 
-              <button class="btn btn-primary" disabled >Plan Actual</button>
+              <button class="btn btn-primary my-auto" disabled >Plan Actual</button>
             </ng-template>
-            <p class="row m-0 text-center form-text text-muted ">Expiración: {{suscr.fechaVencimiento | date: 'dd/MM/yyyy HH:mm' }}</p>
+            <p class="row m-0 text-center form-text text-muted" *ngIf="suscr.fechaVencimiento">Expiración: {{suscr.fechaVencimiento | date: 'dd/MM/yyyy HH:mm' }}</p>
            </div>
             </div>
           </div>
