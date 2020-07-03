@@ -4,13 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { InicioComponent } from './inicio.component';
 import { authGuard } from '../login/authGuard';
 
-const routes: Routes = [
-  { path: '', component: InicioComponent },
-{ 
-  path: 'panel', 
- loadChildren: () => import('../panel-base/panel-base.module').then(m => m.PanelBaseModule),
- canActivate:[authGuard]
- }];
+const routes: Routes = [{ path: '', component: InicioComponent },];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

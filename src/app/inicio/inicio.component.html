@@ -9,11 +9,7 @@
           </div>
           <div class="col-2"></div>
           <div class="col-4">
-            <button
-              class="p-2"
-              mat-button
-              style="background-color: #c4543d; color: white;"
-            >
+            <button class="p-2" mat-button style="background-color: #c4543d; color: white;" routerLink="/suscripciones">
               Seleccionar Plan
             </button>
           </div>
@@ -27,20 +23,10 @@
           <div class="col-4">
             <mat-card routerLink="#" class="curso-card">
               <mat-card-header>
-                <img
-                  mat-card-avatar
-                  src="assets/img/curso.png"
-                  alt="imagen para cursos"
-                  width="50px"
-                  height="150px"
-                />
+                <img mat-card-avatar src="assets/img/curso.png" alt="imagen para cursos" width="50px" height="150px" />
 
                 <mat-card-title>Agrega un cursos</mat-card-title>
-                <span
-                  *ngIf="cursos"
-                  style="color: #4db71f;"
-                  class="material-icons mt-2"
-                >
+                <span *ngIf="cursos" style="color: #4db71f;" class="material-icons mt-2">
                   done
                 </span>
               </mat-card-header>
