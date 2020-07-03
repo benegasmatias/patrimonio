@@ -14,8 +14,8 @@ const routes: Routes = [{
   component:LoginComponent,
   canActivate:[authlogin]},
   { 
-   //path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule), canActivate:[authGuard]},
-   path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule)},
+   path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule), canActivate:[authGuard]},
+   //path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule)},
   { path: 'suscripciones', loadChildren: () => import('./suscripciones/suscripciones.module').then(m => m.SuscripcionesModule) }
   ]
  
