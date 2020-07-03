@@ -30,12 +30,15 @@ export class LoginService {
     let login_user = JSON.stringify(user);
     sessionStorage.setItem('currentUser', login_user);
   }
+  getUser() {
+    console.log(sessionStorage.getItem('currentUser'));
+  }
 
   setAcademia(academia) {
     sessionStorage.setItem('academia', academia);
   }
   getAcademia() {
-    return sessionStorage.getItem('academia');
+    console.log(sessionStorage.getItem('academia'));
   }
   setToken(token) {
     sessionStorage.setItem('accessToken', token);

@@ -34,11 +34,12 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(this.form.value).subscribe(
       (data) => {
-        this.loginService.setUser(this.form.value);
+        this.loginService.setUser(data['usuario']);
         console.log(data);
         usuario = data;
         academia = usuario['usuario']['academia'];
-
+        //  this.loginService.getUser();
+        // this.loginService.getAcademia();
         this.loginService.setToken(usuario.api_token);
         this.loginService.setAcademia(academia);
 
