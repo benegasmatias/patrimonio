@@ -34,7 +34,8 @@ export class LoginService {
     console.log(sessionStorage.getItem('currentUser'));
   }
 
-  setAcademia(academia) {
+  setAcademia(academi) {
+    let academia = JSON.stringify(academi);
     sessionStorage.setItem('academia', academia);
   }
   getAcademia() {
