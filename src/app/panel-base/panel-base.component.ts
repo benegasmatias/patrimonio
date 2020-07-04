@@ -53,11 +53,7 @@ export class PanelBaseComponent implements OnDestroy {
   private _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private loginService: LoginService, protected route: Router) {
-    this.datoUser={
-      name : "Usuario",
-      imagen : "assets/img/logo.png"
-    }
-    
+    this.cargarUser()
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -71,5 +67,14 @@ export class PanelBaseComponent implements OnDestroy {
   logout() {
     this.loginService.logout();
     this.route.navigateByUrl('')
+  }
+
+  private cargarUser (){
+
+    let user = JSON.parse(sessionStorage.getItem('currentUser'))
+    this.datoUser={
+      name : user.name,
+      imagen : "assets/img/logo.png"
+    }
   }
 }

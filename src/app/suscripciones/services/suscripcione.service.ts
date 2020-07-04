@@ -12,8 +12,13 @@ export class SuscripcioneService {
   constructor(private http:HttpClient) {     
   }
   
-  pedirPromocion(user){
-
-   return this.http.get(`${this.API_URI}/users/client`,user);
+  pedirPromocion(){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      })
+    };
+   return this.http.get(`${this.API_URI}/suscripciones`,httpOptions);
   }
 }
