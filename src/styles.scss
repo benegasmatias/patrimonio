@@ -1,4 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media (max-width: 380px) {
+  .titulo-responsivo {
+    font-size: 3.5vw;
+  }
+
+  .texto-boton-responsivo {
+    font-size: 2.3vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .titulo-responsivo {
+    font-size: 2.5vw;
+  }
+
+  .texto-boton-responsivo {
+    font-size: 4.3vw;
+  }
+}
+.texto-boton-responsivo {
+  font-size: 1.3vw;
+}
+
+.texto-subtitulo-responsivo {
+  font-size: 1.5vw;
+}
+
+.titulo-curso-responsivo {
+  font-size: 1.4vw !important;
+}

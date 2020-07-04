@@ -43,11 +43,13 @@ export class LoginService {
   }
   setToken(token) {
     sessionStorage.setItem('accessToken', token);
+    console.log(sessionStorage.getItem('accessToken'));
   }
   getToken() {
     return sessionStorage.getItem('accessToken');
   }
   isLogged() {
+    console.log(sessionStorage.getItem('accessToken'));
     return sessionStorage.getItem('accessToken') != null;
   }
 
