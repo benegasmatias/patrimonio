@@ -29,6 +29,10 @@ export class PanelBaseComponent implements OnDestroy {
           {
             name: 'Nuevo Cliente',
             route: 'nuevo-cliente',
+          },
+          {
+            name: 'Pagos',
+            route: 'pagos',
           }
         ]
     },
@@ -46,7 +50,7 @@ export class PanelBaseComponent implements OnDestroy {
       name: 'Perfil Ciente',
       route: 'perfil-cliente',
       icon: 'home'
-    }
+    },
   ];
 
   mobileQuery: MediaQueryList;

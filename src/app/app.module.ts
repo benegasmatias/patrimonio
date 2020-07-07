@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {AthInterceptor} from './_helpers/ath.interceptor'
+import {mercadopago} from 'mercadopago'
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import {AthInterceptor} from './_helpers/ath.interceptor'
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AthInterceptor, multi: true }
