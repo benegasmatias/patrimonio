@@ -12,52 +12,14 @@ export class PanelBaseComponent implements OnDestroy {
 
   datoUser : {name,imagen};
   fillerNav = [
-    {
-      name: 'inicio',
-      route: 'inicio',
-      icon: 'home'
-    },
-    {
-      name: 'inicio',
-      icon: 'home',
-      subMenu:
-        [
-          {
-            name: 'Home',
-            route: 'home',
-          },
-          {
-            name: 'Nuevo Cliente',
-            route: 'nuevo-cliente',
-          },
-          {
-            name: 'Pagos',
-            route: 'pagos',
-          }
-        ]
-    },
-    {
-      name: 'Home',
-      route: 'home',
-      icon: 'home'
-    },
-    {
-      name: 'Nuevo Cliente',
-      route: 'nuevo-cliente',
-      icon: 'home'
-    },
-    {
-      name: 'Perfil Ciente',
-      route: 'perfil-cliente',
-      icon: 'home'
-    },
+  
   ];
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private loginService: LoginService, protected route: Router) {
-    this.cargarUser()
+    // this.cargarUser()
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -68,17 +30,56 @@ export class PanelBaseComponent implements OnDestroy {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
+  deportes(){
+  // console.log(this.ruta) 
+  this.fillerNav=[];
+  this.fillerNav.push(  
+   {
+    name: 'Deportes',
+    icon: 'home',
+    subMenu:
+      [
+        {
+          name: 'List',
+          route: 'deporte',
+        },
+        {
+          name: 'Edit',
+          route: 'deporte/edit',
+        }
+        ]
+    })
+
+    this.route.navigateByUrl('panel/deporte')
+  }
+  coso(){
+    this.fillerNav=[];
+    this.fillerNav.push(  
+     {
+      name: 'Coso',
+      icon: 'home',
+      subMenu:
+        [
+          {
+            name: 'List',
+            route: 'inicio',
+          }
+          ]
+      })
+      this.route.navigateByUrl('panel/inicio')
+  }
+
   logout() {
     this.loginService.logout();
     this.route.navigateByUrl('')
   }
 
-  private cargarUser (){
+  // private cargarUser (){
 
-    let user = JSON.parse(sessionStorage.getItem('currentUser'))
-    this.datoUser={
-      name : user.name,
-      imagen : "assets/img/logo.png"
-    }
-  }
+  //   let user = JSON.parse(sessionStorage.getItem('currentUser'))
+  //   this.datoUser={
+  //     name : user.name,
+  //     imagen : "assets/img/logo.png"
+  //   }
+  // }
 }

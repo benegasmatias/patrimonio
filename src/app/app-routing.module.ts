@@ -11,12 +11,11 @@ import {PanelBaseComponent} from '../app/panel-base/panel-base.component'
 
 const routes: Routes = [{
   path:'',
-  component:LoginComponent,
+  component:LoginComponent, loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
   canActivate:[authlogin]},
   { 
-   path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule), canActivate:[authGuard]},
-   //path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule)},
-  { path: 'suscripciones', loadChildren: () => import('./suscripciones/suscripciones.module').then(m => m.SuscripcionesModule) }
+  // path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule), canActivate:[authGuard]},
+   path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule)}
   ]
  
 

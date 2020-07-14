@@ -12,6 +12,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { PanelBaseRoutingModule } from './panel-base-routing.module';
 import { PanelBaseComponent } from './panel-base.component';
 
+
+
 @NgModule({
   declarations: [PanelBaseComponent],
   imports: [

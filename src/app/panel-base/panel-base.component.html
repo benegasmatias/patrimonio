@@ -13,15 +13,16 @@
     </a>
 
     <div class="col-6 mx-auto">
-    <input class="form-control text-white  mi-input" id="search" style="background-color: #277380; border: #1d565f;"
-      type="search" placeholder="Busqueda" aria-label="Search" >
+        <a (click)="deportes()">Deportes</a>
+        <br>
+        <a (click)="coso()">Calderon gay</a>
     </div>
     
     <button class="btn  text-white col-1 mr-3 p-0" [matMenuTriggerFor]="menu">
       <div class="d-flex flex-row m-0 p-0">
-        <img src="{{datoUser.imagen}}" style="background-color: white;" width="30" height="30"
-          class="d-inline-block m-auto rounded-circle" alt="" loading="lazy">
-            <p [hidden]="mobileQuery.matches" class="my-auto ml-1 p-0">{{datoUser.name}} </p>
+        <!-- <img src="{{datoUser.imagen}}" style="background-color: white;" width="30" height="30"
+          class="d-inline-block m-auto rounded-circle" alt="" loading="lazy"> -->
+            <!-- <p [hidden]="mobileQuery.matches" class="my-auto ml-1 p-0">{{datoUser.name}} </p> -->
             <mat-icon [hidden]="mobileQuery.matches" class="my-auto p-0">arrow_drop_down</mat-icon>
       </div>
     </button>
