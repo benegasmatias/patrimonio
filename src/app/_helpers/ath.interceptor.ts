@@ -30,7 +30,6 @@ export class AthInterceptor implements HttpInterceptor {
         const headers = new HttpHeaders({
             Authorization: `${token}`,
            'Content-Type': 'application/json',
-
         })
       request = request.clone({
        

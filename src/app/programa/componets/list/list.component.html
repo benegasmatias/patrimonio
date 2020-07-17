@@ -1,0 +1,10 @@
+<mat-list dense>
+
+    <mat-list-item *ngFor="let ele of elementos"> 
+    <p matLine>
+        <span> {{ele.id}} </span>
+        <span class="demo-2"> -- {{ele.nombre}} </span>
+        <span class="demo-3"> -- {{ele.cantidad}} </span>
+        <span class="demo-4"> <button class="btn" (click)="edit()">Edit</button> </span>
+      </p></mat-list-item>
+   </mat-list>

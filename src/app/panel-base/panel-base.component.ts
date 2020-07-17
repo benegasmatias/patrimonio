@@ -1,20 +1,21 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { LoginService } from '../login/services/login.service'
 import { Router, ChildActivationEnd } from '@angular/router';
+import {Programa} from '../programa/model/programa';
 
 @Component({
   selector: 'app-panel-base',
   templateUrl: './panel-base.component.html',
   styleUrls: ['./panel-base.component.scss']
 })
-export class PanelBaseComponent implements OnDestroy {
+export class PanelBaseComponent implements OnDestroy,OnInit {
 
   datoUser : {name,imagen};
-  fillerNav = [
-  
-  ];
+  fillerNav = [];
 
+  programas :Programa []
+  programaa : Programa;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
@@ -25,32 +26,51 @@ export class PanelBaseComponent implements OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
+  ngOnInit(): void {
+
+    this.programas =[]
+    for(var i=0;i<2;i++){
+      this.programaa = new Programa;
+        this.programaa.nombre=`Negro puto${i}`
+        this.programaa.id=`${i}`
+ 
+         this.programas.push(this.programaa)
+         console.log(this.programas)
+    }  
+   
+ 
+   }
+
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  deportes(){
+  programa(){
   // console.log(this.ruta) 
   this.fillerNav=[];
-  this.fillerNav.push(  
-   {
-    name: 'Deportes',
-    icon: 'home',
-    subMenu:
-      [
-        {
-          name: 'List',
-          route: 'deporte',
-        },
-        {
-          name: 'Edit',
-          route: 'deporte/edit',
-        }
-        ]
-    })
 
-    this.route.navigateByUrl('panel/deporte')
+    for(let i=0;i<this.programas.length;i++){
+      this.fillerNav.push(  { 
+          name: `${this.programas[i].nombre}`,
+          icon: 'home',
+          subMenu:
+            [
+             {
+               name: 'List',
+               route: `programa/${this.programas[i].id}`,
+             },
+             {
+               name: 'Edit',
+               route: `programa/edit/${this.programas[i].id}`,
+             }
+            ]
+         })
+    }
+
+
+
+   // this.route.navigateByUrl('panel/programa')
   }
   coso(){
     this.fillerNav=[];
@@ -62,7 +82,7 @@ export class PanelBaseComponent implements OnDestroy {
         [
           {
             name: 'List',
-            route: 'inicio',
+            route: 'programa/list',
           }
           ]
       })

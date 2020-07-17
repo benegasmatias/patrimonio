@@ -13,7 +13,7 @@
     </a>
 
     <div class="col-6 mx-auto">
-        <a (click)="deportes()">Deportes</a>
+        <a (click)="programa()">Programas</a>
         <br>
         <a (click)="coso()">Calderon gay</a>
     </div>
@@ -73,6 +73,36 @@
           <mat-list-option  *ngFor="let sub of nav.subMenu" class="m-0 content"  routerLink="{{sub.route}}"  (click)="mobileQuery.matches ? snav.toggle() : ''">
             <span style="padding-left: 3rem;"> {{sub.name}}</span>
           </mat-list-option>
+<!-- 
+          
+        <p *ngFor="let nav of sub" class="m-0">
+
+          <mat-list-option *ngIf="!sub.subMenu; else elseBlock" class="btnSideNav m-0"  routerLink="{{nav.route}}"  (click)="mobileQuery.matches ? snav.toggle() : ''">
+            <div class="row">
+              <mat-icon class="my-auto">{{nav.icon}}</mat-icon>
+              <p class="my-auto ml-2">{{nav.name}}</p>
+            </div>
+          </mat-list-option>
+  
+          <ng-template #elseBlock>
+            
+          <mat-expansion-panel  class="mat-elevation-z0 btnSideNav m-0">
+  
+            <mat-expansion-panel-header  [collapsedHeight]="'48px'" [expandedHeight]="'48px'" class="m-0 btnSideNav">
+              <div class="row">
+                <mat-icon class="my-auto" style="margin-left: 15px;">{{nav.icon}}</mat-icon>
+                <p class="my-auto ml-2">{{nav.name}}</p>
+              </div>
+            </mat-expansion-panel-header>
+  
+            <mat-list-option  *ngFor="let sub of nav.subMenu" class="m-0 content"  routerLink="{{sub.route}}"  (click)="mobileQuery.matches ? snav.toggle() : ''">
+              <span style="padding-left: 3rem;"> {{sub.name}}</span>
+            </mat-list-option>
+  
+          </mat-expansion-panel>
+        </ng-template>
+          </p>
+   -->
 
         </mat-expansion-panel>
       </ng-template>
