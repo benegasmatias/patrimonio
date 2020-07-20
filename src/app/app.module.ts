@@ -12,7 +12,6 @@ import {ErrorInterceptor} from './_helpers/error.interceptor';
 import { DialogComponent } from './dialog/dialog/dialog.component'
 import {MatDialogModule} from '@angular/material/dialog';
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -89,6 +89,23 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
       this.route.navigateByUrl('panel/inicio')
   }
 
+  elementos(){
+    this.fillerNav=[];
+    this.fillerNav.push(  
+     {
+      name: 'Coso',
+      icon: 'home',
+      subMenu:
+        [
+          {
+            name: 'Nuevo Elemento',
+            route: 'elemento/addElement',
+          }
+          ]
+      })
+      this.route.navigateByUrl('panel/elemento')
+  }
+
   logout() {
     this.loginService.logout();
     this.route.navigateByUrl('')

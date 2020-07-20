@@ -1,0 +1,66 @@
+<form [formGroup]="form" class="form mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 ">
+    <div class="container .titulo">
+        <div class="row">
+            <h1>Nuevo Elemento</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="m-1 card">
+                <div class="card-header">Datos del elemento</div>
+                <hr>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" value="" placeholder="Nombre del elemento">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Descripcion</mat-label>
+                    <input matInput formControlName="descripcion" value="" placeholder="Descripcion">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput formControlName="cantidad" type="number"  placeholder="Ej. 35">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Marca</mat-label>
+                    <select matNativeControl formControlName="marca">
+                        <option value="" selected></option>
+                        <!-- <option *ngFor="let mon of monedas2" [ngValue]='mon.id'> {{ mon.nombre}} </option> -->
+                    </select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Categorias</mat-label>
+                    <mat-select formControlName="categoria" multiple>
+                  
+                      <mat-select-trigger>
+                        <mat-chip-list>
+                          <mat-chip *ngFor="let cat of form.value.categoria"
+                            [removable]="true" (removed)="onCatRemoved(cat)">
+                            {{ cat }}
+                            <mat-icon matChipRemove>cancel</mat-icon>
+                          </mat-chip>
+                        </mat-chip-list>
+                      </mat-select-trigger>
+                  
+                      <mat-option *ngFor="let cat of categorias" [value]="cat.name_category">{{cat.name_category}}</mat-option>
+                  
+                    </mat-select>
+                </mat-form-field>
+            </div>
+          
+
+        </div>
+        <hr>            
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <button type="submit" [disabled]="!form.valid" style="width: 100%;" id="register" class="button"
+                    (click)="enviar()" class="btn btn-primary form-control mt-3" value="Guardar">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
