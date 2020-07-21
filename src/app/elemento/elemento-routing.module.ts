@@ -3,11 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ElementoComponent } from './elemento.component';
 import { ElementFormComponent } from './components/element-form/element-form.component';
+import { Marca } from './model/marca';
 
 const routes: Routes = [{ path: '', component: ElementoComponent,children:[
   {
     path:'addElement',
     component: ElementFormComponent
+  },
+  {
+    path:'addMarca',
+    component:Marca
+
   }
 ] }];
 

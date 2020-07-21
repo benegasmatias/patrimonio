@@ -11,4 +11,16 @@ export class ElementoService {
   getDisponibilidades(){
     return this.http.get(`${this.API_URI}/availabilitys.json`);
   }
+  getMarcas(){
+    return this.http.get(`${this.API_URI}/marks.json`);
+  }
+  addMarca(marca){
+    return this.http.post(`${this.API_URI}/marks.json`,marca)
+  }
+
+  addElement(element){
+    return this.http.post(`${this.API_URI}/elements.json`,element)
+  }
+
+
 }

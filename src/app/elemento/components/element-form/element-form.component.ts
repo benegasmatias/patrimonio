@@ -3,6 +3,10 @@ import { Categoria } from '../../model/categoria';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import {ElementoService} from '../../service/elemento.service'
+import { Marca } from '../../model/marca';
+
+import {MatDialog} from '@angular/material/dialog'
+import { MarcaComponent } from '../marca/marca.component';
 
 @Component({
   selector: 'app-element-form',
@@ -10,45 +14,55 @@ import {ElementoService} from '../../service/elemento.service'
   styleUrls: ['./element-form.component.scss']
 })
 export class ElementFormComponent implements OnInit {
-  categorias:Categoria[]=[]
+  availabilitys:Categoria[]=[]
+  marcas:Marca[] = []
 
    hide = true;
 
    form = new FormGroup({
-    nombre: new FormControl('', Validators.required),
-    cantidad: new FormControl('', [Validators.required, Validators.maxLength(9)]),
-    descripcion: new FormControl('', Validators.required),
-    marca: new FormControl('', Validators.required),
-    categoria: new FormControl([]),
+    name_element: new FormControl('', Validators.required),
 
+    description: new FormControl('', Validators.required),
+    mark_id: new FormControl('', Validators.required),
+   // availabilitys: new FormControl([]),
+   category_of_element_id: new FormControl('',Validators.required)
   });
 
-  constructor(private elementoService:ElementoService) { }
+  constructor(private elementoService:ElementoService,private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.elementoService.getDisponibilidades().subscribe(
       data=>{
         console.log(data)
-      }
-     );
-    for(var i=0;i<6;i++){
-      let cat = new Categoria
-    cat.id_category=`${i}`;
-    cat.name_category=`negro${i}`
-    this.categorias.push(cat)}
-    console.log(this.categorias)
-  }
+        this.availabilitys = data['availabilitys'];
+      })
+      this.elementoService.getMarcas().subscribe(
+        data=>{
+          console.log(data)
+          this.marcas = data['marks']
+        }
+      )
 
-  enviar(){}
+    }
+
+
+  enviar(){
+    console.log(this.form.value)
+    this.elementoService.addElement(this.form.value).subscribe(
+      data=>{
+        console.log(data)
+      }
+    )
+  }
 
   //Chips
 
-  onCatRemoved(catRem: string) {
-    const cat = this.form.value.categoria;
-    this.removeFirst(cat, catRem);
+  onCatRemoved(avaRem: string) {
+    const ava = this.form.value.availabilitys;
+    this.removeFirst(ava, avaRem);
     this.form.setValue({
       name:this.form.value.name,
-      categ: cat,
+      categ: ava,
       descC: this.form.value.descC,
       descL:this.form.value.descL,
       url: this.form.value.url,
@@ -61,6 +75,27 @@ export class ElementFormComponent implements OnInit {
       array.splice(index, 1);
     }
   }
+
+  //Marcas
+
+  addMarca(): void {
+		const dialogref = this.dialog.open(MarcaComponent, {
+      data: {title: 'Nueva Marca'}
+		});
+
+		dialogref.afterClosed().subscribe(result => {
+			
+			if (result.confirm) {
+      this.elementoService.getMarcas().subscribe(
+        data=>{
+          console.log(data)
+          this.marcas = data['marks']
+        }
+      )
+      }
+    });
+    
+	}
 
 
 }

@@ -14,15 +14,18 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatChipsModule} from '@angular/material/chips';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { MarcaComponent } from './components/marca/marca.component';
+
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [ElementoComponent, ElementFormComponent],
+  declarations: [ElementoComponent, ElementFormComponent, MarcaComponent],
   imports: [
     CommonModule,
     ElementoRoutingModule,MatCardModule,MatInputModule,MatIconModule,
     MatSelectModule,
     MatButtonModule,
-    ReactiveFormsModule,MatChipsModule
+    ReactiveFormsModule,MatChipsModule,MatDialogModule
 
 
   ]

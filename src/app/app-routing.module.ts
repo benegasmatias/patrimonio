@@ -16,6 +16,7 @@ const routes: Routes = [{
   { 
   // path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule), canActivate:[authGuard]},
    path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule)},
+ 
   ]
  
 
