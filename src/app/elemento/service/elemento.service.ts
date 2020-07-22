@@ -11,6 +11,9 @@ export class ElementoService {
   getDisponibilidades(){
     return this.http.get(`${this.API_URI}/availabilitys.json`);
   }
+  getElementos(){
+    return this.http.get(`${this.API_URI}/elements.json`);
+  }
   getMarcas(){
     return this.http.get(`${this.API_URI}/marks.json`);
   }

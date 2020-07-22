@@ -10,7 +10,8 @@ const routes: Routes = [
      [
       { path: 'programa',  loadChildren: () => import('../programa/deporte.module').then(m => m.DeporteModule) },
       { path: 'elemento', loadChildren: () => import('../elemento/elemento.module').then(m => m.ElementoModule) },
-      { path: 'salida', loadChildren: () => import('../salida/salida.module').then(m => m.SalidaModule) }
+      { path: 'salida', loadChildren: () => import('../salida/salida.module').then(m => m.SalidaModule) },
+      { path: 'entrada', loadChildren: () => import('../entrada/entrada.module').then(m => m.EntradaModule) }
     ]
   },
 ];

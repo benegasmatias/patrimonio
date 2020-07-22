@@ -8,7 +8,7 @@ import { SalidaFormComponent } from './components/salida-form/salida-form.compon
 const routes: Routes = [{ path: '', component: SalidaComponent,
 children:[
      {path:'',component: SalidaListaComponent},
-    {path:'addSalida',component:SalidaFormComponent}
+    {path:'add',component:SalidaFormComponent}
       ]
     }];
 

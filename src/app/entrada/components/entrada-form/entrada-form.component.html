@@ -1,0 +1,70 @@
+
+<form [formGroup]="form" class="form mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 ">
+    <div class="container .titulo">
+        <div class="row">
+            <h1>Entrada</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="m-1 card">
+                <div class="card-header">Datos de la entrada</div>
+                <hr>
+                <mat-form-field appearance="outline">
+                    <mat-label>N° remito</mat-label>
+                    <input matInput  formControlName="remito" value="" placeholder="Numero de remito">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Busqueda</mat-label>
+                    <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="filterPost" placeholder="Buscador">
+                </mat-form-field>
+                
+             
+               
+                   <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
+                    <dl class="example-dl">
+                      <ng-container *ngFor="let ele of elementos | filter:filterPost">
+                        <dt class="example-dt"> Nombre: {{ele.name_element}} <button  mat-stroked-button color="primary" (click)="seleccionar(ele)">Seleccionar</button></dt>
+                        <dd class="example-dd">{{ele.description}}</dd>
+             
+                      </ng-container>
+                    </dl>
+                  </cdk-virtual-scroll-viewport>
+            
+            </div>
+
+            <div class="m-1 card">
+                <div class="card-header">Elementos Seleccionados <span class="badge badge-primary">{{contadorSeleccion}}</span></div>
+             
+                <hr>
+                <cdk-virtual-scroll-viewport class="example-viewportt" itemSize="60">
+                    <dl class="example-dl">
+                      <ng-container *ngFor="let element of elementosSelecionados;let i = index">
+                        <dt class="example-dt">Nombre: {{element.name_element}} <button mat-stroked-button color="warn"  (click)="noSeleccionar(i)">Delete</button></dt>
+                   
+                      </ng-container>
+                    </dl>
+                  </cdk-virtual-scroll-viewport>
+
+             
+
+            </div>
+          
+          
+
+        </div>
+        <hr>            
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <button type="submit" [disabled]="!form.valid" style="width: 100%;" id="guardar" class="button"
+                    (click)="enviar()" class="btn btn-primary form-control mt-3" value="Guardar">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
