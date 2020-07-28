@@ -1,37 +1,57 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <!--toolbar -->
-  <mat-toolbar class="example-toolbar" style="background-color: #1d565f;">
+  <mat-toolbar class="example-toolbar">
 
-    <button [hidden]="!mobileQuery.matches" mat-icon-button (click)="snav.toggle()" class="btn text-white"  style="margin-left: -10px;">
-      <div class="mt-2"><mat-icon class="m-auto">menu</mat-icon></div>
+    <button [hidden]="!mobileQuery.matches" mat-icon-button (click)="snav.toggle()" class="btn text-white"
+      style="margin-left: -10px;">
+      <div class="mt-2">
+        <mat-icon class="m-auto">menu</mat-icon>
+      </div>
     </button>
+
     <a class="text-white" routerLink='/'>
       <!-- <img src="assets/img/logo.png" style="background-color: white;" width="30" height="30"
         class="d-inline-block align-top rounded-circle" alt="" loading="lazy"> -->
-        <p [hidden]="mobileQuery.matches" class="m-auto">Creando Academias</p>
-      
-    </a>
+      <p [hidden]="mobileQuery.matches" class="m-auto">Patrimonio</p>
 
-    <div class="col-6 mx-auto">
-        <a (click)="programa()">Programas</a>
-        <br>
-        <a (click)="coso()">Calderon gay</a>
-        <a (click)="elementos()">Elementos</a>
+    </a>
+    <!-- Link  -->
+    <div class="nav__div_button col-8">
+      <li (click)="programa()" class="nav__li_button"><span class="material-icons">
+          assignment
+        </span>Programas</li>
+
+      <li (click)="entrada()" class="nav__li_button "><span class="material-icons">
+        input
+        </span>Entradas</li>
+      <li (click)="elementos()" class="nav__li_button "><span class="material-icons">
+          article
+        </span>Elementos</li>
     </div>
-    
-    <button class="btn  text-white col-1 mr-3 p-0" [matMenuTriggerFor]="menu">
+
+
+    <div class="nav__responsive_div_button col-6 mx-auto">
+      <a (click)="programa()" class="nav__responsive_a_button"><span class="material-icons">
+          assignment
+        </span></a>
+      <br>
+      <a (click)="entrada()" class="nav__responsive_a_button">Calderon gay</a>
+      <a (click)="elementos()" class="nav__responsive_a_button">Elementos</a>
+    </div>
+
+    <button class="btn  text-white nav__button_menu" [matMenuTriggerFor]="menu">
       <div class="d-flex flex-row m-0 p-0">
         <!-- <img src="{{datoUser.imagen}}" style="background-color: white;" width="30" height="30"
           class="d-inline-block m-auto rounded-circle" alt="" loading="lazy"> -->
-            <!-- <p [hidden]="mobileQuery.matches" class="my-auto ml-1 p-0">{{datoUser.name}} </p> -->
-            <mat-icon [hidden]="mobileQuery.matches" class="my-auto p-0">arrow_drop_down</mat-icon>
+        <!-- <p [hidden]="mobileQuery.matches" class="my-auto ml-1 p-0">{{datoUser.name}} </p> -->
+        <mat-icon [hidden]="mobileQuery.matches" class="my-auto p-0">arrow_drop_down</mat-icon>
       </div>
     </button>
 
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
         <mat-icon>dialpad</mat-icon>
-        <span >Usuario</span>
+        <span>Usuario</span>
       </button>
       <button mat-menu-item (click)="logout()">
         <mat-icon>close</mat-icon>
@@ -44,37 +64,39 @@
   <!-- sideNav -->
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="56" [opened]="!mobileQuery.matches" >
+      fixedTopGap="56" [opened]="!mobileQuery.matches">
 
       <!-- items sideNav-->
       <mat-selection-list #shoes [multiple]="false" class="m-0 p-0">
         <mat-accordion class="p-0 m-0">
-        <p [hidden]="!mobileQuery.matches" class="text-center font-weight-bold h5 mt-2">Creando Academias</p>
-       
-        <p *ngFor="let nav of fillerNav" class="m-0">
+          <p [hidden]="!mobileQuery.matches" class="text-center font-weight-bold h5 mt-2">Creando Academias</p>
 
-        <mat-list-option *ngIf="!nav.subMenu; else elseBlock" class="btnSideNav m-0"  routerLink="{{nav.route}}"  (click)="mobileQuery.matches ? snav.toggle() : ''">
-          <div class="row">
-            <mat-icon class="my-auto">{{nav.icon}}</mat-icon>
-            <p class="my-auto ml-2">{{nav.name}}</p>
-          </div>
-        </mat-list-option>
+          <p *ngFor="let nav of fillerNav" class="m-0">
 
-        <ng-template #elseBlock>
-          
-        <mat-expansion-panel  class="mat-elevation-z0 btnSideNav m-0">
+            <mat-list-option *ngIf="!nav.subMenu; else elseBlock" class="btnSideNav m-0" routerLink="{{nav.route}}"
+              (click)="mobileQuery.matches ? snav.toggle() : ''">
+              <div class="row">
+                <mat-icon class="my-auto">{{nav.icon}}</mat-icon>
+                <p class="my-auto ml-2">{{nav.name}}</p>
+              </div>
+            </mat-list-option>
 
-          <mat-expansion-panel-header  [collapsedHeight]="'48px'" [expandedHeight]="'48px'" class="m-0 btnSideNav">
-            <div class="row">
-              <mat-icon class="my-auto" style="margin-left: 15px;">{{nav.icon}}</mat-icon>
-              <p class="my-auto ml-2">{{nav.name}}</p>
-            </div>
-          </mat-expansion-panel-header>
+            <ng-template #elseBlock>
 
-          <mat-list-option  *ngFor="let sub of nav.subMenu" class="m-0 content"  routerLink="{{sub.route}}"  (click)="mobileQuery.matches ? snav.toggle() : ''">
-            <span style="padding-left: 3rem;"> {{sub.name}}</span>
-          </mat-list-option>
-<!-- 
+              <mat-expansion-panel class="mat-elevation-z0 btnSideNav m-0">
+
+                <mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'" class="m-0 btnSideNav">
+                  <div class="row">
+                    <mat-icon class="my-auto" style="margin-left: 15px;">{{nav.icon}}</mat-icon>
+                    <p class="my-auto ml-2">{{nav.name}}</p>
+                  </div>
+                </mat-expansion-panel-header>
+
+                <mat-list-option *ngFor="let sub of nav.subMenu" class="m-0 content" routerLink="{{sub.route}}"
+                  (click)="mobileQuery.matches ? snav.toggle() : ''">
+                  <span style="padding-left: 3rem;"> {{sub.name}}</span>
+                </mat-list-option>
+                <!-- 
           
         <p *ngFor="let nav of sub" class="m-0">
 
@@ -105,11 +127,11 @@
           </p>
    -->
 
-        </mat-expansion-panel>
-      </ng-template>
-        </p>
+              </mat-expansion-panel>
+            </ng-template>
+          </p>
 
-          
+
 
         </mat-accordion>
       </mat-selection-list>

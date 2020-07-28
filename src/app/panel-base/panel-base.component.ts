@@ -72,16 +72,16 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
 
    // this.route.navigateByUrl('panel/programa')
   }
-  coso(){
+  entrada(){
     this.fillerNav=[];
     this.fillerNav.push(  
      {
-      name: 'Coso',
+      name: 'Entrada',
       icon: 'home',
       subMenu:
         [
           {
-            name: 'List',
+            name: 'Nueva Entrada',
             route: 'programa/list',
           }
           ]

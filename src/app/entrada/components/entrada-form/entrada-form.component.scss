@@ -1,3 +1,6 @@
+*{
+  box-sizing: border-box;
+}
 .example-viewport {
     height: 4em;
     width: 27em;
@@ -9,13 +12,42 @@
     width: 25em;
    
   }
-  
-  .example-dt {
-    height: 2.5em;
-  
-    font-weight: bold;
-  }
-  
+
+.form__div_Estructura{
+  display: inline;
+  width: 100%;
+}
+
+.form__input_Estructura{
+  display: inline-block;
+  width: 50%;
+}
   .example-dd {
     height: 30px;
   }
+
+  dt{
+    border: groove;
+    font-weight:400;
+    display: block;
+    padding: 2px;
+  }
+  dt  span{
+    
+    font-weight:700;
+    margin-left: 3px;
+  }
+
+  dt button{
+   margin-left: 4%;
+  }
+  
+
+  @media only screen and (max-width:591px){
+    dt button{
+      margin:0;
+     }
+  }
+
+
+  

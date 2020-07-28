@@ -1,6 +1,6 @@
 {
     "/base_back/api/*": {
-      "target": "http://10.1.1.100",
+      "target": "http://10.1.1.2",
       "secure": false,
       "changeOrigin": true
     }

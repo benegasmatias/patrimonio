@@ -14,23 +14,28 @@ import {MatSelectModule} from '@angular/material/select';
 
 import {ScrollingModule} from '@angular/cdk/scrolling';
 
-import  {FilterPipe} from '../pipes/filter.pipe'
+
 import {MatButtonModule} from '@angular/material/button';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { DialogCantElementComponent } from '../elemento/components/dialog-cant-element/dialog-cant-element.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [EntradaComponent, EntradaFormComponent,FilterPipe],
+  declarations: [EntradaComponent, EntradaFormComponent,DialogCantElementComponent],
   imports: [
     CommonModule,
     EntradaRoutingModule,
-    ReactiveFormsModule,FormsModule,
+    ReactiveFormsModule,
+    FormsModule,
     MatCardModule,
     MatInputModule,
     MatIconModule,
     MatSelectModule,
     MatListModule,
     ScrollingModule,
-    MatButtonModule
-  
+    MatButtonModule,
+    AutocompleteLibModule,
+    MatDialogModule
   ]
 })
 export class EntradaModule { }

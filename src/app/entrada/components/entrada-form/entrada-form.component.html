@@ -1,36 +1,67 @@
 
-<form [formGroup]="form" class="form mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 ">
-    <div class="container .titulo">
-        <div class="row">
-            <h1>Entrada</h1>
+<form [formGroup]="form" class="mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 ">
+    <div class="container ">
+        <div class="row div_titulo">
+            <h1 class="h1_titulo">Entrada</h1>
         </div>
     </div>
     <div class="container">
         <div class="row">
-            <div class="m-1 card">
+            <div class="m-1 card" style="overflow-y: ;">
                 <div class="card-header">Datos de la entrada</div>
                 <hr>
                 <mat-form-field appearance="outline">
                     <mat-label>N° remito</mat-label>
-                    <input matInput  formControlName="remito" value="" placeholder="Numero de remito">
+                    <input matInput  formControlName="number_refer" value="" placeholder="Numero de remito">
                 </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Busqueda</mat-label>
-                    <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="filterPost" placeholder="Buscador">
-                </mat-form-field>
+                <div class="form__div_Estructura">
+                    <mat-form-field class="form__input_Estructura" appearance="outline">
+                        <mat-label>Destino</mat-label>
+                        <select matNativeControl formControlName="struct_id" (change)="getEstructura()">
+                            <option value="" selected></option>
+                            <option *ngFor="let destino of destinos" [ngValue]='destino.id'> {{ destino.name}} </option> 
+                        </select>
+                    </mat-form-field>
+         
+                    <mat-form-field class="form__input_Estructura" appearance="outline">
+                        <mat-label></mat-label>
+                        <select matNativeControl formControlName="estructura">
+                            <option value="" selected></option>
+                            <option *ngFor="let estructura of estructuras" [ngValue]='estructura.id'> {{estructura.name}} </option> 
+                        </select>
+                    </mat-form-field>
+
+                </div>
                 
+
+
+                <mat-form-field class="" appearance="outline">
+                    <mat-label>Categorias</mat-label>
+                    <select matNativeControl formControlName="categoria" (change)="getElementByCategory()">
+                        <option value="" selected></option>
+                        <option *ngFor="let categoria of categorias" [ngValue]='categoria.id_category'> {{ categoria.name_category}} </option> 
+                    </select>
+                </mat-form-field>
+
+           
+            
              
                
-                   <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
-                    <dl class="example-dl">
-                      <ng-container *ngFor="let ele of elementos | filter:filterPost">
-                        <dt class="example-dt"> Nombre: {{ele.name_element}} <button  mat-stroked-button color="primary" (click)="seleccionar(ele)">Seleccionar</button></dt>
-                        <dd class="example-dd">{{ele.description}}</dd>
-             
-                      </ng-container>
-                    </dl>
-                  </cdk-virtual-scroll-viewport>
+                <div class="">
+                    <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+                        (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                        [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+                
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.name_element"></a> 
+                    </ng-template>
+                
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </div>
             
             </div>
 
@@ -39,15 +70,15 @@
              
                 <hr>
                 <cdk-virtual-scroll-viewport class="example-viewportt" itemSize="60">
-                    <dl class="example-dl">
+                    <dl class="dl_list">
                       <ng-container *ngFor="let element of elementosSelecionados;let i = index">
-                        <dt class="example-dt">Nombre: {{element.name_element}} <button mat-stroked-button color="warn"  (click)="noSeleccionar(i)">Delete</button></dt>
+                        <dt class="dt__list"> <span class="dt__list_span">Nombre:</span>{{element.elemento.name_element}}<span class="dt__list_span">Cantidad:</span>{{element.cantidad}}<button mat-stroked-button color="warn"  (click)="noSeleccionar(i)">Delete</button></dt>
                    
                       </ng-container>
                     </dl>
                   </cdk-virtual-scroll-viewport>
 
-             
+                
 
             </div>
           
@@ -58,13 +89,13 @@
     </div>
     <hr>
     <div class="container">
-        <div class="row">
-            <div class="col-4">
-                <button type="submit" [disabled]="!form.valid" style="width: 100%;" id="guardar" class="button"
-                    (click)="enviar()" class="btn btn-primary form-control mt-3" value="Guardar">
+       
+            <div class="form__div_button">
+                <button type="submit" [disabled]="!form.valid" style="width: 100%;" id="guardar" class="button texto-boton-responsivo"
+                    (click)="enviar()" class="btn btn-primary form__button_guardar" value="Guardar">
                     Guardar
                 </button>
             </div>
-        </div>
+       
     </div>
 </form>

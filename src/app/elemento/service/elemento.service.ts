@@ -25,5 +25,10 @@ export class ElementoService {
     return this.http.post(`${this.API_URI}/elements.json`,element)
   }
 
+  getElementByCategory(id_category){
+    return this.http.get(`${this.API_URI}/elements/category/${id_category}.json`);
+   
+  }
+
 
 }

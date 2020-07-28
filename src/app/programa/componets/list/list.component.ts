@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ElementoDeportivo} from '../../model/elemento-deportivo'
 import {MatDialog} from '@angular/material/dialog'
-import {DialogComponent} from '../../../dialog/dialog/dialog.component'
+
 import {EditComponent} from '../edit/edit.component'
 import { ActivatedRoute } from '@angular/router';
 

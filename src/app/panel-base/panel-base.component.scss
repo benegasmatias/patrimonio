@@ -29,21 +29,21 @@
        `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
   }
+  mat-toolbar{
+    background-color: #2a180c;
+  }
   
   mat-sidenav {
     width: 200px;
     border-width: 0.5px;;
-    border-color: #1d565f;
+    border-color: #5f351d;
   }
   .btnSideNav
   {
     //color:  #7478A7;
     //border-radius: 5px
   }
-  .btnSideNav:hover, .btnSideNav:focus, .btnSideNav:active {
-    color: #8c96ff;
-    background-color: #8c96ff2b;
-    }
+
  
 
   .mi-input::placeholder { color: white;}
@@ -62,4 +62,37 @@
   .mat-expansion-panel-header {
     padding: 0 16px !important;
   }
+
+  .nav__responsive_div_button{
+    display: none;
+  }
+  .nav__div_button  {
+
+   position: relative;
+    text-align: center;
+  }
+  .nav__li_button{
+    display: inline-block;
+    margin-left: 9px;
+    font-size: 12px;
+    padding: 20px;
+    color: #fff;
+    cursor: pointer;
+    }
+    .nav__li_button:hover{
+      color: #8c96ff;
+    }
+    .nav__li_button > span{
+      margin-right: 3px;
+      top:5px;
+      position: relative;
+      
+    }
+
+
+    .nav__button_menu{
+      text-align: end;
+      position: relative;
+    }
+  
 }
