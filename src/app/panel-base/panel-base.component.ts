@@ -1,8 +1,9 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { LoginService } from '../login/services/login.service'
-import { Router, ChildActivationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import {Programa} from '../programa/model/programa';
+import { StructService } from '../services/struct.service';
 
 @Component({
   selector: 'app-panel-base',
@@ -11,15 +12,25 @@ import {Programa} from '../programa/model/programa';
 })
 export class PanelBaseComponent implements OnDestroy,OnInit {
 
+  spinnerNav=false;
+  snipperFillerNav= false
+
   datoUser : {name,imagen};
   fillerNav = [];
 
-  programas :Programa []
+  destinosNav:any =[]
+
+  estructuras:any=[]
+
+
+
+
   programaa : Programa;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+ 
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private loginService: LoginService, protected route: Router) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private loginService: LoginService, protected route: Router,private serviceStruct:StructService) {
     // this.cargarUser()
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -27,17 +38,17 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   }
 
   ngOnInit(): void {
+    this.spinnerNav = true
+  
+    this.serviceStruct.getTypeStructs().subscribe(
+      data=>{
+        this.destinosNav = data['types_structs']
+        this.spinnerNav = false
+        console.log(data)
+      },
+      err=>console.log(err)
+    )
 
-    this.programas =[]
-    for(var i=0;i<2;i++){
-      this.programaa = new Programa;
-        this.programaa.nombre=`Negro puto${i}`
-        this.programaa.id=`${i}`
- 
-         this.programas.push(this.programaa)
-         console.log(this.programas)
-    }  
-   
  
    }
 
@@ -45,66 +56,44 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
-
-  programa(){
+  
+  destinNav(destinoNav){
   // console.log(this.ruta) 
+ 
   this.fillerNav=[];
+  console.log(destinoNav)
+    
+  this.serviceStruct.getStructs(destinoNav.id).subscribe(
+    data=>{
+      console.log(data)
+      this.fillerNav=[];
+      this.estructuras=data['structs']
+      console.log(data)
+      for(let i=0;i<this.estructuras.length;i++){
+        this.fillerNav.push(  { 
+            name: `${this.estructuras[i].name}`,
+            icon: 'account_balance_wallet',
+            subMenu:
+              [
+               {
+                 name: 'Listar Entradas',
+                 route: `programa/${this.estructuras[i].id}`,
+               },
+               {
+                 name: 'Generar Entrada',
+                 route: `entrada/add/${destinoNav.id}/${this.estructuras[i].id}`,
+               }
+              ]
+           })
+     }
+    },
+    err=>console.log(err)
+  )
+     
 
-    for(let i=0;i<this.programas.length;i++){
-      this.fillerNav.push(  { 
-          name: `${this.programas[i].nombre}`,
-          icon: 'home',
-          subMenu:
-            [
-             {
-               name: 'List',
-               route: `programa/${this.programas[i].id}`,
-             },
-             {
-               name: 'Edit',
-               route: `programa/edit/${this.programas[i].id}`,
-             }
-            ]
-         })
-    }
-
-
-
-   // this.route.navigateByUrl('panel/programa')
+   this.route.navigateByUrl('panel/programa')
   }
-  entrada(){
-    this.fillerNav=[];
-    this.fillerNav.push(  
-     {
-      name: 'Entrada',
-      icon: 'home',
-      subMenu:
-        [
-          {
-            name: 'Nueva Entrada',
-            route: 'programa/list',
-          }
-          ]
-      })
-      this.route.navigateByUrl('panel/inicio')
-  }
-
-  elementos(){
-    this.fillerNav=[];
-    this.fillerNav.push(  
-     {
-      name: 'Coso',
-      icon: 'home',
-      subMenu:
-        [
-          {
-            name: 'Nuevo Elemento',
-            route: 'elemento/addElement',
-          }
-          ]
-      })
-      this.route.navigateByUrl('panel/elemento')
-  }
+ 
 
   logout() {
     this.loginService.logout();

@@ -1,10 +1,54 @@
-<mat-list dense>
+<!-- <mat-list dense>
 
-    <mat-list-item *ngFor="let ele of elementos"> 
+    <mat-list-item *ngFor="let input of inputs"> 
     <p matLine>
-        <span> {{ele.id}} </span>
-        <span class="demo-2"> -- {{ele.nombre}} </span>
-        <span class="demo-3"> -- {{ele.cantidad}} </span>
+        <span> {{input.id}} </span>
+        <span class="demo-2"> -- {{input.nombre}} </span>
+        <span class="demo-3"> -- {{input.cantidad}} </span>
         <span class="demo-4"> <button class="btn" (click)="edit()">Edit</button> </span>
       </p></mat-list-item>
-   </mat-list>
+   </mat-list> -->
+
+   <h2  *ngIf="spinnerInput && !noInputs" class="text-center m-4">
+  <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-secondary" role="status"></div>
+    <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-secondary" role="status"></div>
+    <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-secondary" role="status"></div>
+    <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-secondary" role="status"></div>
+    <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-secondary" role="status"></div>
+    <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-secondary" role="status"></div>
+    </h2>
+
+    <h2 class="text-center " *ngIf="noInputs">
+      No existen entradas!
+    </h2>
+
+
+<div class="p-5">
+  <table *ngIf="!spinnerInput" class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">N° Remito</th>
+        <th scope="col">Proveedor</th>
+        <th scope="col">Fecha de creacion</th>
+        <th>Elementos</th>
+     
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let input of inputs; let i= index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{input.number_refer}}</td>
+        <td>{{input.provider.name}}</td>
+        <td>{{input.created| date:'short':'-0300'}}</td>
+        <td><button (click)="verEntrada(input)" class="btn btn-info">Ver <span class="badge badge-light">{{input.elements.length}}</span></button></td>
+  
+      </tr>
+     
+    
+    </tbody>
+ 
+  </table>
+
+
+</div>

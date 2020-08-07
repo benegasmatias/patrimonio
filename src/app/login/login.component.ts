@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   spinner = false;
 
   form = new FormGroup({
-    username: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required,Validators.email]),
     password: new FormControl('', Validators.required),
   });
 
@@ -28,23 +28,24 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    let usuario, academia;
+    let usuario;
     this.spinner = true;
     this.isloged = false;
-
+    console.log(this.form.value)
     this.loginService.login(this.form.value).subscribe(
       (data) => {
-        this.loginService.setUser(data['usuario']);
-        console.log(data);
-        usuario = data;
-      academia = usuario['usuario']['academia'];
+        usuario = data['token']
+       
+        this.loginService.setUser(usuario);
+        console.log(usuario)
+        //academia = usuario['usuario']['academia'];
         //  this.loginService.getUser();
         // this.loginService.getAcademia();
 
-        this.loginService.setToken(usuario['usuario'].api_token);
-         this.loginService.setAcademia(academia);
+        this.loginService.setToken(usuario);
+        // this.loginService.setAcademia(academia);
 
-        this.route.navigateByUrl('panel/inicio');
+        this.route.navigateByUrl('panel');
       },
       (err) => {
         console.log(err);

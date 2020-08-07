@@ -1,80 +1,90 @@
-<form [formGroup]="form" class="form">
 
-    <div class="container">
-   
-        <div class="row ">
-   
-            <div class="m-1 card">
-                <div class="card-header h1_titulo">New Elemento</div>
-                <hr>
-                <mat-form-field appearance="outline">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput formControlName="name_element" value="" placeholder="Nombre del elemento">
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Descripcion</mat-label>
-                    <input matInput formControlName="description" value="" placeholder="Descripcion">
-                </mat-form-field>
-        
-                <div class="form__div">
-                 
-                        <mat-form-field class="form__div_input" appearance="outline">
-                            <mat-label>Marca</mat-label>
-                            <select matNativeControl formControlName="mark_id">
-                                <option value="" selected></option>
-                                <option *ngFor="let man of marcas" [ngValue]='man.id'> {{ man.name}} </option> 
-                            </select>
-                        </mat-form-field>
-                        
-                      
-                            <button class="btn btn-success form__div_button " (click)="addMarca()">+</button>
-                      
-             
-               
-                </div>
-               
-                
-                <mat-form-field appearance="outline">
-                    <mat-label>Categorias</mat-label>
-                    <!-- <mat-select formControlName="availabilitys" multiple>
-                   -->
-                      <!-- <mat-select-trigger>
-                        <mat-chip-list>
-                          <mat-chip *ngFor="let ava of form.value.availabilitys"
-                            [removable]="true" (removed)="onCatRemoved(ava)">
-                            {{ ava }}
-                            <mat-icon matChipRemove>cancel</mat-icon>
-                          </mat-chip>
-                        </mat-chip-list>
-                      </mat-select-trigger> -->
 
-                        <select matNativeControl formControlName="category_of_element_id">
-                            <option value="" selected></option>
-                            <option *ngFor="let man of availabilitys" [ngValue]='man.id_availability'> {{ man.name_availability}} </option> 
-                        </select>
-                        
-                    <!-- </mat-form-field> -->
-                      
-                  
-                      <!-- <mat-option *ngFor="let ava of availabilitys" [value]="ava.name_availability">{{ava.name_availability}}</mat-option>
-                  
-                    </mat-select> -->
-                </mat-form-field>
-            </div>
-          
+<mat-dialog-content>
+    <form [formGroup]="form" >
 
-        </div>
-             
-    </div>
-  
-
-        <div class="">
-            <div class="form__button_guardar">
-                <button type="submit" [disabled]="!form.valid" style="width: 100%;" id="register" class="button"
-                    (click)="enviar()" class="btn btn-primary form__button_guardar" value="Guardar">
-                    Guardar
-                </button>
-            </div>
+        <div class="container">
        
-    </div>
-</form>
+            <div class="row ">
+       
+                <div class="m-1 card">
+                    <div  mat-dialog-title>Nuevo Elemento</div>
+                    <hr>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="name_element" value="" placeholder="Nombre del elemento">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Descripcion</mat-label>
+                        <input matInput formControlName="description" value="" placeholder="Descripcion">
+                    </mat-form-field>
+            
+                    <div class="form__div">
+                     
+                            <mat-form-field class="form__div_input" appearance="outline">
+                                <mat-label><div *ngIf="!spinnerMarks">
+                                    Marcas
+                                  </div>
+                                    <div *ngIf="spinnerMarks">
+                                        <span > Cargando...</span>
+                                    <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
+                                  </div></mat-label>
+                                <select matNativeControl formControlName="mark_id">
+                                    <option value="" selected></option>
+                                    <option *ngFor="let man of marcas" [ngValue]='man.id'> {{ man.name}} </option> 
+                                </select>
+                            </mat-form-field>
+                            
+                          
+                                <a  (click)="addMarca()"><span style="position: relative; top: 12px;" class=" buttonMas material-icons ">
+                                    add_circle_outline 
+                                    </span></a>
+                          
+                 
+                   
+                    </div>
+                   
+                    
+                    <mat-form-field appearance="outline">
+                        <mat-label><div *ngIf="!spinnerCategory">
+                            Categorias
+                          </div>
+                            <div *ngIf="spinnerCategory">
+                                <span > Cargando...</span>
+                            <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
+                          </div></mat-label>
+                            <select matNativeControl formControlName="category_of_element_id">
+                                <option value="" selected></option>
+                                <option *ngFor="let categoria of categorias" [ngValue]='categoria.id_category'> {{ categoria.name_category}} </option> 
+                            </select>
+                            
+                        <!-- </mat-form-field> -->
+                          
+                      
+                          <!-- <mat-option *ngFor="let ava of availabilitys" [value]="ava.name_availability">{{ava.name_availability}}</mat-option>
+                      
+                        </mat-select> -->
+                    </mat-form-field>
+                </div>
+              
+    
+            </div>
+                 
+        </div>
+      
+    
+            <div class="">
+                <div class="form__button_guardar">
+                    <button type="submit" [disabled]="!form.valid" style="width: 100%;" id="register" class="button"
+                        (click)="enviar()" class="btn btn-primary form__button_guardar" value="Guardar">
+                        Guardar
+                    </button>
+                </div>
+           
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    
+</mat-dialog-actions>

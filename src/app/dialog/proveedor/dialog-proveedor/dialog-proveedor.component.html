@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+<form [formGroup]="form" action="">
+    <mat-form-field appearance="outline">
+        <mat-label>Cantidad del elemento</mat-label>
+        <input matInput formControlName="name" type="text" placeholder="Ingrese la Nombre">
+    </mat-form-field>
+
+</form>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button [disabled]="!form.valid" (click)="save()" color="warn">Guardar</button>
+  <button mat-button matDialogClose="cancel" color="primary">Cancelar</button>
+  
+</mat-dialog-actions>

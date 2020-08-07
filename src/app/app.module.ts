@@ -11,18 +11,27 @@ import {AthInterceptor} from './_helpers/ath.interceptor'
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import { DialogComponent } from './dialog/dialog/dialog.component'
 import {MatDialogModule} from '@angular/material/dialog';
+import { DialogProveedorComponent } from './dialog/proveedor/dialog-proveedor/dialog-proveedor.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogComponent
+    DialogComponent,
+    DialogProveedorComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,MatDialogModule
+    HttpClientModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatInputModule,
+    ReactiveFormsModule
   ], entryComponents: [
     DialogComponent
   ],

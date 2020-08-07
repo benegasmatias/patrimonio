@@ -12,12 +12,8 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   login(user) {
-    let u = {
-      username: user.username,
-      password: user.password,
-    };
-
-    return this.http.post(`${this.API_URI}/users/login`, u);
+   
+    return this.http.post(`${this.API_URI}/users/login.json`, user);
   }
   logout() {
     let tokenAccess = sessionStorage.getItem('accessToken');
@@ -34,10 +30,10 @@ export class LoginService {
     console.log(sessionStorage.getItem('currentUser'));
   }
 
-  setAcademia(academi) {
-    let academia = JSON.stringify(academi);
-    sessionStorage.setItem('academia', academia);
-  }
+  // setAcademia(academi) {
+  //   let academia = JSON.stringify(academi);
+  //   sessionStorage.setItem('academia', academia);
+  // }
   getAcademia() {
     console.log(sessionStorage.getItem('academia'));
   }

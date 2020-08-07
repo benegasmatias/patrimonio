@@ -14,20 +14,24 @@ export class ElementoService {
   getElementos(){
     return this.http.get(`${this.API_URI}/elements.json`);
   }
-  getMarcas(){
-    return this.http.get(`${this.API_URI}/marks.json`);
-  }
-  addMarca(marca){
-    return this.http.post(`${this.API_URI}/marks.json`,marca)
-  }
 
   addElement(element){
     return this.http.post(`${this.API_URI}/elements.json`,element)
   }
 
   getElementByCategory(id_category){
+    if(id_category)
+    {
     return this.http.get(`${this.API_URI}/elements/category/${id_category}.json`);
-   
+    }
+    
+  }
+  getElementosByCategoryAndMark(id_Category,id_mark){
+    return this.http.get(`${this.API_URI}/elements/category/${id_Category}/mark/${id_mark}.json`);
+  }
+  getElementByMarca(id_mark){
+    return this.http.get(`${this.API_URI}/elements/mark/${id_mark}.json`);
+ 
   }
 
 

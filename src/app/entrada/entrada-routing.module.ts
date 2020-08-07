@@ -6,7 +6,11 @@ import { EntradaFormComponent } from './components/entrada-form/entrada-form.com
 
 const routes: Routes = [{ path: '', component: EntradaComponent,children:[
   {path:'add',
-component:EntradaFormComponent}
+component:EntradaFormComponent},
+{path:'add/:typeStruct/:struct',
+component:EntradaFormComponent},
+
+
 ] }];
 
 @NgModule({

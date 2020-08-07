@@ -16,28 +16,41 @@
 
     </a>
     <!-- Link  -->
-    <div class="nav__div_button col-8">
-      <li (click)="programa()" class="nav__li_button"><span class="material-icons">
-          assignment
-        </span>Programas</li>
 
+    <h2  *ngIf="spinnerNav" class="nav__div_button col-8">
+      <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-light " role="status"></div>
+        <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-light " role="status"></div>
+        <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-light " role="status"></div>
+        <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-light " role="status"></div>
+        <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-light " role="status"></div>
+        <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-light  " role="status"></div>
+        </h2>
+
+    
+    <div *ngIf="!spinnerNav" class="nav__div_button col-8">
+  
+        <li  *ngFor="let destinoNav of destinosNav; let i = index" (click)="destinNav(destinoNav)" [attr.data-index]="i"  class="nav__li_button"><span class="material-icons">
+          assignment
+        </span>{{destinoNav.name| uppercase}}</li>
+   
+<!-- 
       <li (click)="entrada()" class="nav__li_button "><span class="material-icons">
         input
         </span>Entradas</li>
       <li (click)="elementos()" class="nav__li_button "><span class="material-icons">
           article
-        </span>Elementos</li>
+        </span>Elementos</li> -->
     </div>
 
 
-    <div class="nav__responsive_div_button col-6 mx-auto">
+    <!-- <div class="nav__responsive_div_button col-6 mx-auto">
       <a (click)="programa()" class="nav__responsive_a_button"><span class="material-icons">
           assignment
         </span></a>
       <br>
       <a (click)="entrada()" class="nav__responsive_a_button">Calderon gay</a>
       <a (click)="elementos()" class="nav__responsive_a_button">Elementos</a>
-    </div>
+    </div> -->
 
     <button class="btn  text-white nav__button_menu" [matMenuTriggerFor]="menu">
       <div class="d-flex flex-row m-0 p-0">
@@ -70,14 +83,14 @@
       <mat-selection-list #shoes [multiple]="false" class="m-0 p-0">
         <mat-accordion class="p-0 m-0">
           <p [hidden]="!mobileQuery.matches" class="text-center font-weight-bold h5 mt-2">Creando Academias</p>
-
-          <p *ngFor="let nav of fillerNav" class="m-0">
+ 
+          <p  *ngFor="let nav of fillerNav" class="m-0">
 
             <mat-list-option *ngIf="!nav.subMenu; else elseBlock" class="btnSideNav m-0" routerLink="{{nav.route}}"
               (click)="mobileQuery.matches ? snav.toggle() : ''">
               <div class="row">
                 <mat-icon class="my-auto">{{nav.icon}}</mat-icon>
-                <p class="my-auto ml-2">{{nav.name}}</p>
+                <p class="my-auto ml-2">{{nav.name|titlecase}}</p>
               </div>
             </mat-list-option>
 
@@ -88,7 +101,7 @@
                 <mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'" class="m-0 btnSideNav">
                   <div class="row">
                     <mat-icon class="my-auto" style="margin-left: 15px;">{{nav.icon}}</mat-icon>
-                    <p class="my-auto ml-2">{{nav.name}}</p>
+                    <p class="my-auto ml-2">{{nav.name | titlecase}}</p>
                   </div>
                 </mat-expansion-panel-header>
 

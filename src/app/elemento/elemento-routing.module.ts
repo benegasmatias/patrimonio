@@ -7,7 +7,7 @@ import { Marca } from './model/marca';
 
 const routes: Routes = [{ path: '', component: ElementoComponent,children:[
   {
-    path:'addElement',
+    path:'add',
     component: ElementFormComponent
   },
   {

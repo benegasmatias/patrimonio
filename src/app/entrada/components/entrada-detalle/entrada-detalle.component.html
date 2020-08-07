@@ -1,0 +1,19 @@
+<h2 mat-dialog-title class="text-center">{{data.title}}</h2>
+<mat-dialog-content>
+ 
+    <div class="card " *ngFor="let element of data.input.elements">
+      <div class="card-body">
+        <h5 class="card-title" style="size: 10px !important;" >Nombre: {{element.name_element}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Cantidad: {{element._joinData.quantity}} </h6>
+        <p class="card-text">Descripcion:{{element.description}}</p>
+      </div>
+    </div>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button  mat-stroked-button color="h5rimary" (click)="save()" >Cerrar</button>
+    <h6 class=" ml-5 mb-2 text-muted ">Total: {{total}} </h6>
+  
+</mat-dialog-actions>

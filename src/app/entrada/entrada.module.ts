@@ -19,9 +19,10 @@ import {MatButtonModule} from '@angular/material/button';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { DialogCantElementComponent } from '../elemento/components/dialog-cant-element/dialog-cant-element.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { EntradaDetalleComponent } from './components/entrada-detalle/entrada-detalle.component';
 
 @NgModule({
-  declarations: [EntradaComponent, EntradaFormComponent,DialogCantElementComponent],
+  declarations: [EntradaComponent, EntradaFormComponent,DialogCantElementComponent, EntradaDetalleComponent],
   imports: [
     CommonModule,
     EntradaRoutingModule,

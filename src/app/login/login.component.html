@@ -22,9 +22,9 @@
             <!-- Login Form -->
             <form  [formGroup]="form" ng-submit="login()"   class="form mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 ">
               <div class="form-group container-fluid"  >
-                <div class="alert alert-danger text-center" *ngIf="isloged">Usuario o contraseña Erronea</div>
+                <div class="alert alert-danger text-center" *ngIf="isloged">Email o contraseña Erronea</div>
                 <div class="col">
-                  <input  autocomplete="username" class="form-control text-center mb-2" id="username"  minlength="4"  formControlName="username" placeholder="Username" required>
+                  <input  autocomplete="email" type="email" class="form-control text-center mb-2" id="email"  minlength="4"  formControlName="email" placeholder="email" required>
                   <input  autocomplete="current-password" type="password" class="form-control text-center mb-2" minlength="4" style="width:100%" id="password" formControlName="password"  required placeholder="Password">
                   <button type="submit" [disabled]="!form.valid" style="width: 100%;"  id="login" (click)="login()" class="btn btn-primary form-control mt-3"   value="LogIn">
                     <div *ngIf="!spinner">
@@ -34,7 +34,6 @@
                       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       <span > Iniciando...</span>
                     </div>
-                   
                    
                   </button>
                 </div>

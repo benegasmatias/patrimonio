@@ -1,35 +1,55 @@
 import { Component, OnInit } from '@angular/core';
-import {ElementoDeportivo} from '../../model/elemento-deportivo'
+
 import {MatDialog} from '@angular/material/dialog'
 
-import {EditComponent} from '../edit/edit.component'
+import {EntradaDetalleComponent} from '../../../entrada/components/entrada-detalle/entrada-detalle.component'
 import { ActivatedRoute } from '@angular/router';
+import { InputService } from 'src/app/services/input.service';
+
 
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
+ 
 })
 export class ListComponent implements OnInit {
+  cantElementos=0;
+
+
+  spinnerInput= false
+  noInputs=false
+
+  hola=true
   title;
-  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute) { }
-  elementos:ElementoDeportivo []
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService) { }
+ 
+
+  inputs:any=[]
   ngOnInit(): void {
-  
+  this.inputs= []
    this.activatedRoute.params.subscribe(params => {
-     
+    this.spinnerInput = true
     this.title = params['id'];
+    this.serviceInput.getInputByStruct(params['id']).subscribe(
+      data=>{
+        console.log(data)
+        this.inputs = data['inputs']
+        if(this.inputs.length!=0){
+        this.cantElementos = this.inputs[0].elements.length
+        this.spinnerInput=false
+          
+      }else{
+        this.noInputs=true
+      }
+      },
+      err =>{
+        console.log(err)
+      }
+    )
     console.log(params);
-    this.elementos = []
-      for(let i=0;i<10;i++){
-        let elemento = new ElementoDeportivo;
-        elemento.nombre="Negro puto"
-        elemento.cantidad=`${this.title}`
-        elemento.id=`${i}`
-  
-        this.elementos.push(elemento)
-       }
+
   });
 
 
@@ -37,7 +57,7 @@ export class ListComponent implements OnInit {
   }
 
   edit(): void {
-		const dialogref = this.dialog.open(EditComponent, {
+		const dialogref = this.dialog.open(EntradaDetalleComponent, {
       data: {title: 'austin'}
 		});
 
@@ -50,6 +70,34 @@ export class ListComponent implements OnInit {
         console.log("false")
 			}
 		});
+  }
+
+
+  verEntrada(input): void {
+    console.log(input)
+		const dialogref = this.dialog.open(EntradaDetalleComponent, {
+      data: {title: 'Elementos',input}
+		});
+
+		// dialogref.afterClosed().subscribe(result => {
+			
+		// 	if (result.confirm) {
+    //   this.marcaService.getMarcas().subscribe(
+    //     data=>{
+    //       console.log(data)
+    //       this.marcas = data['marks']
+    //     }
+    //   )
+    //   }
+    // });
+    
 	}
 
+  
+
+
 }
+
+
+
+
