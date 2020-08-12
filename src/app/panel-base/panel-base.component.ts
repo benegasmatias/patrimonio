@@ -82,7 +82,11 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
                {
                  name: 'Generar Entrada',
                  route: `entrada/add/${destinoNav.id}/${this.estructuras[i].id}`,
-               }
+               },
+               {
+                name: 'Listar Inventarios',
+                route: `programa/inventarios/${this.estructuras[i].id}`,
+              }
               ]
            })
      }

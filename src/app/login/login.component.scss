@@ -200,3 +200,22 @@ fieldset{
   border-color: #c4543d; /*set the color you want here*/
 }
 
+.img-logo{
+  margin-left: 31%;
+}
+
+@media (max-width: 600px) {
+  .img-logo{
+    margin-left: 24%;
+  }
+  
+}
+
+@supports(object-fit: cover){
+  .box img{
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+

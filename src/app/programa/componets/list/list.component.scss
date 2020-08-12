@@ -25,3 +25,28 @@
 .element-row.expanded {
   border-bottom-color: transparent;
 }
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+.mat-elevation-z8{
+    display: inline-block;
+    width: 95%;
+      margin-left: 2em;
+      
+}
+
+.buscar{
+  width: 50% !important;
+  margin-left: 25%;
+
+}

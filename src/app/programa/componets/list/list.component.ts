@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import {MatDialog} from '@angular/material/dialog'
 
@@ -6,7 +6,32 @@ import {EntradaDetalleComponent} from '../../../entrada/components/entrada-detal
 import { ActivatedRoute } from '@angular/router';
 import { InputService } from 'src/app/services/input.service';
 
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
+export interface provider{
+  id:string;
+  created:string;
+  name:string;
+}
+
+export interface ElementData {
+  id_element:string;
+  name_element:string;
+  description:string;
+  quantity:string;
+  mark_id:string;
+  category_of_element_id:string;
+}
+
+export interface InputData {
+  id: string;
+  number_refer: string;
+  created: string;
+  elements: ElementData[];
+  provider: provider;
+}
 
 @Component({
   selector: 'app-list',
@@ -14,6 +39,9 @@ import { InputService } from 'src/app/services/input.service';
   styleUrls: ['./list.component.scss']
  
 })
+
+
+
 export class ListComponent implements OnInit {
   cantElementos=0;
 
@@ -23,10 +51,17 @@ export class ListComponent implements OnInit {
 
   hola=true
   title;
-  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService) { }
- 
 
-  inputs:any=[]
+
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService) { }
+  inputs=[]
+  displayedColumns: string[] = ['id', 'number_refer', 'created','provider','elements'];
+  dataSource: MatTableDataSource<InputData>;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+
   ngOnInit(): void {
   this.inputs= []
    this.activatedRoute.params.subscribe(params => {
@@ -36,13 +71,22 @@ export class ListComponent implements OnInit {
       data=>{
         console.log(data)
         this.inputs = data['inputs']
-        if(this.inputs.length!=0){
-        this.cantElementos = this.inputs[0].elements.length
+
+        this.dataSource = new MatTableDataSource(this.inputs);
+        console.log(this.dataSource)
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+
+        if(this.dataSource){
+       // this.cantElementos = this.dataSource.filteredData[0]elements.length
         this.spinnerInput=false
+
+ 
           
       }else{
         this.noInputs=true
       }
+ 
       },
       err =>{
         console.log(err)
@@ -73,8 +117,8 @@ export class ListComponent implements OnInit {
   }
 
 
-  verEntrada(input): void {
-    console.log(input)
+  verEntrada(input:ElementData[]): void {
+  //  console.log(input)
 		const dialogref = this.dialog.open(EntradaDetalleComponent, {
       data: {title: 'Elementos',input}
 		});
@@ -91,7 +135,17 @@ export class ListComponent implements OnInit {
     //   }
     // });
     
-	}
+  }
+  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
 
   
 

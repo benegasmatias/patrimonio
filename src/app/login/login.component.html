@@ -2,25 +2,30 @@
 
 <div class="row">
 
-  <div class="col-md-6   d-none d-xl-block d-lg-none ">
+  <div  class="col-md-6   d-none d-xl-block d-lg-none box ">
 
-  <img  class="img-fluid "    src="assets/img/portada.png" style="width: 90%;" alt="">
+  <img  class=" "    src="assets/img/portada.jpeg" style="width: 100%;
+  height: auto;">
   </div>
 
-  <div class="col-md-6" style="top: 200;">
+  <div class="col-md-6" >
     
       <div class="" >
+        
           <div id="formContent">
             <!-- Tabs Titles -->
        
             <!-- Icon -->
-            <div class="" style="position: relative; top: 80px;" >
-          
-              <img class="img-fluid" src="assets/img/logo.png"  id="icon" alt="User Icon" />
-            </div >
+     
         
             <!-- Login Form -->
-            <form  [formGroup]="form" ng-submit="login()"   class="form mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 ">
+            <form  [formGroup]="form" ng-submit="login()"   style="margin-top: 5em; " class="col-10">
+            
+  
+              <div>
+                <img  class ="img-logo"  src="assets/img/logo.png"  id="icon" alt="User Icon" />
+               </div>
+            
               <div class="form-group container-fluid"  >
                 <div class="alert alert-danger text-center" *ngIf="isloged">Email o contraseña Erronea</div>
                 <div class="col">
@@ -37,14 +42,14 @@
                    
                   </button>
                 </div>
-                  
-              </div>
-            </form>
-
-            <!-- Remind Passowrd -->
+                              <!-- Remind Passowrd -->
             <div class="row" id="formFooter">
               <a class="text-muted text-right" href="#" >Olvidaste tu contraseña?</a>
             </div>
+              </div>
+            </form>
+
+
         
           </div>
         </div>

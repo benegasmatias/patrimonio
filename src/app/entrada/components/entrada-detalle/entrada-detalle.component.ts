@@ -17,8 +17,9 @@ export class EntradaDetalleComponent implements OnInit {
   
 
   ngOnInit(): void {
-   for(let i=0; i<this.data.input.elements.length;i++){
-     let cant = parseInt(this.data.input.elements[i]._joinData.quantity)
+    console.log(this.data.input.length )
+   for(let i=0; i<this.data.input.length;i++){
+     let cant = parseInt(this.data.input[i]._joinData.quantity)
       this.total = this.total+cant
       
    }
