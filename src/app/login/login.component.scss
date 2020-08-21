@@ -201,12 +201,18 @@ fieldset{
 }
 
 .img-logo{
-  margin-left: 31%;
+  display: inline-block;
+  margin-left: 23%;
+  width: 50%;
+  height: 24em;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px){
   .img-logo{
-    margin-left: 24%;
+    display: inline-block;
+  margin-left: 23%;
+  width: 50%;
+  height: 24em;
   }
   
 }

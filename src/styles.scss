@@ -44,14 +44,12 @@ text-align: center;
      margin-left: 24%;
      width: 50%;
      }
-    .form__div{
-
-      
-    }
+ 
     .form__div_input{
-    display: inline;
+      display: inline;
       width: 90%;
     }
+
     //Boton + add
     .form__div_button{
       display: inline-flex;
@@ -242,3 +240,43 @@ background: #f4f6f8;
 .titulo-curso-responsivo {
   font-size: 1.4vw !important;
 }
+
+//Alerts-------------------------------------
+/* The alert message box */
+.success {
+  padding: 20px;
+  background-color: rgb(8, 126, 12); /* Red */
+  color: white;
+  margin-bottom: 15px;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 5px;
+}
+.alert {
+  padding: 20px;
+  background-color: rgb(126, 8, 8); /* Red */
+  color: white;
+  margin-bottom: 15px;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 5px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+
+//Fin Alerts---------------------------

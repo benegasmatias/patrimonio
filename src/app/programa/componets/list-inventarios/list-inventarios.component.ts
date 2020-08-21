@@ -2,9 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InventarioService } from 'src/app/services/inventario.service';
 
+
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+
+import { SalidaFormComponent } from 'src/app/salida/components/salida-form/salida-form.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 export interface IventarioData {
   id_element: string;
@@ -18,40 +23,60 @@ export interface IventarioData {
   styleUrls: ['./list-inventarios.component.scss']
 })
 export class ListInventariosComponent implements OnInit {
+  inventarioss=false
+  noInventarios=false
+  //alerts
+  salidaGenerada=false
+
+  //Fin alerts
+
   iventarioData=[]
-  displayedColumns: string[] = ['id_element', 'name_element', 'description', 'stock'];
-  dataSource: MatTableDataSource<IventarioData>;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-  constructor(private activatedRoute:ActivatedRoute, private inventarioService:InventarioService) {
-
-   }
 
   
+  
+
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService) {}
+   displayedColumns: string[] = ['id_element', 'name_element', 'description', 'stock','action'];
+   dataSource: MatTableDataSource<IventarioData>;
+   struct_id=''
+   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit(): void {
 
-    this.activatedRoute.params.subscribe(
-     param=>{
-       if(param['struct']){
-         this.inventarioService.getIventariosByStruct(param['struct']).subscribe(
-           data=>{
-             this.iventarioData = data['inventario']
-             console.log(this.iventarioData)
-             
-             this.dataSource = new MatTableDataSource(this.iventarioData);
-             this.dataSource.paginator = this.paginator;
-             this.dataSource.sort = this.sort;
-           },
-           err=>{console.log(err)}
-         )
-       }
-     }
-    )
+    
 
+   this.getInventarios()
   
+  }
+
+  getInventarios(){
+    this.activatedRoute.params.subscribe(
+      param=>{
+        if(param['struct']){
+          this.inventarioService.getIventariosByStruct(param['struct']).subscribe(
+            data=>{
+              this.iventarioData = data['inventario']
+              console.log(this.iventarioData.length)
+
+              if(this.iventarioData.length!=0){
+                this.inventarioss=true
+                this.noInventarios=false
+              }else{
+                this.inventarioss=false
+                this.noInventarios=true
+              }
+              this.struct_id = param['struct']
+              this.dataSource = new MatTableDataSource(this.iventarioData);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            },
+            err=>{console.log(err)}
+          )
+        }
+      }
+     )
   }
 
   applyFilter(event: Event) {
@@ -61,6 +86,23 @@ export class ListInventariosComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  addSalida(element){
+    console.log(element)
+    const dialogref = this.dialog.open(SalidaFormComponent, {
+      data: {title: 'Generar Salida',element:element,origin_id:this.struct_id}
+		});
+
+		dialogref.afterClosed().subscribe(result => {
+			console.log(result);
+			if (result.confirm) {
+        this.salidaGenerada=true
+        this.getInventarios()
+			}else {
+        
+      }
+		});
   }
 
 }

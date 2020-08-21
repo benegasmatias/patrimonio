@@ -103,7 +103,28 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     this.loginService.logout();
     this.route.navigateByUrl('')
   }
-
+  graficaLinea(){
+    this.fillerNav=[];
+    this.fillerNav.push(  { 
+      name: `Graficas`,
+      icon: 'account_balance_wallet',
+      subMenu:
+      [
+       {
+         name: 'Linea',
+         route: `graficas/linea`,
+       },
+       {
+         name: 'Barra',
+         route: `graficas/barra`,
+       },
+       {
+        name: 'Torta',
+        route: `graficas/torta`,
+      }
+      ]
+     })
+  }
   // private cargarUser (){
 
   //   let user = JSON.parse(sessionStorage.getItem('currentUser'))

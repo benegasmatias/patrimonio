@@ -80,8 +80,6 @@ export class ListComponent implements OnInit {
         if(this.dataSource){
        // this.cantElementos = this.dataSource.filteredData[0]elements.length
         this.spinnerInput=false
-
- 
           
       }else{
         this.noInputs=true

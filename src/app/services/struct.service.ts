@@ -18,4 +18,7 @@ export class StructService {
   getStruct(id_struct){
     return this.http.get(`${this.API_URI}/structs/${id_struct}.json`)
   }
+  getStructss(){
+    return this.http.get(`${this.API_URI}/structs.json`)
+  }
 }

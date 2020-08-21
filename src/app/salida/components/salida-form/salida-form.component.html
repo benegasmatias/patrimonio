@@ -1,1 +1,87 @@
-<p>salida-form works!</p>
+<h2 mat-dialog-title class="text-center">{{data.title}}</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="form">
+
+        
+   <h5 style="font-size: 15px;">Elemento: {{elemento}}</h5>
+
+
+        <div class="row ml-2">
+
+         <h6 class="mt-4 mr-1" style="color: #08a810; font-size: 25px;">{{struct|uppercase}}</h6> 
+         <span class="material-icons mt-3" >
+            exit_to_app
+            </span>
+            <!-- <mat-form-field appearance="outline" class="ml-3">
+                <mat-label>Destino</mat-label>
+                <input matInput formControlName="destination_id"  placeholder="Destino" >
+            </mat-form-field> -->
+
+            <mat-form-field class="ml-4" appearance="outline">
+                <mat-label>
+                    <div *ngIf="spinnerDestino">
+                        Destino
+                    </div>
+                    <div *ngIf="!spinnerDestino">
+                        <span> Cargando...</span>
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    </div>
+                </mat-label>
+                <select matNativeControl formControlName="destination_id">
+                    <option value=""></option>
+                    <option *ngFor="let destino of destinos" [value]='destino.id'>
+                        {{destino.name}} </option>
+                </select>
+            </mat-form-field>
+        
+        </div>
+        
+
+             
+   <h6 style="font-size: 15px;">Motivo</h6>
+
+        <mat-form-field class="Select ml-0" appearance="outline">
+            <mat-label>
+                <div *ngIf="spinnerAvailability">
+                    Motivo
+                </div>
+                <div *ngIf="!spinnerAvailability">
+                    <span> Cargando...</span>
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                </div>
+            </mat-label>
+            <select matNativeControl formControlName="availability_id">
+                <option value="" ></option>
+                <option *ngFor="let availability of availabilitys" [value]='availability.id'>
+                    {{ availability.name_availability}} </option>
+            </select>
+        </mat-form-field>
+
+        <div class="row ml-1" style="display: inline;">
+            <mat-form-field appearance="outline" class="input-doble">
+                <mat-label>Cantidad</mat-label>
+                <input matInput type="number" formControlName="quantity_out"  placeholder="Cantidad" >
+                
+            </mat-form-field>
+            <div class="alert alert-danger" role="alert" *ngIf="form.get('quantity_out').hasError('max')">
+                La cantidad supera el stock disponible
+              </div>
+            
+            <mat-form-field appearance="outline" class="input-doble">
+                <mat-label>Descripcion</mat-label>
+                <!-- <input matInput type="number"  placeholder="description" > -->
+                <textarea matInput  formControlName="description" placeholder="Ejemplo de una descripcion...."></textarea>
+            </mat-form-field>
+    
+        </div>
+ 
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-stroked-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>
+    <button mat-stroked-button color="warn" (click)="close()">Cerrar</button>
+</mat-dialog-actions>

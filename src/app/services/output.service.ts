@@ -5,17 +5,18 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class InventarioService {
+export class OutputService {
 
   API_URI = environment.baseUrl;
-
   constructor(private http: HttpClient) { }
 
-
-  getIventariosByStruct(struct_id){
-    return this.http.get(`${this.API_URI}/inventario/struct/${struct_id}.json`);
+  addOutput(output){
+    return this.http.post(`${this.API_URI}/outputs.json`,output)
   }
 
+  getAvailabilities(){
+    return this.http.get(`${this.API_URI}/availabilities.json`);
+  }
 
 
 }
