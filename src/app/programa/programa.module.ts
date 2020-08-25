@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DeporteRoutingModule } from './deporte-routing.module';
-import { DeporteComponent } from './deporte.component';
+import { ProgramaRoutingModule } from './programa-routing.module';
+import { ProgramaComponent } from './programa.component';
 import { EditComponent } from './componets/edit/edit.component';
 import { ListComponent } from './componets/list/list.component';
 import {MatListModule} from '@angular/material/list';
@@ -17,11 +17,11 @@ import {MatButtonModule} from '@angular/material/button';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ListInventariosComponent } from './componets/list-inventarios/list-inventarios.component';
 @NgModule({
-  declarations: [DeporteComponent, EditComponent, ListComponent, ListInventariosComponent],
+  declarations: [ProgramaComponent, EditComponent, ListComponent, ListInventariosComponent],
   imports: [
     CommonModule,
-    DeporteRoutingModule,
+    ProgramaRoutingModule,
     MatListModule,MatDialogModule,MatButtonModule,MatTableModule,CdkTableModule,MatInputModule,MatPaginatorModule,MatSortModule
   ]
 })
-export class DeporteModule { }
+export class ProgramaModule { }

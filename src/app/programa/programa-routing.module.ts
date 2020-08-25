@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DeporteComponent } from './deporte.component';
+import { ProgramaComponent } from './programa.component';
 import {ListComponent} from './componets/list/list.component'
 import {EditComponent} from './componets/edit/edit.component'
 import { ListInventariosComponent } from './componets/list-inventarios/list-inventarios.component';
 const routes: Routes = [
   { 
-    path: '', component: DeporteComponent,children:[
+    path: '', component: ProgramaComponent,children:[
    { path: ':id', component:ListComponent},
    { path: 'edit', component:EditComponent},
    {path:'inventarios/:struct',component:ListInventariosComponent}]}
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DeporteRoutingModule { }
+export class ProgramaRoutingModule { }

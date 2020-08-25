@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '', component: PanelBaseComponent,
     children:
      [
-      { path: 'programa',  loadChildren: () => import('../programa/deporte.module').then(m => m.DeporteModule) },
+      { path: 'programa',  loadChildren: () => import('../programa/programa.module').then(m => m.ProgramaModule) },
       { path: 'elemento', loadChildren: () => import('../elemento/elemento.module').then(m => m.ElementoModule) },
       { path: 'salida', loadChildren: () => import('../salida/salida.module').then(m => m.SalidaModule) },
       { path: 'entrada', loadChildren: () => import('../entrada/entrada.module').then(m => m.EntradaModule) },
