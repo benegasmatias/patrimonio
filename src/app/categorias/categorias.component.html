@@ -1,0 +1,133 @@
+
+  <div class="container titulo" style="width: 100%;">
+    <div class="row">
+      <h1 class="card tit">Categorias</h1>
+    </div>
+
+    <hr />
+   
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-8">
+        <button
+          mat-raised-button
+          class="btn-primary"
+          id="creaCategoria"
+          (click)="Categoria()"
+        >
+          Crear Categoria
+        </button>
+      </div>
+
+      <!--
+       <div class="col-1" *ngIf="!elimina; else otro">
+        <button mat-raised-button class="btn-primary" (click)="aEliminar()">
+          Eliminar Categoria
+        </button>
+      </div>
+      <ng-template #otro>
+        <button mat-raised-button class="btn-primary" (click)="aEliminar()">
+          Cancelar
+        </button>
+      </ng-template>
+      -->
+
+    </div> 
+    
+    <hr />
+    
+    <div class="row">
+      <div class="col-1"></div>
+      <div >
+        <mat-card class="col card m-2" style="width: 800px;">
+          <mat-selection-list [multiple]="false">
+            <mat-accordion>
+              
+              <p *ngFor="let cat of categorias; let i=index">
+                <mat-list-option *ngIf="cat.get(); else elseBlock" class="btnSideNav">
+                  <div class="row">
+                    <div class="col-10">
+                      <mat-panel-title>
+                        <mat-icon matListIcon>folder</mat-icon>
+                        <p class="my-auto" style="padding-left: 1rem;">{{cat.name_category }}</p>
+                      </mat-panel-title>
+                    </div>
+                    
+                     <!--<div class="col-2" *ngIf="elimina">
+                      <button
+                        mat-raised-button
+                        class="btn-primary"
+                        (click)="borrab(cat)"
+                      >
+                        Borrar
+                      </button>
+                    </div> 
+                  -->
+                  </div>
+                </mat-list-option>
+
+                <ng-template #elseBlock>                                 
+                  <ng-container [ngTemplateOutlet]="categ" [ngTemplateOutletContext]="{$implicit:categorias[i]}"> </ng-container>
+                </ng-template>
+
+              </p></mat-accordion
+            >
+          </mat-selection-list>
+        </mat-card>
+      </div>
+    </div>
+
+  </div>
+
+
+
+<ng-template #categ let-cat>
+<div class="container">
+  <mat-expansion-panel class="mat-elevation-z0">
+    <mat-expansion-panel-header >
+      <mat-panel-title class="row">
+        <mat-icon matListIcon style="padding-left: 2rem;"
+          >folder</mat-icon
+        >
+        <p class="my-auto" style="padding-left: 3rem;">
+          {{ cat.name_category }}
+        </p>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="row " *ngFor="let c of cat.hijo">
+      <div class="col-2"></div>
+      <div class="col">
+      <div *ngIf="c.get()">
+        <mat-panel-title>
+          <mat-icon matListIcon style="padding-left: 2rem;">folder</mat-icon>
+          <p class="my-auto" style="padding-left: 3rem;">{{c.name_category}}</p>
+        </mat-panel-title>
+      </div>
+      <div *ngIf="!c.get()">
+        <ng-container [ngTemplateOutlet]="categ" [ngTemplateOutletContext]="{$implicit:c}"></ng-container>
+      </div>
+    </div>
+      <div class="col-1"></div>
+    </div>
+
+  </mat-expansion-panel>
+  
+</div>
+</ng-template>
+
+
+
+             <!--
+              <div class="col-2" *ngIf="elimina">
+              <button
+                mat-raised-button
+                class="btn-primary"
+                (click)="borrab(cat)"
+              >
+                Borrar
+              </button>
+            </div> 
+          -->
+
+    

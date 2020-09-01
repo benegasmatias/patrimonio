@@ -14,9 +14,11 @@ const routes: Routes = [{
   component:LoginComponent, loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
   canActivate:[authlogin]},
   { 
+   // path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule)},
    path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule), canActivate:[authGuard]},
   { path: 'graficas', loadChildren: () => import('./graficas/graficas.module').then(m => m.GraficasModule) },
- //  path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule)},
+  { path: 'categorias', loadChildren: () => import('./categorias/categorias.module').then(m => m.CategoriasModule) },
+   
   ]
  
 

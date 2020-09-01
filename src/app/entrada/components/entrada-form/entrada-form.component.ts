@@ -194,6 +194,7 @@ tipoDestino=''
 		});
 
 		dialogref.afterClosed().subscribe(element => {
+      console.log(element)
 			this.getMarcas()
 			if (element.confirm) {
         this.spinnerElement=false;
@@ -235,7 +236,7 @@ tipoDestino=''
       )}
       else
     if(!this.form.get('categoria').value && this.form.get('marca').value){
-      this.serviceElement.getElementByCategory(this.form.get('marca').value).subscribe(
+      this.serviceElement.getElementByMarca(this.form.get('marca').value).subscribe(
         data=>{
           console.log(data)
          
@@ -253,7 +254,7 @@ tipoDestino=''
         this.serviceElement.getElementosByCategoryAndMark(this.form.get('categoria').value,this.form.get('marca').value).subscribe(
           data=>{
            this.data = data['elements']
-           
+           console.log(data)
            if(this.data.length==0){
             this.spinnerNoElement=true;
             this.spinnerElement=true;
@@ -274,7 +275,7 @@ tipoDestino=''
     this.spinnerElement=false;
     this.spinnerNoElement = false;
     if(!this.form.get('categoria').value && this.form.get('marca').value){
-      this.serviceElement.getElementByCategory(this.form.get('marca').value).subscribe(
+      this.serviceElement.getElementByMarca(this.form.get('marca').value).subscribe(
         data=>{
           console.log(data)
          
@@ -292,6 +293,7 @@ tipoDestino=''
     if(!this.form.get('marca').value && this.form.get('categoria').value ){
      this.serviceElement.getElementByCategory(this.form.get('categoria').value).subscribe(
        data=>{
+         console.log(data)
          console.log(data)
           this.data = data['elements']
           if(this.data.length==0){
@@ -374,8 +376,8 @@ tipoDestino=''
         this.stock = []
         this.elementosSelecionados = []
         this.form.get('number_refer').setValue('')
-        this.form.get('typeStruct_id').setValue('')
-        this.form.get('struct_id').setValue('')
+       // this.form.get('typeStruct_id').setValue('')
+      //  this.form.get('struct_id').setValue('')
         this.form.get('categoria').setValue('')
         this.form.get('provider_id').setValue('')
         this.spinnerGuardar=false;

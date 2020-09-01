@@ -33,10 +33,8 @@ export class ElementFormComponent implements OnInit {
 
   form = new FormGroup({
     name_element: new FormControl('', Validators.required),
-
     description: new FormControl('', Validators.required),
     mark_id: new FormControl(''),
-    // availabilitys: new FormControl([]),
     category_of_element_id: new FormControl('', Validators.required)
   });
 
@@ -67,29 +65,49 @@ export class ElementFormComponent implements OnInit {
 
 
   enviar() {
+
+    var x = this.form.value.category_of_element_id;
+
+    let z=[];
+
+    x.forEach(cat => {
+      this.categorias.forEach(x => {
+        if(cat==x.name_category)
+          z.push({category_of_element_id: x.id_category});
+      });
+    });
+
+
+    this.form.setValue({
+      name_element: this.form.value.name_element,
+      description: this.form.value.description,
+      mark_id: this.form.value.mark_id,
+      category_of_element_id: z,
+    }); 
+
     console.log(this.form.value)
     this.elementoService.addElement(this.form.value).subscribe(
-      data => {
-        console.log(data)
+      (data: any) => {
+        //console.log(data)
+ 
       }
     )
 
-    this.dialogref.close({ element: true })
+    this.dialogref.close({ confirm: true })
 
   }
 
   //Chips
 
   onCatRemoved(avaRem: string) {
-    const ava = this.form.value.availabilitys;
-    this.removeFirst(ava, avaRem);
+   // const ava = this.form.value.availabilitys;
+   const cat = this.form.value.category_of_element_id;
+   this.removeFirst(cat, avaRem);
     this.form.setValue({
-      name: this.form.value.name,
-      categ: ava,
-      descC: this.form.value.descC,
-      descL: this.form.value.descL,
-      url: this.form.value.url,
-      precio: this.form.value.precio,
+      name_element: this.form.value.name_element,
+      description: this.form.value.description,
+      mark_id: this.form.value.mark_id,
+      category_of_element_id: cat,
     }); // To trigger change detection
   }
   private removeFirst<T>(array: T[], toRemove: T): void {

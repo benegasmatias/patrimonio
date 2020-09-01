@@ -93,11 +93,10 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     },
     err=>console.log(err)
   )
-     
-
    this.route.navigateByUrl('panel/programa')
   }
  
+
 
   logout() {
     this.loginService.logout();
@@ -123,6 +122,16 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
         route: `graficas/torta`,
       }
       ]
+     })
+  }
+
+  categorias(){
+    this.fillerNav=[];
+    this.fillerNav.push(  { 
+      name: `Categorias`,
+      icon: 'folder',
+      route:'categorias'
+
      })
   }
   // private cargarUser (){
