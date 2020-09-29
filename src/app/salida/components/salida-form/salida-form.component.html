@@ -5,6 +5,10 @@
 
         
    <h5 style="font-size: 15px;">Elemento: {{elemento}}</h5>
+   
+   
+
+
 
 
         <div class="row ml-2">
@@ -17,6 +21,24 @@
                 <mat-label>Destino</mat-label>
                 <input matInput formControlName="destination_id"  placeholder="Destino" >
             </mat-form-field> -->
+            <mat-form-field class="ml-4" appearance="outline">
+                <mat-label>
+                   <div *ngIf="spinnertypOrigenDestino">
+                       Razon
+                   </div>
+                   <div *ngIf="!spinnertypOrigenDestino">
+                       <span> Cargando...</span>
+                       <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                   </div>
+                </mat-label>
+                <select matNativeControl formControlName="availability_id" (change)="getStrct()">
+                   <option value=""></option>
+                   <option *ngFor="let availabilite of availabilitys"  [value]='availabilite.id'>
+                       {{availabilite.name_availability}} </option>
+                </select>
+               </mat-form-field>
+
+             
 
             <mat-form-field class="ml-4" appearance="outline">
                 <mat-label>
@@ -34,7 +56,9 @@
                         {{destino.name}} </option>
                 </select>
             </mat-form-field>
-        
+            <a *ngIf="masDestino" (click)="addDestino()"><span style="position: relative; top: 15px; margin-left: 2px;" class=" buttonMas material-icons ">
+                add_circle_outline 
+                </span></a>
         </div>
         
 
@@ -53,7 +77,7 @@
             </mat-label>
             <select matNativeControl formControlName="availability_id">
                 <option value="" ></option>
-                <option *ngFor="let availability of availabilitys" [value]='availability.id'>
+                <option *ngFor="let availability of availabilitys" (change)="getStructExterno()" [value]='availability.id'>
                     {{ availability.name_availability}} </option>
             </select>
         </mat-form-field>

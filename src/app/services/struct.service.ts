@@ -12,6 +12,13 @@ export class StructService {
     return this.http.get(`${this.API_URI}/types-structs.json`);
   }
 
+  addTypeStruct(typeStruct){
+    return this.http.post(`${this.API_URI}/types-structs.json`,typeStruct);
+  }
+  getStructsByOrigin(id){
+    return this.http.get(`${this.API_URI}//structs/origin/${id}.json`);
+  }
+
   getStructs(id){
     return this.http.get(`${this.API_URI}/structs/type/${id}.json`)
   }
@@ -20,5 +27,9 @@ export class StructService {
   }
   getStructss(){
     return this.http.get(`${this.API_URI}/structs.json`)
+  }
+
+  addStruct(struct){
+    return this.http.post(`${this.API_URI}/structs.json`,struct);
   }
 }

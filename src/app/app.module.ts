@@ -16,6 +16,8 @@ import { DialogProveedorComponent } from './dialog/proveedor/dialog-proveedor/di
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StructComponent } from './components/struct/struct.component';
+import { TypestructComponent } from './components/typestruct/typestruct.component';
 
 
 
@@ -24,7 +26,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     DialogComponent,
-    DialogProveedorComponent
+    DialogProveedorComponent,
+    StructComponent,
+    TypestructComponent
   ],
   imports: [
     BrowserModule,
