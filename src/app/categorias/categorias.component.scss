@@ -1,3 +1,4 @@
+
 .card, .card-img-top {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
@@ -7,9 +8,19 @@
       }
 .card-header{
 text-align: center;
-
 }
-.card ,.tit {
+
+.carga{
+  background-color: rgba(138, 10, 1, 0.253);
+  width: 100%
+}
+
+.inputcateg{
+  background-color:rgba(138, 10, 1, 0.062);
+  width:100%;
+}
+
+.card.tit {
         height: auto;
         width: 100%;
         text-align: center;
@@ -20,14 +31,7 @@ text-align: center;
         margin-top: 13px;
 }
 
-.carga{
-  background-color: rgba(138, 10, 1, 0.253);
-  width: 100%
-}
-mat-form-field, input{
-  background-color:rgba(138, 10, 1, 0.062);
-  width:100%;
-}
+
 .btn-primary {
   color: #fff;
   background-color: #c4543d;
@@ -46,7 +50,7 @@ mat-form-field, input{
 
 
 
-[class*="col-md"] {
+[class*="cat col-md"] {
   padding-top: 15px;
   padding-bottom: 15px;
   background-color: #eee;
@@ -68,6 +72,7 @@ mat-form-field, input{
   padding-left: 15px;
   
 }
+
 
 .panel {
   margin-bottom: 20px;
