@@ -78,7 +78,7 @@
     <!-- Fecha de creacion Column -->
     <ng-container matColumnDef="created">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA DE CREACION </th>
-      <td mat-cell *matCellDef="let row"> {{row.created}} </td>
+      <td mat-cell *matCellDef="let row">{{ row.created | date:'short' }} </td>
     </ng-container>
 
     <!-- PROVEEDOR Column -->
