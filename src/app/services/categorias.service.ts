@@ -16,4 +16,10 @@ export class CategoriasService {
   postCategorias(archivo){
     return this.http.post(`${this.API_URI}/categorys-of-elements.json`,archivo);
   }
+
+  modificaCategorias(archivo){  
+    return this.http.post(`${this.API_URI}/categorys-of-elements/category.json`,archivo);
+    
+  }
+
 }

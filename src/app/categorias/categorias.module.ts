@@ -18,17 +18,23 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 import {MatTreeModule} from '@angular/material/tree';
+import {DragDropModule} from '@angular/cdk/drag-drop'; 
 
-import {dialogoCategoriaComponent} from './dialogoCategoria/dialogoCategoria.component';
+//import { DndModule } from "ngx-drag-drop";
+import {DndListModule } from "ngx-drag-and-drop-lists";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+
+import { ContainerComponent } from './container/container.component';
+
 
 @NgModule({
-  declarations: [CategoriasComponent,dialogoCategoriaComponent],
+  declarations: [CategoriasComponent, ContainerComponent],
   imports: [
     CommonModule,
     CategoriasRoutingModule,
     ReactiveFormsModule,
     MatInputModule,MatIconModule,MatSelectModule, MatCardModule, MatButtonModule, MatFormFieldModule/*, MaterialFileInputModule*/, MatListModule,MatDialogModule,MatExpansionModule,MatTreeModule,
-    MatTreeModule
+    MatTreeModule, DragDropModule, MatSnackBarModule,DndListModule
   ]
 })
 export class CategoriasModule { }

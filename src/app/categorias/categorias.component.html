@@ -1,133 +1,123 @@
 
-  <div class="container titulo" style="width: 100%;">
+<div class="container titulo" style="width: 100%;">
     <div class="row">
       <h1 class="card tit">Categorias</h1>
     </div>
-
-    <hr />
-   
-    <div class="row">
-      <div class="col-1"></div>
-      <div class="col-8">
-        <button
-          mat-raised-button
-          class="btn-primary"
-          id="creaCategoria"
-          (click)="Categoria()"
-        >
-          Crear Categoria
-        </button>
-      </div>
-
-      <!--
-       <div class="col-1" *ngIf="!elimina; else otro">
-        <button mat-raised-button class="btn-primary" (click)="aEliminar()">
-          Eliminar Categoria
-        </button>
-      </div>
-      <ng-template #otro>
-        <button mat-raised-button class="btn-primary" (click)="aEliminar()">
-          Cancelar
-        </button>
-      </ng-template>
-      -->
-
-    </div> 
     
-    <hr />
-    
+    <hr />  
+
     <div class="row">
-      <div class="col-1"></div>
-      <div >
-        <mat-card class="col card m-2" style="width: 800px;">
-          <mat-selection-list [multiple]="false">
-            <mat-accordion>
+      <div class="container">
+      <div class="rowdndPlaceholder col-md-12"
+        #placeholder></div>
+
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col">
+
+          <mat-card class="carga">            
+              <mat-card-header >Nuevas Categorias</mat-card-header>
+
+            <div class="container">
+
               
-              <p *ngFor="let cat of categorias; let i=index">
-                <mat-list-option *ngIf="cat.get(); else elseBlock" class="btnSideNav">
-                  <div class="row">
-                    <div class="col-10">
-                      <mat-panel-title>
-                        <mat-icon matListIcon>folder</mat-icon>
-                        <p class="my-auto" style="padding-left: 1rem;">{{cat.name_category }}</p>
-                      </mat-panel-title>
-                    </div>
-                    
-                     <!--<div class="col-2" *ngIf="elimina">
-                      <button
-                        mat-raised-button
-                        class="btn-primary"
-                        (click)="borrab(cat)"
-                      >
-                        Borrar
-                      </button>
-                    </div> 
-                  -->
-                  </div>
-                </mat-list-option>
-
-                <ng-template #elseBlock>                                 
-                  <ng-container [ngTemplateOutlet]="categ" [ngTemplateOutletContext]="{$implicit:categorias[i]}"> </ng-container>
-                </ng-template>
-
-              </p></mat-accordion
-            >
-          </mat-selection-list>
-        </mat-card>
-      </div>
-    </div>
-
-  </div>
-
-
-
-<ng-template #categ let-cat>
-<div class="container">
-  <mat-expansion-panel class="mat-elevation-z0">
-    <mat-expansion-panel-header >
-      <mat-panel-title class="row">
-        <mat-icon matListIcon style="padding-left: 2rem;"
-          >folder</mat-icon
-        >
-        <p class="my-auto" style="padding-left: 3rem;">
-          {{ cat.name_category }}
-        </p>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <div class="row " *ngFor="let c of cat.hijo">
-      <div class="col-2"></div>
-      <div class="col">
-      <div *ngIf="c.get()">
-        <mat-panel-title>
-          <mat-icon matListIcon style="padding-left: 2rem;">folder</mat-icon>
-          <p class="my-auto" style="padding-left: 3rem;">{{c.name_category}}</p>
-        </mat-panel-title>
-      </div>
-      <div *ngIf="!c.get()">
-        <ng-container [ngTemplateOutlet]="categ" [ngTemplateOutletContext]="{$implicit:c}"></ng-container>
-      </div>
-    </div>
-      <div class="col-1"></div>
-    </div>
-
-  </mat-expansion-panel>
-  
-</div>
-</ng-template>
-
-
-
-             <!--
-              <div class="col-2" *ngIf="elimina">
+              <div class="row" [formGroup]= form >
+                  <mat-form-field appearance="outline">
+                    <mat-label>Nueva Categoria</mat-label>
+                    <input matInput formControlName="categoria" value="" placeholder="Nombre de Categoria" >
+                  </mat-form-field>
+              </div>
+              <div class="row">
               <button
                 mat-raised-button
                 class="btn-primary"
-                (click)="borrab(cat)"
+                id="creaCategoria"
+                (click)="modificaTexto()"
               >
-                Borrar
+                Aceptar
               </button>
-            </div> 
-          -->
+              </div>
+              <div class="row">        
+                <div [hidden]="agregarCat">
+                <li type="button"
+                  *ngFor="let template of nestedCateg.templates"
+                  [dndType]="template.type"
+                  [dndDraggable]="{effectAllowed:'copy'}"
+                  [dndObject]="template"
+                  (dragend)="agregarCat=true"
+                  class="btn btn-default btn-lg col-md-12">
+                  Arrastrar Elemento
+                </li>
+                </div>
+              </div> 
 
-    
+
+            </div>
+          </mat-card>
+
+        </div>
+        <div class="col-2"></div>
+
+
+      </div>
+
+
+      <div class="row">
+            <div *ngFor="let dropzone of nestedCateg.dropzones;let i = index"
+              class="col-md-6">
+              <div class="dropzone box box-yellow" *ngIf="i==0">
+                <!-- The dropzone also uses the list template -->
+                <h3>Listado de Categorias</h3>
+                <div [dndList]="{allowedTypes: ['padre']}"
+                  [dndModel]="dropzone"
+                  [dndPlaceholder]="placeholder" class="col-md-12">
+                  <div *ngFor="let item of dropzone">
+                    <container *ngIf="item.type === 'padre'"
+                      [list]="dropzone"
+                      [model]="item"></container>
+                    <div *ngIf="item.type === 'hijo'"
+                      [dndType]="item.type"
+                      [dndDraggable]
+                      (dndMoved)="removeItem(item, dropzone)"                      
+                      [dndObject]="item"
+                      class="col-md-12">{{item.name_category}}</div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="dropzone box box-yellow" *ngIf="i==1">
+                <h3>Eliminar Elementos</h3>
+                <div [dndList]="{allowedTypes: ['padre']}"
+                [dndModel]="dropzone"
+                [dndPlaceholder]="placeholder" class="col-md-12"
+                (dndDrop)="eliminaCategoria($event)"
+                >
+              </div>
+              </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+
+    <div class="row" >
+        <hr />
+        <div class="col-8"></div>
+        <div class="col-4">
+          <button
+            type="submit"
+            class="button"
+            (click)="GuardaCategorias()"
+            class="btn btn-primary form-control mt-3"
+            value="Guardar"            
+          >
+            Guardar Cambios
+          </button>
+        <hr />
+        </div>
+      </div>
+
+
+   
+</div>
