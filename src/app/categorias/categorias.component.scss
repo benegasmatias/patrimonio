@@ -16,7 +16,6 @@ text-align: center;
 }
 
 .inputcateg{
-  background-color:rgba(138, 10, 1, 0.062);
   width:100%;
 }
 
@@ -99,4 +98,9 @@ text-align: center;
   margin-bottom: 0;
   font-size: 16px;
   color: inherit;
+}
+
+mat-form-field .inputcateg {
+    transform: translateY(-1.1em) scale(.75) !important;
+    width: 50% !important;  
 }
