@@ -23,16 +23,16 @@
             </mat-form-field> -->
             <mat-form-field class="ml-4" appearance="outline">
                 <mat-label>
-                   <div *ngIf="spinnertypOrigenDestino">
+                   <div *ngIf="!spinnertypOrigenDestino">
                        Razon
                    </div>
-                   <div *ngIf="!spinnertypOrigenDestino">
+                   <div *ngIf="spinnertypOrigenDestino">
                        <span> Cargando...</span>
                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                    </div>
                 </mat-label>
                 <select matNativeControl formControlName="availability_id" (change)="getStrct()">
-                   <option value=""></option>
+                   <option></option>
                    <option *ngFor="let availabilite of availabilitys"  [value]='availabilite.id'>
                        {{availabilite.name_availability}} </option>
                 </select>
@@ -63,7 +63,7 @@
         
 
              
-   <h6 style="font-size: 15px;">Motivo</h6>
+   <!-- <h6 style="font-size: 15px;">Motivo</h6>
 
         <mat-form-field class="Select ml-0" appearance="outline">
             <mat-label>
@@ -80,7 +80,7 @@
                 <option *ngFor="let availability of availabilitys" (change)="getStructExterno()" [value]='availability.id'>
                     {{ availability.name_availability}} </option>
             </select>
-        </mat-form-field>
+        </mat-form-field> -->
 
         <div class="row ml-1" style="display: inline;">
             <mat-form-field appearance="outline" class="input-doble">
@@ -105,7 +105,7 @@
 
 </mat-dialog-content>
 
-<mat-dialog-actions>
+<mat-dialog-actions style="margin-left: 72%;">
     <button mat-stroked-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>
     <button mat-stroked-button color="warn" (click)="close()">Cerrar</button>
 </mat-dialog-actions>

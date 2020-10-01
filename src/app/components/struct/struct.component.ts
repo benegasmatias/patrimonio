@@ -46,7 +46,6 @@ export class StructComponent implements OnInit {
   getTypeStruct(){
     this.serviceStruct.getTypeStructs().subscribe(
       data=>{
-    
         this.spinnerTypeStruct=true;
         this.typeStructs = data['types_structs'];
         console.log(this.typeStructs)
@@ -55,9 +54,10 @@ export class StructComponent implements OnInit {
   }
   
   public save(){
+    console.log(this.form.get('type_struct_id'))
     this.serviceStruct.addStruct(this.form.value).subscribe(
       data=>{
-
+     
       }
     )
     this.dialogRef.close(this.form.value);

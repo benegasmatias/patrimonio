@@ -70,11 +70,11 @@ export class SalidaFormComponent implements OnInit {
       console.log(this.form.value,this.data.origin_id)
   }
   getOrigenes(){
-    this.spinnertypOrigenDestino=false
+    this.spinnertypOrigenDestino=true
     this.serviceOirign.getStructExterno().subscribe(
       data=>{
-        this.spinnertypOrigenDestino=true
-        this.origenes =  data['originStructs']
+        this.spinnertypOrigenDestino=false
+        this.origenes =  data['OriginStructs']
       console.log(data)
       }
     )
@@ -89,12 +89,12 @@ export class SalidaFormComponent implements OnInit {
     this.masDestino= false;
 
     if(this.form.get('availability_id').value==2){//Donacion
-      this.structService.getStructsByOrigin(this.origenes[1].id).subscribe(
+      this.structService.getStructsByOrigin(this.origenes[1].id).subscribe(//origen externo
         data=>{
           this.destinos = data['structs']
           this.spinnerDestino= true
           this.masDestino= true;
-          console.log(this.data.origin_id)
+         // console.log(this.data.origin_id)
           for(let i=0;i<this.destinos.length;i++){
             if(this.data.origin_id==this.destinos[i].id){
               this.destinos.splice(i,1)
@@ -108,7 +108,7 @@ export class SalidaFormComponent implements OnInit {
           this.destinos = data['structs']
           this.spinnerDestino= true
       
-          console.log(this.data.origin_id)
+        // console.log(this.data.origin_id)
           for(let i=0;i<this.destinos.length;i++){
             if(this.data.origin_id==this.destinos[i].id){
               this.destinos.splice(i,1)

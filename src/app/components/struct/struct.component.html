@@ -17,7 +17,7 @@
 
         <select matNativeControl formControlName="type_struct_id">
             <option value=""></option>
-            <option *ngFor="let typeStruct of typeStructs" [value]='typeStruct.id'>
+            <option *ngFor="let typeStruct of typeStructs" [value]=typeStruct.id>
                 {{typeStruct.name}} </option>
         </select>
     </mat-form-field>
