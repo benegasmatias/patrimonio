@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ContainerComponent {
 
-  @Input() model: { type: string, id_category: number, name_category:string , hijo:[] };
+  @Input() model: { type: string, id_category: number, name_category:string , hijo:[], color: string };
   @Input() list: any[];
 
   public isArray(object): boolean {

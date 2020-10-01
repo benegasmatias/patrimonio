@@ -294,7 +294,6 @@ tipoDestino=''
      this.serviceElement.getElementByCategory(this.form.get('categoria').value).subscribe(
        data=>{
          console.log(data)
-         console.log(data)
           this.data = data['elements']
           if(this.data.length==0){
             this.spinnerNoElement=true;
@@ -308,6 +307,7 @@ tipoDestino=''
        if(this.form.get('categoria').value!= '' && this.form.get('marca').value!= ''){
          this.serviceElement.getElementosByCategoryAndMark(this.form.get('categoria').value,this.form.get('marca').value).subscribe(
            data=>{
+             console.log(data)
            this.data = data['elements']
            if(this.data.length==0){
               this.spinnerNoElement=true;

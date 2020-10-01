@@ -22,6 +22,7 @@ export class CategoriasComponent implements OnInit {
   public elimina = false;
 
   public agregarCat= true;
+  public muestraalerta=false;
 
 
   public form = new FormGroup({
@@ -35,7 +36,8 @@ export class CategoriasComponent implements OnInit {
 public nestedCateg = {
   selected: null,
   templates: [
-    { type: "padre", id_category: -1, hijo: [] ,name_category:"Categoria generica"}
+    { type: "padre", id_category: -1, hijo: [] ,name_category:"Categoria generica", color: "black", },
+    { type: "hijo", id_category: -1, hijo: [] ,name_category:"Categoria generica", color: "black", },
   ],
   dropzones: [
     [
@@ -65,7 +67,7 @@ public nestedCateg = {
         tomaresultado.forEach(n=>{
           if(n.father_category_id== null)
             {                            
-              let d={  type: "padre", id_category: n.id_category, name_category:n.name_category, hijo: []}
+              let d={  type: "padre", id_category: n.id_category, name_category:n.name_category, hijo: [], color: "black"}
               this.nestedCateg.dropzones[0].push(d);
               arregloaux.push(d);
             }
@@ -77,7 +79,7 @@ public nestedCateg = {
             let x=arregloaux.find(element => element.id_category == n.father_category_id)
             if((x!=undefined)){
               let auxasig;
-              auxasig=this.CargaRec(n,this.nestedCateg.dropzones[0],arregloaux);
+              auxasig=this.CargaRec(n,this.nestedCateg.dropzones[0],arregloaux,0);
               arregloaux=auxasig;
             }
             else{
@@ -99,18 +101,51 @@ public nestedCateg = {
     }
   
     //carga recursiva de elementos de la categoria
-  CargaRec(result, categorias: algo[],arregloaux){
+  CargaRec(result, categorias: algo[],arregloaux, num){
     
     categorias.forEach(cat => {
       if(cat.id_category == result.father_category_id)
       {
-        let d={ type: "padre", id_category: result.id_category, name_category:result.name_category, hijo:[] };
+        let color="black";
+        let index;
+        
+        index= num % 5;
+
+        switch(index){
+          case 0:{
+            color="green";
+            break;
+          }
+          case 1:{
+            color="blue";
+            break;
+          }
+          case 2:{
+            color="red";
+            break;
+          }
+          case 3:{
+            color="brown";
+            break;
+          }
+          case 4:{
+            color="indigo";
+          }
+        }
+        let d;
+        if(num<8){
+          d={ type: "padre", id_category: result.id_category, name_category:result.name_category, hijo:[] ,color: color};
+        }
+        else
+        {
+          d={ type: "hijo", id_category: result.id_category, name_category:result.name_category, hijo:[] ,color: color};
+        }
         cat.hijo.push(d);
         arregloaux.push(d);
       }
       else
         if(cat.hijo!=[])
-          this.CargaRec(result,cat.hijo,arregloaux)
+          this.CargaRec(result,cat.hijo,arregloaux, num+1)
     });
     return(arregloaux);
   }
@@ -138,13 +173,13 @@ public nestedCateg = {
     if(this.form.value.categoria!=''){
       this.agregarCat=false;
       this.nestedCateg.templates[0].name_category=this.form.value.categoria;
+      this.muestraalerta=false;
     }      
     else
         this.agregarCat=true;
         
-  }
-
-
+    //this.nestedCateg.dropzones[0].push({     type: "hijo", id_category: -1, hijo: [] ,name_category:"Categoria generica"})
+}
 
   public GuardaCategorias(){
     console.log(this.nestedCateg.dropzones[0])
@@ -170,7 +205,7 @@ public nestedCateg = {
           let x=arregloaux.find(element => element.id_category == n.father_category_id)
           if((x!=undefined)){
             let auxasig;
-            auxasig=this.CargaRec(n,this.nestedCateg.dropzones[0],arregloaux);
+            auxasig=this.CargaRec(n,this.nestedCateg.dropzones[0],arregloaux,0);
             arregloaux=auxasig;
           }
           else{
@@ -181,6 +216,7 @@ public nestedCateg = {
         }          
       })
 
+      this.muestraalerta=true;
     },
     error=>{
       console.log(error)

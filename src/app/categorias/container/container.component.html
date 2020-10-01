@@ -4,8 +4,8 @@
     (dndMoved)="removeItem(model, list)"
     [dndObject]="model"
     >
-    <div class="panel-heading"> 
-      {{model.name_category}}
+    <div class="panel-heading" [ngStyle]="{'color': model.color}"> 
+        {{model.name_category}}      
     </div>
     <div class="panel-body" [dndList]="{
         allowedTypes: ['padre','hijo']}"
