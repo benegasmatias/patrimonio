@@ -1,13 +1,9 @@
 
 <div class="container titulo" style="width: 100%;">
-    <!-- <div class="row">
-      <h1 class="card tit">Categorias</h1>
-    </div> -->
-    
     <hr />  
-
     <div class="row">
       <div class="container">
+
 
       <div class="rowdndPlaceholder cat col-md-12"
         #placeholder></div>
@@ -24,7 +20,6 @@
                 <mat-label>Nueva Categoria</mat-label>
                 <input matInput formControlName="categoria" value="" placeholder="Nombre de Categoria">
               </mat-form-field>
-
             </div>
 
             <!-- Boton de confirmacion -->
@@ -33,8 +28,7 @@
               mat-raised-button
               class="btn-primary"
               id="creaCategoria"
-              (click)="modificaTexto()"
-            >
+              (click)="modificaTexto()">
               Crear Categoria
             </button>
 
@@ -71,8 +65,7 @@
                       <div [dndList]="{allowedTypes: ['padre','hijo']}"
                       [dndModel]="nestedCateg.dropzones[1]"
                       [dndPlaceholder]="placeholder" class="cat col-md-12"
-                      (dndInserted)="eliminaCategoria($event)"
-                      >
+                      (dndInserted)="eliminaCategoria($event)">
                       </div>
                     </div>
                   </div>
@@ -123,29 +116,20 @@
           class="button"
           (click)="DeshacerCambios()"
           class="btn btn-sec form-control mt-3"
-          value="Deshacer"            
-        >
+          value="Deshacer">
           Deshacer Cambios
         </button>
         </div>
         <div class="col-4">
-
           <button
             type="submit"
             class="button"
             (click)="GuardaCategorias()"
             class="btn btn-primary form-control mt-3"
-            value="Guardar"            
-          >
+            value="Guardar">
             Guardar Cambios
           </button>
         <hr />
-
-
-
         </div>
       </div>
-
-
-   
 </div>
