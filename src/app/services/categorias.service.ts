@@ -12,4 +12,14 @@ export class CategoriasService {
   getCategorias(){
     return this.http.get(`${this.API_URI}/categorys-of-elements.json`);
   }
+
+  postCategorias(archivo){
+    return this.http.post(`${this.API_URI}/categorys-of-elements.json`,archivo);
+  }
+
+  modificaCategorias(archivo){  
+    return this.http.post(`${this.API_URI}/categorys-of-elements/category.json`,archivo);
+    
+  }
+
 }

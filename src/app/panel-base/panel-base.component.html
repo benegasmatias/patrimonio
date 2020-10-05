@@ -32,7 +32,9 @@
         <li  *ngFor="let destinoNav of destinosNav; let i = index" (click)="destinNav(destinoNav)" [attr.data-index]="i"  class="nav__li_button"><span class="material-icons">
           assignment
         </span>{{destinoNav.name| uppercase}}</li>
-        <i (click)="graficaLinea()">Graficas</i>
+        <i (click)="graficaLinea()" class="nav__li_button" style="text-transform: uppercase; font-size: 12px;">Graficas</i>
+        
+        <i (click)="categorias()" class="nav__li_button" style="text-transform: uppercase; font-size: 12px;"> Categorias</i>
 <!-- 
       <li (click)="entrada()" class="nav__li_button "><span class="material-icons">
         input

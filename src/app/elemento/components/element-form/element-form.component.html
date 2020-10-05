@@ -44,7 +44,6 @@
                    
                     </div>
                    
-                    
                     <mat-form-field appearance="outline">
                         <mat-label><div *ngIf="!spinnerCategory">
                             Categorias
@@ -53,18 +52,28 @@
                                 <span > Cargando...</span>
                             <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
                           </div></mat-label>
-                            <select matNativeControl formControlName="category_of_element_id">
-                                <option value="" selected></option>
-                                <option *ngFor="let categoria of categorias" [ngValue]='categoria.id_category'> {{ categoria.name_category}} </option> 
-                            </select>
-                            
-                        <!-- </mat-form-field> -->
-                          
-                      
-                          <!-- <mat-option *ngFor="let ava of availabilitys" [value]="ava.name_availability">{{ava.name_availability}}</mat-option>
-                      
-                        </mat-select> -->
-                    </mat-form-field>
+
+                        <mat-select formControlName="category_of_element_id" multiple required>
+                          <mat-select-trigger>
+                            <mat-chip-list>
+                              <mat-chip
+                                *ngFor="let cat of form.value.category_of_element_id"
+                                [removable]="true"
+                                (removed)="onCatRemoved(cat)"
+                              >
+                                {{ cat }}
+                                <mat-icon matChipRemove>cancel</mat-icon>
+                              </mat-chip>
+                            </mat-chip-list>
+                          </mat-select-trigger>
+        
+                          <mat-option
+                            *ngFor="let cat of categorias"
+                            [value]="cat.name_category"
+                            >{{ cat.name_category }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
                 </div>
               
     
@@ -88,3 +97,38 @@
 <mat-dialog-actions>
     
 </mat-dialog-actions>
+
+
+
+
+
+
+
+
+
+<!--
+
+<mat-form-field appearance="outline">
+    <mat-label><div *ngIf="!spinnerCategory">
+        Categorias
+      </div>
+        <div *ngIf="spinnerCategory">
+            <span > Cargando...</span>
+        <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
+      </div></mat-label>
+        <select matNativeControl formControlName="category_of_element_id">
+            <option value="" selected></option>
+            <option *ngFor="let categoria of categorias" [ngValue]='categoria.id_category'> {{ categoria.name_category}} </option> 
+        </select>
+        
+
+</mat-form-field>
+
+
+-->
+    <!-- </mat-form-field> -->
+      
+  
+      <!-- <mat-option *ngFor="let ava of availabilitys" [value]="ava.name_availability">{{ava.name_availability}}</mat-option>
+  
+    </mat-select> -->

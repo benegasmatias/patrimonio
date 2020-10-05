@@ -1,0 +1,36 @@
+
+    <div class="panel panel-default" [dndType]="model.type"
+    [dndDraggable]
+    (dndMoved)="removeItem(model, list)"
+    [dndObject]="model"
+    >
+    <div class="panel-heading" [ngStyle]="{'color': model.color}"> 
+        {{model.name_category}}      
+    </div>
+    <div class="panel-body" [dndList]="{
+        allowedTypes: ['padre','hijo']}"
+        [dndModel]="model.hijo"
+        [dndPlaceholder]="placeholder">
+      <ng-container *ngFor="let item of model.hijo">
+      <ng-container *ngIf="isArray(item)">
+        <ng-container *ngFor="let subItem of item">
+        <container *ngIf="subItem.type === 'padre'"[list]="item"[model]="subItem"></container>
+        <div *ngIf="subItem.type === 'hijo'" [dndType]="subItem.type" [dndDraggable]="{draggable:true, effectAllowed:'move'}" (dndMoved)="removeItem(subItem, item)" [dndObject]="subItem" class="col-md-12">{{item.name_category}}</div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="!isArray(item)">
+        <container *ngIf="item.type === 'padre'" [list]="model.hijo"
+          [model]="item"></container>
+         
+          <div *ngIf="item.type === 'hijo'" [dndType]="item.type"
+          [dndDraggable]="{draggable:true, effectAllowed:'move'}"
+          (dndMoved)="removeItem(item, model.hijo)"
+          [dndObject]="item" class="col-md-12">{{item.name_category}}</div>
+
+          </ng-container>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="dndPlaceholder col-md-12" 
+  #placeholder></div>

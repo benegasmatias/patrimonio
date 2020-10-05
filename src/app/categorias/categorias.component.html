@@ -1,0 +1,135 @@
+
+<div class="container titulo" style="width: 100%;">
+    <hr />  
+    <div class="row">
+      <div class="container">
+
+
+      <div class="rowdndPlaceholder cat col-md-12"
+        #placeholder></div>
+
+        <div class="row">
+          <h2 style="font-size: small;">Toda modificacion sobre las categorias seran efectuadas una vez se oprima el boton de guardado (Al fin de la pagina)</h2>
+        </div>
+      <!-- Carga de nuevos elementos -->
+      <div class="row carga">                          
+            <!-- Input de texto -->
+            <div class="col-8" [formGroup]= form style="height: 50%;" >          
+              <h2 >Nuevas Categorias</h2>          
+              <mat-form-field appearance="outline" class="inputcateg">
+                <mat-label>Nueva Categoria</mat-label>
+                <input matInput formControlName="categoria" value="" placeholder="Nombre de Categoria">
+              </mat-form-field>
+            </div>
+
+            <!-- Boton de confirmacion -->
+            <div class="col-3 my-2">
+              <button
+              mat-raised-button
+              class="btn-primary"
+              id="creaCategoria"
+              (click)="modificaTexto()">
+              Crear Categoria
+            </button>
+
+            <!-- Arrastrable nueva Categoria -->
+            <div [hidden]="agregarCat">
+              <li type="button"
+                [dndType]="nestedCateg.templates[0].type"
+                [dndDraggable]="{effectAllowed:'copy'}"
+                [dndObject]="nestedCateg.templates[0]"
+                (dragend)="agregarCat=true"
+                class="btn btn-default btn-lg cat col-md-12">
+                Arrastrar Elemento
+              </li>
+              </div>
+            </div>          
+      </div>
+   
+      <hr>
+
+      <!-- Listado de Elementos -->
+      <div class="row" >
+            <div 
+              class="cat col-md-12">
+              <div class="dropzone box box-yellow" style="overflow: scroll;">
+                <!-- The dropzone also uses the list template -->
+                <div class="row">
+                  <div class="col-5"> 
+                    <h3>Listado de Categorias</h3>
+                  </div>
+                  <div class="col-7">
+                    <!--Eliminado de elementos -->
+                    <div class="dropzone box box-yellow ">
+                      <h3>Arrastrar aqui para eliminar Categorias</h3>
+                      <div [dndList]="{allowedTypes: ['padre','hijo']}"
+                      [dndModel]="nestedCateg.dropzones[1]"
+                      [dndPlaceholder]="placeholder" class="cat col-md-12"
+                      (dndInserted)="eliminaCategoria($event)">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr>
+
+                <div [dndList]="{allowedTypes: ['padre']}"
+                  [dndModel]="nestedCateg.dropzones[0]"
+                  [dndPlaceholder]="placeholder" class="cat col-md-12">
+                  <div *ngFor="let item of nestedCateg.dropzones[0]">
+                    <container *ngIf="item.type === 'padre'"
+                      [list]="nestedCateg.dropzones[0]"
+                      [model]="item"></container>
+                    <div *ngIf="item.type === 'hijo'"
+                      [dndType]="item.type"
+                      [dndDraggable]
+                      (dndMoved)="removeItem(item, nestedCateg.dropzones[0])"                      
+                      [dndObject]="item"
+                      class="cat col-md-12">{{item.name_category}}</div>
+                  </div>
+                </div>
+              </div>
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </div>
+    </div>
+
+    <hr>
+
+    <div class="row  alert-success" role="alert" *ngIf="muestraalerta">
+      Los cambios se guardaron exitosamente
+    </div>
+
+    <div class="row" >
+        <hr />
+        <div class="col-4"></div>
+        <div class="col-4">
+          <button
+          type="submit"
+          class="button"
+          (click)="DeshacerCambios()"
+          class="btn btn-sec form-control mt-3"
+          value="Deshacer">
+          Deshacer Cambios
+        </button>
+        </div>
+        <div class="col-4">
+          <button
+            type="submit"
+            class="button"
+            (click)="GuardaCategorias()"
+            class="btn btn-primary form-control mt-3"
+            value="Guardar">
+            Guardar Cambios
+          </button>
+        <hr />
+        </div>
+      </div>
+</div>

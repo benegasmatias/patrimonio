@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl:"/base_back/api"
+  baseUrl:"api-patrimonio/api"
 };
 
 /*
