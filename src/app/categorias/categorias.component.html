@@ -1,17 +1,16 @@
 
 <div class="container titulo" style="width: 100%;">
-    <!-- <div class="row">
-      <h1 class="card tit">Categorias</h1>
-    </div> -->
-    
     <hr />  
-
     <div class="row">
       <div class="container">
+
 
       <div class="rowdndPlaceholder cat col-md-12"
         #placeholder></div>
 
+        <div class="row">
+          <h2 style="font-size: small;">Toda modificacion sobre las categorias seran efectuadas una vez se oprima el boton de guardado (Al fin de la pagina)</h2>
+        </div>
       <!-- Carga de nuevos elementos -->
       <div class="row carga">                          
             <!-- Input de texto -->
@@ -21,7 +20,6 @@
                 <mat-label>Nueva Categoria</mat-label>
                 <input matInput formControlName="categoria" value="" placeholder="Nombre de Categoria">
               </mat-form-field>
-
             </div>
 
             <!-- Boton de confirmacion -->
@@ -30,8 +28,7 @@
               mat-raised-button
               class="btn-primary"
               id="creaCategoria"
-              (click)="modificaTexto()"
-            >
+              (click)="modificaTexto()">
               Crear Categoria
             </button>
 
@@ -49,9 +46,7 @@
             </div>          
       </div>
    
-
       <hr>
-
 
       <!-- Listado de Elementos -->
       <div class="row" >
@@ -67,11 +62,10 @@
                     <!--Eliminado de elementos -->
                     <div class="dropzone box box-yellow ">
                       <h3>Arrastrar aqui para eliminar Categorias</h3>
-                      <div [dndList]="{allowedTypes: ['padre']}"
+                      <div [dndList]="{allowedTypes: ['padre','hijo']}"
                       [dndModel]="nestedCateg.dropzones[1]"
                       [dndPlaceholder]="placeholder" class="cat col-md-12"
-                      (dndDrop)="eliminaCategoria($event)"
-                      >
+                      (dndInserted)="eliminaCategoria($event)">
                       </div>
                     </div>
                   </div>
@@ -115,25 +109,27 @@
 
     <div class="row" >
         <hr />
-        <div class="col-8"></div>
+        <div class="col-4"></div>
         <div class="col-4">
-
+          <button
+          type="submit"
+          class="button"
+          (click)="DeshacerCambios()"
+          class="btn btn-sec form-control mt-3"
+          value="Deshacer">
+          Deshacer Cambios
+        </button>
+        </div>
+        <div class="col-4">
           <button
             type="submit"
             class="button"
             (click)="GuardaCategorias()"
             class="btn btn-primary form-control mt-3"
-            value="Guardar"            
-          >
+            value="Guardar">
             Guardar Cambios
           </button>
         <hr />
-
-
-
         </div>
       </div>
-
-
-   
 </div>

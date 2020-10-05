@@ -24,6 +24,8 @@ export class CategoriasComponent implements OnInit {
   public agregarCat= true;
   public muestraalerta=false;
 
+  //variable de respaldo del listado de categorias
+  public respaldo = [];
 
   public form = new FormGroup({
     categoria: new FormControl('', [Validators.required]),
@@ -53,7 +55,7 @@ public nestedCateg = {
 ]
 };
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
       this.serviceCategoria.getCategorias().subscribe(
       (data:any) => {
         let tomaresultado=[];
@@ -62,8 +64,6 @@ public nestedCateg = {
 
         let arregloaux=[];
 
-        console.log(tomaresultado);
-        
         tomaresultado.forEach(n=>{
           if(n.father_category_id== null)
             {                            
@@ -89,6 +89,8 @@ public nestedCateg = {
             }
           }          
         })
+        let aux= this.nestedCateg.dropzones[0];
+        this.respaldo=Object.assign([],aux);
         
       },
       error => {
@@ -96,8 +98,6 @@ public nestedCateg = {
         console.log("No se pudo recuperar Categorias")
       });
       
-
-
     }
   
     //carga recursiva de elementos de la categoria
@@ -157,9 +157,18 @@ public nestedCateg = {
 
 //ELIMINAR
 
-  eliminaCategoria(event){
-    console.log(event.item);
+  eliminaCategoria(event){  
+    //console.log(event.item);
   }
+
+  
+//Deshacer Cambios
+
+DeshacerCambios(){
+  this.nestedCateg.dropzones[0]= Object.assign([],this.respaldo);
+  //console.log(this.nestedCateg.dropzones[0])
+}
+
 
 //////////////////Drag and drop/////////////////////////////////
 
@@ -182,7 +191,7 @@ public nestedCateg = {
 }
 
   public GuardaCategorias(){
-    console.log(this.nestedCateg.dropzones[0])
+    
     this.serviceCategoria.modificaCategorias(this.nestedCateg.dropzones[0]).subscribe((data: any)=>{
       this.nestedCateg.dropzones[0]=[];
 
@@ -216,7 +225,10 @@ public nestedCateg = {
         }          
       })
 
-      this.muestraalerta=true;
+      this.muestraalerta=true;      
+      this.respaldo=[];
+      let aux= this.nestedCateg.dropzones[0];
+      this.respaldo=Object.assign([],aux);    
     },
     error=>{
       console.log(error)

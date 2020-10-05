@@ -46,7 +46,20 @@ text-align: center;
   justify-content: end;
 }
 
-
+.btn-sec {
+  color: rgb(0, 0, 0);
+  background-color: #eea293;
+  border-color: #d1453b;
+  margin-right: 50px; 
+  justify-content: end;
+}
+.btn-sec:hover, .btn-sec:focus, .btn-sec:active, .btn-sec.active, .open>.dropdown-toggle.btn-sec {
+  color: rgb(0, 0, 0);
+  background-color: #9b5550;
+  border-color: #d1453b;
+  margin-right: 50px; 
+  justify-content: end;
+}
 
 
 [class*="cat col-md"] {
