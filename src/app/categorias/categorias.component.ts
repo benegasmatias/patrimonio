@@ -133,7 +133,7 @@ public nestedCateg = {
           }
         }
         let d;
-        if(num<8){
+        if(num<4){
           d={ type: "padre", id_category: result.id_category, name_category:result.name_category, hijo:[] ,color: color};
         }
         else

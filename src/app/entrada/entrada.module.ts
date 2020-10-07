@@ -20,6 +20,10 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { DialogCantElementComponent } from '../elemento/components/dialog-cant-element/dialog-cant-element.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { EntradaDetalleComponent } from './components/entrada-detalle/entrada-detalle.component';
+import {MatMenuModule} from '@angular/material/menu';
+
+
+import {MatToolbarModule} from '@angular/material/toolbar'; 
 
 @NgModule({
   declarations: [EntradaComponent, EntradaFormComponent,DialogCantElementComponent, EntradaDetalleComponent],
@@ -36,7 +40,9 @@ import { EntradaDetalleComponent } from './components/entrada-detalle/entrada-de
     ScrollingModule,
     MatButtonModule,
     AutocompleteLibModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule,
+    MatToolbarModule    
   ]
 })
 export class EntradaModule { }
