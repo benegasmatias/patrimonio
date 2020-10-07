@@ -15,7 +15,8 @@ import { ElementFormComponent } from 'src/app/elemento/components/element-form/e
 import { ThrowStmt } from '@angular/compiler';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { MarcaService } from 'src/app/services/marca.service';
-
+import { CategoriasComponent } from 'src/app/categorias/categorias.component';
+import { MatMenu } from '@angular/material/menu';
 
 
 
@@ -27,6 +28,16 @@ import { MarcaService } from 'src/app/services/marca.service';
 
 export class EntradaFormComponent implements OnInit {
   @ViewChild('auto') auto;
+
+
+  @ViewChild('submenu') submenu;
+  @ViewChild('menuaux') menuaux;
+  @ViewChild('menuaux2') menuaux2;
+  @ViewChild('menuaux3') menuaux3;
+  @ViewChild('menuaux4') menuaux4;
+
+  //arreglo de categorias
+  public arraycateg: categ[]=[];  
 
   //alerts
   alertExito=false
@@ -74,7 +85,10 @@ tipoDestino=''
   form = new FormGroup({
     number_refer: new FormControl('', Validators.required),
     typeStruct_id: new FormControl('',Validators.required),
-    categoria: new FormControl(''),
+     categoria: new FormControl({  type: "",
+      id_category: -1,
+      name_category:"-----",
+      hijo: [] }),
     struct_id: new FormControl(Validators.required),
     provider_id:new FormControl('',Validators.required),
     stock: new FormControl(this.stock),
@@ -133,19 +147,93 @@ tipoDestino=''
       },
       err=>console.log(err)
     )
-    //Recupera las Categorias 
-    this.serviceCategorias.getCategorias().subscribe(
-      data=>{
-        this.categorias=data['categorysOfElements']
-        this.spinnerCategory=false;
-      },
-      err=>console.log(err)
-    )
     
-      this.getMarcas()
-   
+    
+    
+    
+    
+    //Recupera las Categorias 
+    // this.serviceCategorias.getCategorias().subscribe(
+    //   data=>{
+    //     this.categorias=data['categorysOfElements']
+    //     this.spinnerCategory=false;
+    //   },
+    //   err=>console.log(err)
+    // )
+    
+    this.serviceCategorias.getCategorias().subscribe(
+      (data:any) => {
+        let tomaresultado=[];
+        tomaresultado = data.categorysOfElements; 
+        tomaresultado=tomaresultado.sort(this.comparar);
+
+        let arregloaux=[];
+
+        tomaresultado.forEach(n=>{
+          if(n.father_category_id== null)
+            {                            
+              let d={  type: "padre", id_category: n.id_category, name_category:n.name_category, hijo: []}
+              this.arraycateg.push(d);
+              arregloaux.push(d);
+            }
+        })                
+        
+        tomaresultado.forEach((n, index)=>{
+          if(n.father_category_id!=null){
+
+            let x=arregloaux.find(element => element.id_category == n.father_category_id)
+            if((x!=undefined)){
+              let auxasig;
+              auxasig=this.CargaRec(n,this.arraycateg,arregloaux,0);
+              arregloaux=auxasig;
+            }
+            else{
+              let aux= tomaresultado.splice(index,1);              
+              tomaresultado.push(aux[0]);
+              console.log(tomaresultado);
+            }
+          }          
+        })
+        //let aux= this.arraycateg;
+        this.spinnerCategory=false;
+
+        console.log(this.arraycateg)
+      },
+      error => {
+        console.log(error)
+        console.log("No se pudo recuperar Categorias")
+      });
+      
+      this.getMarcas()         
     
   }//end
+
+  //aux de categorias
+  CargaRec(result, categorias: categ[],arregloaux, num){
+    
+    categorias.forEach(cat => {
+      if(cat.id_category == result.father_category_id)
+      {
+        let color="black";
+        let d;
+        if(num<8){
+          d={ type: "padre", id_category: result.id_category, name_category:result.name_category, hijo:[] ,color: color};
+        }
+        else
+        {
+          d={ type: "hijo", id_category: result.id_category, name_category:result.name_category, hijo:[] ,color: color};
+        }
+        cat.hijo.push(d);
+        arregloaux.push(d);
+      }
+      else
+        if(cat.hijo!=[])
+          this.CargaRec(result,cat.hijo,arregloaux, num+1)
+    });
+    return(arregloaux);
+  }
+  comparar ( a, b ){ return a.id_category - b.id_category; }
+
 
   getMarcas(){
     this.spinnerMarks= true;
@@ -220,8 +308,8 @@ tipoDestino=''
   getElementByMark(){
     this.spinnerElement=false;
     this.spinnerNoElement = false;
-    if(!this.form.get('marca').value && this.form.get('categoria').value ){
-      this.serviceElement.getElementByCategory(this.form.get('categoria').value).subscribe(
+    if(!this.form.get('marca').value && this.form.get('categoria').value.id_category!=-1 ){
+      this.serviceElement.getElementByCategory(this.form.get('categoria').value.id_category).subscribe(
         data=>{
           console.log(data)
            this.data = data['elements']
@@ -235,7 +323,7 @@ tipoDestino=''
         err=>console.log(err)
       )}
       else
-    if(!this.form.get('categoria').value && this.form.get('marca').value){
+    if(this.form.get('categoria').value.id_category==-1 && this.form.get('marca').value){
       this.serviceElement.getElementByMarca(this.form.get('marca').value).subscribe(
         data=>{
           console.log(data)
@@ -250,8 +338,8 @@ tipoDestino=''
         },
         err=>console.log(err)
       )}else{
-        if(this.form.get('categoria').value && this.form.get('marca').value){
-        this.serviceElement.getElementosByCategoryAndMark(this.form.get('categoria').value,this.form.get('marca').value).subscribe(
+        if(this.form.get('categoria').value.id_category!=-1 && this.form.get('marca').value){
+        this.serviceElement.getElementosByCategoryAndMark(this.form.get('categoria').value.id_category,this.form.get('marca').value).subscribe(
           data=>{
            this.data = data['elements']
            console.log(data)
@@ -274,7 +362,7 @@ tipoDestino=''
   getElementByCategory(){
     this.spinnerElement=false;
     this.spinnerNoElement = false;
-    if(!this.form.get('categoria').value && this.form.get('marca').value){
+    if(this.form.get('categoria').value.id_category==-1 && this.form.get('marca').value){
       this.serviceElement.getElementByMarca(this.form.get('marca').value).subscribe(
         data=>{
           console.log(data)
@@ -290,8 +378,8 @@ tipoDestino=''
         err=>console.log(err)
       )}else
 
-    if(!this.form.get('marca').value && this.form.get('categoria').value ){
-     this.serviceElement.getElementByCategory(this.form.get('categoria').value).subscribe(
+    if(!this.form.get('marca').value && this.form.get('categoria').value.id_category!=-1 ){
+     this.serviceElement.getElementByCategory(this.form.get('categoria').value.id_category).subscribe(
        data=>{
          console.log(data)
           this.data = data['elements']
@@ -304,8 +392,8 @@ tipoDestino=''
        },
        err=>console.log(err)
      )}else{
-       if(this.form.get('categoria').value!= '' && this.form.get('marca').value!= ''){
-         this.serviceElement.getElementosByCategoryAndMark(this.form.get('categoria').value,this.form.get('marca').value).subscribe(
+       if(this.form.get('categoria').value.id_category!=-1 && this.form.get('marca').value!= ''){
+         this.serviceElement.getElementosByCategoryAndMark(this.form.get('categoria').value.id_category,this.form.get('marca').value).subscribe(
            data=>{
              console.log(data)
            this.data = data['elements']
@@ -442,10 +530,39 @@ tipoDestino=''
   }
 
   onFocused(e) {
-    // do something when input is focused
-  
+    // do something when input is focused  
   }
 
+  public categoriaseleccionada: categ = null;
+   select(cat){
+     this.categoriaseleccionada=cat;
+     this.form.setValue({
+      number_refer: this.form.value.number_refer,
+      typeStruct_id: this.form.value.typeStruct_id,
+      categoria: this.categoriaseleccionada,
+      struct_id: this.form.value.struct_id ,
+      provider_id: this.form.value.provider_id,
+      stock: this.form.value.stock ,
+      marca: this.form.value.marca 
+     })
+     this.getElementByCategory();
+   }
+   selectvoid(){
+    this.categoriaseleccionada= {  type: '',
+    id_category: -1,
+    name_category:'-----',
+    hijo: [] };
+    this.form.setValue({
+     number_refer: this.form.value.number_refer,
+     typeStruct_id: this.form.value.typeStruct_id,
+     categoria: this.categoriaseleccionada,
+     struct_id: this.form.value.struct_id ,
+     provider_id: this.form.value.provider_id,
+     stock: this.form.value.stock ,
+     marca: this.form.value.marca 
+    })
+    this.getElementByCategory();
+   }
 
 }
 
@@ -453,3 +570,11 @@ export class CdkVirtualScrollDlExample {
   elementos: any[]
   elementosSelecionados: any[]
 }
+
+export interface categ{
+  type: string,
+  id_category: number,
+  name_category:string,
+  hijo: categ[] 
+}
+

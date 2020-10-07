@@ -17,7 +17,7 @@ const routes: Routes = [{
    // path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule)},
    path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule), canActivate:[authGuard]},
   { path: 'graficas', loadChildren: () => import('./graficas/graficas.module').then(m => m.GraficasModule) },
-  { path: 'categorias', loadChildren: () => import('./categorias/categorias.module').then(m => m.CategoriasModule) },
+  { path: 'categorias', loadChildren: () => import('./categorias/categorias.module').then(m => m.CategoriasModule) }
    
   ]
  

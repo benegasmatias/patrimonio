@@ -1,0 +1,42 @@
+<h2 matDialogTitle>Crear Destino</h2>
+<mat-dialog-content [formGroup]="form">
+  <div class="container">
+    <div class="row">
+  
+
+      <mat-form-field class="mr-1" appearance="outline">
+        <mat-label>
+            <div *ngIf="spinnerTypeStruct">
+                Tipo de estructura
+            </div>
+            <div *ngIf="!spinnerTypeStruct">
+                <span> Cargando...</span>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            </div>
+        </mat-label>
+
+        <select matNativeControl formControlName="type_struct_id">
+            <option value=""></option>
+            <option *ngFor="let typeStruct of typeStructs" [value]=typeStruct.id>
+                {{typeStruct.name}} </option>
+        </select>
+    </mat-form-field>
+    <a *ngIf="addTypeStruct" (click)="addTypeStruc()" class="mr-2"  ><span style="position: relative; top: 15px; margin-left: 2px;" class=" buttonMas material-icons ">
+      add_circle_outline 
+      </span></a>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre del destino</mat-label>
+        <input matInput  placeholder="Destino" formControlName="name">
+      </mat-form-field>
+    </div>
+ 
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="save()" [disabled]="!form.valid" color="warn">Guardar</button>
+  <button mat-button matDialogClose="cancel" color="primary">Cancelar</button>
+  
+</mat-dialog-actions>
