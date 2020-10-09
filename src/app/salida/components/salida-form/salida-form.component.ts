@@ -150,7 +150,11 @@ export class SalidaFormComponent implements OnInit {
     this.outputService.addOutput(this.form.value).subscribe(
       data=>{
           console.log(data)
+          console.log("AAAA");
           this.dialogref.close({confirm:true})
+      },
+      err=>{
+        console.log(err);
       }
     )
     

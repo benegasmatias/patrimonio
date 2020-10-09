@@ -86,6 +86,10 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
                {
                 name: 'Listar Inventarios',
                 route: `programa/inventarios/${this.estructuras[i].id}`,
+              },
+              {
+                name: 'Listar Salidas',
+                route: `programa/salidas/${this.estructuras[i].id}`,
               }
               ]
            })

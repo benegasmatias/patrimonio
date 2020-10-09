@@ -95,7 +95,6 @@ export class ListInventariosComponent implements OnInit {
 		});
 
 		dialogref.afterClosed().subscribe(result => {
-			console.log(result);
 			if (result.confirm) {
         this.salidaGenerada=true
         this.getInventarios()

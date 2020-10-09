@@ -16,6 +16,9 @@ export class InventarioService {
     return this.http.get(`${this.API_URI}/inventario/struct/${struct_id}.json`);
   }
 
+  getOutputsByStruct(struct_id){
+    return this.http.get(`${this.API_URI}/outputs/struct-lista/${struct_id}.json`);
+  }
 
 
 }

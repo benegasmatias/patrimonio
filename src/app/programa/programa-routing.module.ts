@@ -3,14 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProgramaComponent } from './programa.component';
 import {ListComponent} from './componets/list/list.component'
-import {EditComponent} from './componets/edit/edit.component'
 import { ListInventariosComponent } from './componets/list-inventarios/list-inventarios.component';
+import { ListSalidasComponent } from './componets/list-salidas/list-salidas.component';
 const routes: Routes = [
   { 
     path: '', component: ProgramaComponent,children:[
    { path: ':id', component:ListComponent},
-   { path: 'edit', component:EditComponent},
-   {path:'inventarios/:struct',component:ListInventariosComponent}]}
+   {path:'inventarios/:struct',component:ListInventariosComponent},
+   {path:'salidas/:struct',component:ListSalidasComponent}
+
+  ]}
   ];
 
 @NgModule({
