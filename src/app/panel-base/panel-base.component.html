@@ -83,9 +83,7 @@
 
       <!-- items sideNav-->
       <mat-selection-list #shoes [multiple]="false" class="m-0 p-0">
-        <mat-accordion class="p-0 m-0">
-          <p [hidden]="!mobileQuery.matches" class="text-center font-weight-bold h5 mt-2">Creando Academias</p>
- 
+        <mat-accordion class="p-0 m-0"> 
           <p  *ngFor="let nav of fillerNav" class="m-0">
 
             <mat-list-option *ngIf="!nav.subMenu; else elseBlock" class="btnSideNav m-0" routerLink="{{nav.route}}"
@@ -111,6 +109,7 @@
                   (click)="mobileQuery.matches ? snav.toggle() : ''">
                   <span style="padding-left: 3rem;"> {{sub.name}}</span>
                 </mat-list-option>
+
                 <!-- 
           
         <p *ngFor="let nav of sub" class="m-0">
@@ -143,12 +142,25 @@
    -->
 
               </mat-expansion-panel>
-            </ng-template>
+
+            </ng-template> 
+            
+
           </p>
 
-
+          <mat-list-option>
+            <button
+            [hidden]="muestrabutton"
+            mat-raised-button
+            class="btn-primary"
+            id="creaCategoria"
+            (click)="nuevoStruct()">
+            Añadir {{datobuton.name}}
+          </button>  
+          </mat-list-option>
 
         </mat-accordion>
+
       </mat-selection-list>
     </mat-sidenav>
 

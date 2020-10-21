@@ -57,7 +57,7 @@ export class StructComponent implements OnInit {
     console.log(this.form.get('type_struct_id'))
     this.serviceStruct.addStruct(this.form.value).subscribe(
       data=>{
-     
+        console.log(data)
       }
     )
     this.dialogRef.close(this.form.value);

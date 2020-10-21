@@ -20,7 +20,10 @@ import { StructComponent } from './components/struct/struct.component';
 import { TypestructComponent } from './components/typestruct/typestruct.component';
 
 
-
+import {dialogoNuevoStructComponent} from './panel-base/dialogoNuevoStruct/dialogoNuevoStruct.component'
+import {MatDatepickerModule} from '@angular/material/datepicker'; 
+import { MatNativeDateModule } from '@angular/material/core';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import { TypestructComponent } from './components/typestruct/typestruct.componen
     DialogComponent,
     DialogProveedorComponent,
     StructComponent,
-    TypestructComponent
+    TypestructComponent,
+    dialogoNuevoStructComponent
+
   ],
   imports: [
     BrowserModule,
@@ -38,13 +43,17 @@ import { TypestructComponent } from './components/typestruct/typestruct.componen
     MatDialogModule,
     MatButtonModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+    
   ], entryComponents: [
     DialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AthInterceptor, multi: true },
+    DatePipe,
 
   ],
   bootstrap: [AppComponent]

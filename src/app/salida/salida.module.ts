@@ -10,7 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-
+import {MatDatepickerModule} from '@angular/material/datepicker'; 
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [SalidaComponent, SalidaFormComponent, SalidaListaComponent],
@@ -21,8 +22,13 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatInputModule
-  
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,  
+  ],
+  providers:[
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class SalidaModule { }

@@ -37,7 +37,7 @@ export class ListInventariosComponent implements OnInit {
   
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService) {}
-   displayedColumns: string[] = ['id_element', 'name_element', 'description', 'stock','action'];
+   displayedColumns: string[] = [ 'name_element', 'description', 'stock','action'];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -89,7 +89,6 @@ export class ListInventariosComponent implements OnInit {
   }
 
   addSalida(element){
-    console.log(element)
     const dialogref = this.dialog.open(SalidaFormComponent, {
       data: {title: 'Generar Salida',element:element,origin_id:this.struct_id}
 		});

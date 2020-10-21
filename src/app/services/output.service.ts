@@ -10,10 +10,12 @@ export class OutputService {
   API_URI = environment.baseUrl;
   constructor(private http: HttpClient) { }
 
-  addOutput(output){
-    return this.http.post(`${this.API_URI}/outputs.json`,output)
+  addOutputPrest(output,prest){
+    return this.http.post(`${this.API_URI}/outputs.json`,{output:output, pending_returns:prest});
   }
-
+  addOutput(output){
+    return this.http.post(`${this.API_URI}/outputs.json`,{output:output});
+  }
   getAvailabilities(){
     return this.http.get(`${this.API_URI}/availabilities.json`);
   }

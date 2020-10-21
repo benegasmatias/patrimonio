@@ -17,6 +17,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MarcaComponent } from './components/marca/marca.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatMenuModule} from '@angular/material/menu';
+
+
+import {MatToolbarModule} from '@angular/material/toolbar'; 
 
 
 @NgModule({
@@ -30,7 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     MatButtonModule,
     ReactiveFormsModule
-    , MatChipsModule, MatDialogModule
+    , MatChipsModule, MatDialogModule,MatMenuModule,MatToolbarModule
 
 
   ]

@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Nueva Estructura</h1>
+
+<mat-dialog-content [formGroup]="form">
+    <div class="container">
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de la neuva Estructura</mat-label>
+          <input matInput size="32" value="" placeholder="Nombre" formControlName="nombre">
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button matDialogClose="cancel" color="primary">Cancelar</button>
+    <button mat-button (click)="save()" color="warn">Guardar</button>
+  </mat-dialog-actions>
+  

@@ -55,7 +55,7 @@ export class ListComponent implements OnInit {
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService) { }
   inputs=[]
-  displayedColumns: string[] = ['id', 'number_refer', 'created','provider','elements'];
+  displayedColumns: string[] = [ 'number_refer', 'created','provider','elements'];
   dataSource: MatTableDataSource<InputData>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -69,11 +69,10 @@ export class ListComponent implements OnInit {
     this.title = params['id'];
     this.serviceInput.getInputByStruct(params['id']).subscribe(
       data=>{
-        console.log(data)
         this.inputs = data['inputs']
 
         this.dataSource = new MatTableDataSource(this.inputs);
-        console.log(this.dataSource)
+        //console.log(this.dataSource)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 

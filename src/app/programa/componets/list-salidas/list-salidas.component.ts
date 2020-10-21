@@ -34,12 +34,13 @@ export class ListSalidasComponent implements OnInit {
   iventarioData=[]
   estructurasOrigen=[]
   estructurasDestino=[]
+  availabilities=[];
   
   
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService) {}
 
-   displayedColumns: string[] = ['id_element', 'name_element', 'description','stock_out','destination_id','created'];
+   displayedColumns: string[] = ['name_element', 'description','quantity_out','destination_id', 'availability_id','created'];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -55,14 +56,18 @@ export class ListSalidasComponent implements OnInit {
       param=>{
         if(param['struct']){
 
-          console.log(param['struct']);
-
           this.inventarioService.getOutputsByStruct(param['struct']).subscribe(
             data=>{
-                  console.log(data);
                   this.iventarioData = data['inventario']
                   this.estructurasOrigen = data['structsOrigen']
                   this.estructurasDestino = data['structsDestino']
+                  this.availabilities = data['availabilities'];
+                  this.iventarioData.forEach(element => {
+                    let aux:any=[];
+                    aux= this.availabilities.find(elem=> elem.id==element.availability_id );
+                    element.availability_id = aux.name_availability;
+                  });
+
                   this.iventarioData.forEach(element => {
                     let aux:any=[];
                     aux= this.estructurasDestino.find(elem=> elem.id==element.destination_id);
@@ -78,7 +83,6 @@ export class ListSalidasComponent implements OnInit {
                   }
 
                   this.struct_id = param['struct']
-
                   this.dataSource = new MatTableDataSource(this.iventarioData);
                   this.dataSource.paginator = this.paginator;
                   this.dataSource.sort = this.sort;

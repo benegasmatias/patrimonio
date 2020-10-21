@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { Categoria } from '../../model/categoria';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
@@ -18,7 +18,14 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 })
 export class ElementFormComponent implements OnInit {
 
+  @ViewChild('auto') auto;
 
+
+  @ViewChild('submenu') submenu;
+  @ViewChild('menuaux') menuaux;
+  @ViewChild('menuaux2') menuaux2;
+  @ViewChild('menuaux3') menuaux3;
+  @ViewChild('menuaux4') menuaux4;
   //Spinners
   spinnerGuardar = false;
   spinnerCategory = false;
@@ -26,7 +33,7 @@ export class ElementFormComponent implements OnInit {
   //Fin Spinners
 
 
-  categorias: any = []
+  categoriasss: any = []
   marcas: Marca[] = []
 
   hide = true;
@@ -35,7 +42,7 @@ export class ElementFormComponent implements OnInit {
     name_element: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     mark_id: new FormControl(''),
-    category_of_element_id: new FormControl('', Validators.required)
+    category_of_element_id: new FormControl([], Validators.required)
   });
 
   constructor(private elementoService: ElementoService, private dialog: MatDialog, private serviceCategoria: CategoriasService, private marcaService: MarcaService, @Inject(MAT_DIALOG_DATA) public data: any, public dialogref: MatDialogRef<ElementFormComponent>) { }
@@ -44,9 +51,49 @@ export class ElementFormComponent implements OnInit {
     this.spinnerCategory = true
     this.spinnerMarks = true
     this.serviceCategoria.getCategorias().subscribe(
-      data => {
-        this.categorias = data['categorysOfElements']
-        this.spinnerCategory = false
+      (data:any) => {
+        //this.categorias = data['categorysOfElements']
+        //this.spinnerCategory = false
+        this.categoriasss = [];
+
+        let tomaresultado=[];
+        tomaresultado = data.categorysOfElements; 
+        tomaresultado=tomaresultado.sort(this.comparar);
+
+        let arregloaux=[];
+
+        tomaresultado.forEach(n=>{
+          if(n.father_category_id== null)
+            {                            
+              let d={  type: "padre", id_category: n.id_category, name_category:n.name_category, hijo: []}
+              this.categoriasss.push(d);
+              arregloaux.push(d);
+            }
+        })                
+        
+        tomaresultado.forEach((n, index)=>{
+          if(n.father_category_id!=null){
+
+            let x=arregloaux.find(element => element.id_category == n.father_category_id)
+            if((x!=undefined)){
+              let auxasig;
+              auxasig=this.CargaRec(n,this.categoriasss,arregloaux,0);
+              arregloaux=auxasig;
+            }
+            else{
+              let aux= tomaresultado.splice(index,1);              
+              tomaresultado.push(aux[0]);
+              console.log(tomaresultado);
+            }
+          }          
+        })
+        //let aux= this.arraycateg;
+        this.spinnerCategory=false;
+
+        console.log(this.categoriasss)
+
+
+
       },
       err => {
 
@@ -63,20 +110,41 @@ export class ElementFormComponent implements OnInit {
 
   }
 
+  CargaRec(result, categorias: any[],arregloaux, num){
+    
+    categorias.forEach(cat => {
+      if(cat.id_category == result.father_category_id)
+      {
+        let color="black";
+        let d;
+        if(num<8){
+          d={ type: "padre", id_category: result.id_category, name_category:result.name_category, hijo:[] ,color: color};
+        }
+        else
+        {
+          d={ type: "hijo", id_category: result.id_category, name_category:result.name_category, hijo:[] ,color: color};
+        }
+        cat.hijo.push(d);
+        arregloaux.push(d);
+      }
+      else
+        if(cat.hijo!=[])
+          this.CargaRec(result,cat.hijo,arregloaux, num+1)
+    });
+    return(arregloaux);
+  }
+  comparar ( a, b ){ return a.id_category - b.id_category; }
+
+
 
   enviar() {
 
-    var x = this.form.value.category_of_element_id;
-
     let z=[];
 
-    x.forEach(cat => {
-      this.categorias.forEach(x => {
-        if(cat==x.name_category)
-          z.push({category_of_element_id: x.id_category});
-      });
+    this.form.value.category_of_element_id.forEach(cat => {
+        if(cat)
+          z.push({category_of_element_id: cat.id_category});
     });
-
 
     this.form.setValue({
       name_element: this.form.value.name_element,
@@ -140,5 +208,27 @@ export class ElementFormComponent implements OnInit {
 
   }
 
+
+  //////////////////////////////////////
+  public categoriaseleccionada = null;
+  select(cat){
+    this.categoriaseleccionada=cat;
+    let arrayaux: any[]=[];
+    arrayaux=this.form.value.category_of_element_id;
+    if(!arrayaux.find((element:any)=>element.id_category==cat.id_category))
+      arrayaux.push(this.categoriaseleccionada);
+
+    this.form.setValue({
+      name_element: this.form.value.name_element ,
+      description: this.form.value.description ,
+      mark_id: this.form.value.mark_id ,
+      category_of_element_id: arrayaux,  
+    })
+  }
+  selectvoid(){
+   this.categoriaseleccionada= null;
+
+  }
+  disabledSelect=false
 
 }

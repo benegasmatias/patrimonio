@@ -12,11 +12,8 @@ import { ProveedorService } from 'src/app/services/proveedor.service';
 import { DialogProveedorComponent } from 'src/app/dialog/proveedor/dialog-proveedor/dialog-proveedor.component';
 import { ActivatedRoute } from '@angular/router';
 import { ElementFormComponent } from 'src/app/elemento/components/element-form/element-form.component';
-import { ThrowStmt } from '@angular/compiler';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { MarcaService } from 'src/app/services/marca.service';
-import { CategoriasComponent } from 'src/app/categorias/categorias.component';
-import { MatMenu } from '@angular/material/menu';
 
 
 
@@ -146,20 +143,7 @@ tipoDestino=''
     
       },
       err=>console.log(err)
-    )
-    
-    
-    
-    
-    
-    //Recupera las Categorias 
-    // this.serviceCategorias.getCategorias().subscribe(
-    //   data=>{
-    //     this.categorias=data['categorysOfElements']
-    //     this.spinnerCategory=false;
-    //   },
-    //   err=>console.log(err)
-    // )
+    )      
     
     this.serviceCategorias.getCategorias().subscribe(
       (data:any) => {
@@ -564,11 +548,6 @@ tipoDestino=''
     this.getElementByCategory();
    }
 
-}
-
-export class CdkVirtualScrollDlExample {
-  elementos: any[]
-  elementosSelecionados: any[]
 }
 
 export interface categ{

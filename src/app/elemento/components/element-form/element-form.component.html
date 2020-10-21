@@ -1,5 +1,3 @@
-
-
 <mat-dialog-content>
     <form [formGroup]="form" >
 
@@ -43,37 +41,97 @@
                  
                    
                     </div>
-                   
-                    <mat-form-field appearance="outline">
-                        <mat-label><div *ngIf="!spinnerCategory">
-                            Categorias
-                          </div>
-                            <div *ngIf="spinnerCategory">
-                                <span > Cargando...</span>
-                            <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
-                          </div></mat-label>
 
-                        <mat-select formControlName="category_of_element_id" multiple required>
-                          <mat-select-trigger>
-                            <mat-chip-list>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-9">
+                          <mat-form-field  class="form__div" appearance="outline" style="width: 100%;">
+                                <mat-label><div *ngIf="!spinnerCategory">
+                                Categorias
+                              </div>
+                                <div *ngIf="spinnerCategory">
+                                    <span > Cargando...</span>
+                                <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
+                              </div></mat-label>
+                            <mat-chip-list formControlName="category_of_element_id">
                               <mat-chip
                                 *ngFor="let cat of form.value.category_of_element_id"
                                 [removable]="true"
                                 (removed)="onCatRemoved(cat)"
                               >
-                                {{ cat }}
+                                {{ cat.name_category }}
                                 <mat-icon matChipRemove>cancel</mat-icon>
                               </mat-chip>
                             </mat-chip-list>
-                          </mat-select-trigger>
-        
-                          <mat-option
-                            *ngFor="let cat of categorias"
-                            [value]="cat.name_category"
-                            >{{ cat.name_category }}</mat-option
-                          >
-                        </mat-select>
-                      </mat-form-field>
+                          </mat-form-field>
+                        </div>
+                      <div class="col-3" style=" padding-bottom: 0%; padding-top: 0%;">
+                        <div class="form__div" >
+                                                          <mat-toolbar>
+                                                              <button mat-icon-button [matMenuTriggerFor]="categorias">
+                                                                <mat-icon>class</mat-icon>
+                                                              </button>
+                                                            </mat-toolbar>
+                                                      
+                                                            <mat-menu #categorias="matMenu">
+                                                              <button mat-menu-item (click)="selectvoid()"> - </button>
+                      
+                                                              <div *ngFor="let categ of categoriasss">            
+                                                                  <button *ngIf="categ.hijo.length==0" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>
+                                                                  <button *ngIf="categ.hijo.length!=0" [matMenuTriggerFor]="submenu" [matMenuTriggerData]="{categorias: categ}" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>                                                        
+                                                              </div>
+                                                            </mat-menu>
+                                  
+                                                              <mat-menu #submenu="matMenu" >
+                                                                  <ng-template matMenuContent let-categorias="categorias">
+                                                                      <div *ngFor="let hijo of categorias.hijo" >
+                                                                          <button *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                                          <button *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                                      </div>
+                                                                  </ng-template>
+                                                              </mat-menu>
+                                  
+                                                              <mat-menu #menuaux="matMenu" >
+                                                                  <ng-template matMenuContent let-categorias="categorias">
+                                                                      <div *ngFor="let hijo of categorias.hijo" >
+                                                                          <button *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                                          <button *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux2" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                                      </div>
+                                                                  </ng-template>
+                                                              </mat-menu>
+                                  
+                                                              <mat-menu #menuaux2="matMenu" >
+                                                                  <ng-template matMenuContent let-categorias="categorias">
+                                                                      <div *ngFor="let hijo of categorias.hijo" >
+                                                                          <button *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                                          <button *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux3" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                                      </div>
+                                                                  </ng-template>
+                                                              </mat-menu>
+                                  
+                                                              <mat-menu #menuaux3="matMenu" >
+                                                                  <ng-template matMenuContent let-categorias="categorias">
+                                                                      <div *ngFor="let hijo of categorias.hijo" >
+                                                                          <button *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                                          <button *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux4" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                                      </div>
+                                                                  </ng-template>
+                                                              </mat-menu>
+                                  
+                                                              <mat-menu #menuaux4="matMenu" >
+                                                                  <ng-template matMenuContent let-categorias="categorias">
+                                                                      <div *ngFor="let hijo of categorias.hijo" >
+                                                                          <button mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                                      </div>
+                                                                  </ng-template>
+                                                              </mat-menu>
+                        </div>
+                                                      
+                      </div>
+
+                      </div>
+                    </div>
+
                 </div>
               
     
@@ -81,8 +139,6 @@
                  
         </div>
       
-    
-            <div class="">
                 <div class="form__button_guardar">
                     <button type="submit" [disabled]="!form.valid" style="width: 100%;" id="register" class="button"
                         (click)="enviar()" class="btn btn-primary form__button_guardar" value="Guardar">
@@ -90,45 +146,9 @@
                     </button>
                 </div>
            
-        </div>
     </form>
 </mat-dialog-content>
 
 <mat-dialog-actions>
     
 </mat-dialog-actions>
-
-
-
-
-
-
-
-
-
-<!--
-
-<mat-form-field appearance="outline">
-    <mat-label><div *ngIf="!spinnerCategory">
-        Categorias
-      </div>
-        <div *ngIf="spinnerCategory">
-            <span > Cargando...</span>
-        <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
-      </div></mat-label>
-        <select matNativeControl formControlName="category_of_element_id">
-            <option value="" selected></option>
-            <option *ngFor="let categoria of categorias" [ngValue]='categoria.id_category'> {{ categoria.name_category}} </option> 
-        </select>
-        
-
-</mat-form-field>
-
-
--->
-    <!-- </mat-form-field> -->
-      
-  
-      <!-- <mat-option *ngFor="let ava of availabilitys" [value]="ava.name_availability">{{ava.name_availability}}</mat-option>
-  
-    </mat-select> -->

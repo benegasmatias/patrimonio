@@ -76,21 +76,8 @@
                 <h6>Carga de elementos</h6>
                 <div class="form__div_container">
 
-                      <!-- Original
-                           <mat-form-field class="form__div_container_selects">
-                           <mat-label><div *ngIf="!spinnerCategory">
-                            Categorias
-                          </div>
-                            <div *ngIf="spinnerCategory">
-                                <span > Cargando...</span>
-                            <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
-                          </div></mat-label>
-                          <select matNativeControl formControlName="categoria" (change)="getElementByCategory()">
-                               <option value="" selected></option>
-                              <option *ngFor="let categoria of arraycateg" [ngValue]='categoria.id_category'> {{ categoria.name_category}} </option> 
-                           </select>
-                     </mat-form-field> -->
 
+                            <!--Categorias-->
                             <div class="row categ" style=" padding-bottom: 0%; padding-top: 0%;">
                                 <div class="col-3 form__div" >
                                     <mat-toolbar>
@@ -152,6 +139,7 @@
                                             </ng-template>
                                         </mat-menu>
                                 </div>
+                                
                                 <div class="col form__div" >
                                     <div class="" style="box-sizing: border-box;padding: 5%;"  appearance="">
                                         <mat-label>Categoria Seleccionada</mat-label>
@@ -254,28 +242,17 @@
        
     </div>
 </form>
-
-
-<ng-template #categ let-cat>
-
-    <mat-optgroup *ngIf="cat.hijo.length!=0; else baseSinHijos" flex-offset="5" > {{ cat.name_category}}
-                                    
-        <div *ngFor="let hijo of cat.hijo">                              
-            <mat-option [value]="hijo.id_category" *ngIf="hijo.hijo.length==0; else conHijos">
-                    {{ hijo.name_category}}
-            </mat-option>
-
-            <ng-template #conHijos>
-                <ng-container [ngTemplateOutlet]="categ" [ngTemplateOutletContext]="{$implicit: hijo}"> </ng-container>
-            </ng-template>
-        </div> 
-
-    </mat-optgroup> 
-
-    <ng-template #baseSinHijos>
-        <mat-option [value]="cat.id_category">
-            {{ cat.name_category}}
-        </mat-option>
-    </ng-template>
-</ng-template>
-    
+                          <!-- Original
+                           <mat-form-field class="form__div_container_selects">
+                           <mat-label><div *ngIf="!spinnerCategory">
+                            Categorias
+                          </div>
+                            <div *ngIf="spinnerCategory">
+                                <span > Cargando...</span>
+                            <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
+                          </div></mat-label>
+                          <select matNativeControl formControlName="categoria" (change)="getElementByCategory()">
+                               <option value="" selected></option>
+                              <option *ngFor="let categoria of arraycateg" [ngValue]='categoria.id_category'> {{ categoria.name_category}} </option> 
+                           </select>
+                     </mat-form-field> -->

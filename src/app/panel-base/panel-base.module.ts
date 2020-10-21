@@ -12,6 +12,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { PanelBaseRoutingModule } from './panel-base-routing.module';
 import { PanelBaseComponent } from './panel-base.component';
 
+import {MatDialogModule} from '@angular/material/dialog'; 
+import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms'
 
 
 @NgModule({
@@ -24,7 +28,10 @@ import { PanelBaseComponent } from './panel-base.component';
     MatExpansionModule,
     MatToolbarModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,MatInputModule,
   ]
 })
 export class PanelBaseModule { }

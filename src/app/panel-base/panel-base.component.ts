@@ -4,6 +4,10 @@ import { LoginService } from '../login/services/login.service'
 import { Router } from '@angular/router';
 import {Programa} from '../programa/model/programa';
 import { StructService } from '../services/struct.service';
+import { ViewChild, TemplateRef } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
+
+import {dialogoNuevoStructComponent} from './dialogoNuevoStruct/dialogoNuevoStruct.component'
 
 @Component({
   selector: 'app-panel-base',
@@ -22,19 +26,26 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
 
   estructuras:any=[]
 
-
-
+  muestrabutton= true;
+  datobuton: any={};
+  public dialogConfig;
+  public dialogo;
 
   programaa : Programa;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
  
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private loginService: LoginService, protected route: Router,private serviceStruct:StructService) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private loginService: LoginService, protected route: Router,private serviceStruct:StructService, private dialog: MatDialog) {
     // this.cargarUser()
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    //dialogo
+    this.dialogConfig = new MatDialogConfig();
+    this.dialogConfig.disableClose = true;
+    this.dialogConfig.autoFocus = true;
   }
 
   ngOnInit(): void {
@@ -59,16 +70,18 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   
   destinNav(destinoNav){
   // console.log(this.ruta) 
- 
   this.fillerNav=[];
-  console.log(destinoNav)
+  //console.log(destinoNav)
+  //console.log(destinoNav.name)
+  this.datobuton= destinoNav;
     
   this.serviceStruct.getStructs(destinoNav.id).subscribe(
     data=>{
       console.log(data)
       this.fillerNav=[];
       this.estructuras=data['structs']
-      console.log(data)
+      this.muestrabutton=false;
+
       for(let i=0;i<this.estructuras.length;i++){
         this.fillerNav.push(  { 
             name: `${this.estructuras[i].name}`,
@@ -107,6 +120,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     this.route.navigateByUrl('')
   }
   graficaLinea(){
+    this.muestrabutton=true;
     this.fillerNav=[];
     this.fillerNav.push(  { 
       name: `Graficas`,
@@ -130,6 +144,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   }
 
   categorias(){
+    this.muestrabutton=true;
     this.fillerNav=[];
     this.fillerNav.push(  { 
       name: `Categorias`,
@@ -138,6 +153,55 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
 
      })
   }
+
+  @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
+
+  nuevoStruct(){
+    
+    this.dialogConfig.data = {
+      data: '',
+    };
+    this.dialogo = this.dialogConfig;
+
+    let dialogRef = this.dialog.open( dialogoNuevoStructComponent, this.dialogo);
+
+    dialogRef.afterClosed().subscribe((data:any) => {
+      if (data.valor == 'confirm' ) {
+        console.log(data.nombre)
+
+        this.serviceStruct.addStruct({type_struct_id:this.datobuton.id, origin_struct_id:1, name: data.nombre})
+          .subscribe((data:any)=>{
+
+            this.serviceStruct.getTypeStructs().subscribe(
+              data=>{
+                this.destinosNav = data['types_structs']
+                this.spinnerNav = false
+                
+                let x= this.destinosNav.find((element:any )=> element.id= this.datobuton.id)
+                this.destinNav(x);
+              },
+              err=>console.log(err)
+            )
+        
+          },
+          err=>{
+            console.log(err)
+          })
+
+      }
+    },
+    error=>{
+      console.log(error)
+    })
+    
+
+
+
+  }
+
+
+
+
   // private cargarUser (){
 
   //   let user = JSON.parse(sessionStorage.getItem('currentUser'))
