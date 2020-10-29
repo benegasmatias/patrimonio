@@ -25,6 +25,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {DatePipe} from '@angular/common';
 
+import { PendingFormComponent } from './programa/componets/pending-form/pending-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,8 @@ import {DatePipe} from '@angular/common';
     DialogProveedorComponent,
     StructComponent,
     TypestructComponent,
-    dialogoNuevoStructComponent
+    dialogoNuevoStructComponent,
+    PendingFormComponent
 
   ],
   imports: [

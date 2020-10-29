@@ -16,9 +16,26 @@ export class InventarioService {
     return this.http.get(`${this.API_URI}/inventario/struct/${struct_id}.json`);
   }
 
+  //donacion y entregas
   getOutputsByStruct(struct_id){
     return this.http.get(`${this.API_URI}/outputs/struct-lista/${struct_id}.json`);
   }
 
+  //prestamos
+  getOutputsByStructPrestamo(struct_id){
+    return this.http.get(`${this.API_URI}/outputs/struct-prestamo/${struct_id}.json`);
+  }
+
+  getPrestamo(pending_return_id){
+    return this.http.get(`${this.API_URI}/outputs/struct-pending/${pending_return_id}.json`);
+  }
+
+  getView(){
+    return this.http.get(`${this.API_URI}/outputs/${1}.json`);
+  }
+
+  updatePrestamo(archivo){
+    return this.http.post(`${this.API_URI}/outputs/struct-pending.json`, archivo);
+  }
 
 }

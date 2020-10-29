@@ -8,6 +8,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 
 import { MatDialog } from '@angular/material/dialog';
+import { PendingFormComponent } from '../pending-form/pending-form.component';
+
 
 export interface IventarioData {
   id_element: string;
@@ -17,14 +19,13 @@ export interface IventarioData {
   destination_id: string;
   created: string;
   
-
 }
 @Component({
-  selector: 'app-list-salidas',
-  templateUrl: './list-salidas.component.html',
-  styleUrls: ['./list-salidas.component.scss']
+  selector: 'app-list-prestamos',
+  templateUrl: './list-prestamos.component.html',
+  styleUrls: ['./list-prestamos.component.scss']
 })
-export class ListSalidasComponent implements OnInit {
+export class ListPrestamosComponent implements OnInit {
   inventarioss=false
   noInventarios=false
 
@@ -38,7 +39,7 @@ export class ListSalidasComponent implements OnInit {
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService) {}
 
-   displayedColumns: string[] = ['name_element', 'description','quantity_out','destination_id', 'availability_id','created'];
+   displayedColumns: string[] = ['name_element', 'description','quantity_out','destination_id','created', 'estado','action', ];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -50,28 +51,21 @@ export class ListSalidasComponent implements OnInit {
   }
 
   getInventarios(){
-
     this.activatedRoute.params.subscribe(
       param=>{
         if(param['struct']){
-          this.inventarioService.getOutputsByStruct(param['struct']).subscribe(
+          
+
+          this.inventarioService.getOutputsByStructPrestamo(param['struct']).subscribe(
             data=>{
-              console.log(data);
+                  console.log(data)
                   this.iventarioData = data['inventario']
                   this.estructurasDestino = data['structsDestino']
-                  this.availabilities = data['availabilities'];
-                  this.iventarioData.forEach(element => { 
-                    let aux:any=[];
-                    aux= this.availabilities.find(elem=> elem.id==element.availability_id );
-                    element.availability_id = aux.name_availability;
-                  });
-
                   this.iventarioData.forEach(element => {
                     let aux:any=[];
                     aux= this.estructurasDestino.find(elem=> elem.id==element.destination_id);
                     element.destination_id= aux.name;
                   });
-
                   if(this.iventarioData.length!=0){
                     this.inventarioss=true
                     this.noInventarios=false
@@ -79,13 +73,10 @@ export class ListSalidasComponent implements OnInit {
                     this.inventarioss=false
                     this.noInventarios=true
                   }
-
-                  this.struct_id = param['struct']
+                  this.struct_id = param['struct']        
                   this.dataSource = new MatTableDataSource(this.iventarioData);
                   this.dataSource.paginator = this.paginator;
                   this.dataSource.sort = this.sort;
-                  console.log(this.dataSource)
-
             },
             err=>{console.log(err)}
           )
@@ -94,6 +85,7 @@ export class ListSalidasComponent implements OnInit {
      )
   }
 
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -101,6 +93,23 @@ export class ListSalidasComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  datoPrestamo(datos){
+    const dialogref = this.dialog.open(PendingFormComponent, {
+      data: {title: 'Datos de la Devolucion', row:datos},
+      width: '600px',
+		});
+
+		dialogref.afterClosed().subscribe(result => {
+      if(result){
+        if (result.confirm) {
+          console.log(result.data);
+          this.getInventarios()
+        }
+      }
+
+		});
   }
 
 }

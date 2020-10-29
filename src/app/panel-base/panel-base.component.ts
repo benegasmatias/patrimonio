@@ -103,6 +103,10 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
               {
                 name: 'Listar Salidas',
                 route: `programa/salidas/${this.estructuras[i].id}`,
+              },
+              {
+                name: 'Listar Prestamos',
+                route: `programa/prestamos/${this.estructuras[i].id}`,
               }
               ]
            })
@@ -112,35 +116,9 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   )
    this.route.navigateByUrl('panel/programa')
   }
- 
-
-
   logout() {
     this.loginService.logout();
     this.route.navigateByUrl('')
-  }
-  graficaLinea(){
-    this.muestrabutton=true;
-    this.fillerNav=[];
-    this.fillerNav.push(  { 
-      name: `Graficas`,
-      icon: 'account_balance_wallet',
-      subMenu:
-      [
-       {
-         name: 'Linea',
-         route: `graficas/linea`,
-       },
-       {
-         name: 'Barra',
-         route: `graficas/barra`,
-       },
-       {
-        name: 'Torta',
-        route: `graficas/torta`,
-      }
-      ]
-     })
   }
 
   categorias(){

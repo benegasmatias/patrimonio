@@ -8,7 +8,7 @@ export class InputService {
   API_URI = environment.baseUrl;
   constructor(private http: HttpClient) { }
 
-  addInput(input){
+    addInput(input){
     return this.http.post(`${this.API_URI}/inputs.json`,input)
   }
 

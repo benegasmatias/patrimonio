@@ -7,13 +7,6 @@
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
   
-      <!-- ID Column -->
-      <!-- <ng-container matColumnDef="id_element">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header style="margin-right: -80px;"> ID </th>
-        <td mat-cell *matCellDef="let row"  style="margin-right:-80px;"> {{row.id_element}} </td>
-      </ng-container> -->
-      
-
       <!-- Progress Column -->
       <ng-container matColumnDef="name_element"   >
         <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
@@ -37,15 +30,30 @@
         <td mat-cell *matCellDef="let row"> {{row.destination_id}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="availability_id"   >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> RAZON </th>
-        <td mat-cell *matCellDef="let row"> {{row.availability_id}} </td>
+      <ng-container matColumnDef="created"  >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  class="columnafin"> FECHA PRESTAMO</th>
+        <td mat-cell *matCellDef="let row"  class="columnafin"> {{ row.created | date:'short' }} </td>
       </ng-container>
 
+      <ng-container matColumnDef="estado"  >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+        <td mat-cell *matCellDef="let row" > 
+          <ng-container *ngIf="row.return_date; else elseTemplate" >
+            <p style="text-align: center;">Devuelto</p>
+          </ng-container>
+          <ng-template #elseTemplate >
+            <p style="text-align: center;">Devolucion Pendiente</p>          
+          </ng-template>
+        </td>
 
-      <ng-container matColumnDef="created"  >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  class="columnafin"> FECHA </th>
-        <td mat-cell *matCellDef="let row"  class="columnafin"> {{ row.created | date:'short' }} </td>
+        
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ver Datos/ Realizar Devolucion </th>
+        <td mat-cell *matCellDef="let row" (click)="datoPrestamo(row)"> <span class="material-icons salida">
+          exit_to_app
+          </span> </td>
       </ng-container>
       
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

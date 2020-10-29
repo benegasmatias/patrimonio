@@ -16,10 +16,11 @@ import {MatButtonModule} from '@angular/material/button';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ListInventariosComponent } from './componets/list-inventarios/list-inventarios.component';
 import { ListSalidasComponent } from './componets/list-salidas/list-salidas.component';
+import { ListPrestamosComponent } from './componets/list-prestamos/list-prestamos.component';
 
 
 @NgModule({
-  declarations: [ProgramaComponent, ListComponent, ListInventariosComponent,ListSalidasComponent],
+  declarations: [ProgramaComponent, ListComponent, ListInventariosComponent,ListSalidasComponent,ListPrestamosComponent],
   imports: [
     CommonModule,
     ProgramaRoutingModule,

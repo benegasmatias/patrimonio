@@ -188,7 +188,7 @@ export class SalidaFormComponent implements OnInit {
     )
     }
     else{
-      console.log(this.formdest.value.expected_date)
+      //console.log(this.formdest.value.expected_date)
       var fecha= this.datePipe.transform(this.formdest.value.expected_date,"yyyy-MM-dd");
 
       this.formdest.setValue({
