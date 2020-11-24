@@ -1,6 +1,6 @@
 {
   "/api-patrimonio/api/*": {
-    "target": "https://sedacreditaciones.com/apis",
+    "target": "https://localhost",
     "secure": false,
     "changeOrigin": true
   }

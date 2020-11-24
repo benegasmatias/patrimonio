@@ -49,5 +49,9 @@ export class LoginService {
     return sessionStorage.getItem('accessToken') != null;
   }
 
+  // create(archivo){
+  //   return this.http.post(`${this.API_URI}/users.json`,archivo);
+  // }
+
   //login de edit
 }

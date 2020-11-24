@@ -18,7 +18,7 @@ export class PendingFormComponent implements OnInit {
 
   form = null;
 
-  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<PendingFormComponent>,private dialog:MatDialog,private outputService:OutputService, private datePipe: DatePipe, private inventarioservice:InventarioService) {
+  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<PendingFormComponent>,private dialog:MatDialog,private outputService:OutputService, private datePipe: DatePipe, private inventarioservice:InventarioService,) {
     if(this.data.row.return_date){
       this.modifica= true;
     }
@@ -79,5 +79,7 @@ export class PendingFormComponent implements OnInit {
 
     this.dialogref.close({confirm:true, })
   }
+
+
 
 }

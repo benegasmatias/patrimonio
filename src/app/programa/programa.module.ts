@@ -17,14 +17,19 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { ListInventariosComponent } from './componets/list-inventarios/list-inventarios.component';
 import { ListSalidasComponent } from './componets/list-salidas/list-salidas.component';
 import { ListPrestamosComponent } from './componets/list-prestamos/list-prestamos.component';
-
-
+import {PdfService} from './componets/list-prestamos/pdfService/pdfService';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {ReactiveFormsModule} from '@angular/forms'; 
 @NgModule({
   declarations: [ProgramaComponent, ListComponent, ListInventariosComponent,ListSalidasComponent,ListPrestamosComponent],
   imports: [
     CommonModule,
     ProgramaRoutingModule,
     MatListModule,MatDialogModule,MatButtonModule,MatTableModule,CdkTableModule,MatInputModule,MatPaginatorModule,MatSortModule
+    ,MatDatepickerModule,ReactiveFormsModule
+  ],
+  providers:[
+    PdfService,
   ]
 })
 export class ProgramaModule { }

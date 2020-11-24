@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     //posisiciona el scrol en las coordenadas x y
-
     document.getElementById('username').focus({ preventScroll: false });
   }
 

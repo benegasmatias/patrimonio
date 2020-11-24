@@ -1,14 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InventarioService } from 'src/app/services/inventario.service';
-
-
+import { InventarioService } from 'src/app/services/inventario.service';  
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-
 import { MatDialog } from '@angular/material/dialog';
 import { PendingFormComponent } from '../pending-form/pending-form.component';
+import {PdfService} from './pdfService/pdfService';
 
 
 export interface IventarioData {
@@ -31,13 +29,13 @@ export class ListPrestamosComponent implements OnInit {
 
   //Fin alerts
 
-  iventarioData=[]
+  inventarioData=[]
   estructurasDestino=[]
-  availabilities=[];
-  
-  
+  estructuraActual=[];
+  availabilities=[];    
 
-  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService) {}
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService,private pdfService: PdfService) {
+  }
 
    displayedColumns: string[] = ['name_element', 'description','quantity_out','destination_id','created', 'estado','action', ];
    dataSource: MatTableDataSource<IventarioData>;
@@ -59,14 +57,15 @@ export class ListPrestamosComponent implements OnInit {
           this.inventarioService.getOutputsByStructPrestamo(param['struct']).subscribe(
             data=>{
                   console.log(data)
-                  this.iventarioData = data['inventario']
-                  this.estructurasDestino = data['structsDestino']
-                  this.iventarioData.forEach(element => {
+                  this.inventarioData = data['inventario'];
+                  this.estructurasDestino = data['structsDestino'];
+                  this.estructuraActual = data['structOrigin'][0];
+                  this.inventarioData.forEach(element => {
                     let aux:any=[];
                     aux= this.estructurasDestino.find(elem=> elem.id==element.destination_id);
                     element.destination_id= aux.name;
                   });
-                  if(this.iventarioData.length!=0){
+                  if(this.inventarioData.length!=0){
                     this.inventarioss=true
                     this.noInventarios=false
                   }else{
@@ -74,9 +73,11 @@ export class ListPrestamosComponent implements OnInit {
                     this.noInventarios=true
                   }
                   this.struct_id = param['struct']        
-                  this.dataSource = new MatTableDataSource(this.iventarioData);
+                  this.dataSource = new MatTableDataSource(this.inventarioData);
                   this.dataSource.paginator = this.paginator;
                   this.dataSource.sort = this.sort;
+
+
             },
             err=>{console.log(err)}
           )
@@ -89,10 +90,10 @@ export class ListPrestamosComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+    
   }
 
   datoPrestamo(datos){
@@ -111,6 +112,23 @@ export class ListPrestamosComponent implements OnInit {
 
 		});
   }
+
+  generaPdf(){
+    if(this.dataSource.filter.slice(5))
+    {
+      var aux;
+      var n = parseInt(this.dataSource.filter.slice(5), aux)
+      if(typeof n == 'number' && n<=12)
+      {
+        this.pdfService.generatePdf(this.dataSource.filteredData,this.estructuraActual['name'],n);
+      }
+    }       
+    
+  }  
+
+//   if (v.match(/^\d{4}$/) !== null) {
+//     this.value = v + '/';
+// }
 
 }
 

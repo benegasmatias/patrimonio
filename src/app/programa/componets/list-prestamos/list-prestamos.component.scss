@@ -31,3 +31,19 @@ table {
 .columnafin{
   padding-left: 30px;
 }
+
+
+.btn-primary {
+  color: #fff;
+  background-color: #c4543d;
+  border-color: #c4544d;
+  margin-right: 30px; 
+  justify-content: end;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #c4544d;
+  border-color: #c4543d;
+  margin-right: 30px; 
+  justify-content: end;
+}
