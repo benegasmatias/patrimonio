@@ -42,35 +42,14 @@
                    
                     </div>
 
-                    <div class="container">
-                      <div class="row">
-                        <div class="col-9">
-                          <mat-form-field  class="form__div" appearance="outline" style="width: 100%;">
-                                <mat-label><div *ngIf="!spinnerCategory">
-                                Categorias
-                              </div>
-                                <div *ngIf="spinnerCategory">
-                                    <span > Cargando...</span>
-                                <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
-                              </div></mat-label>
-                            <mat-chip-list formControlName="category_of_element_id">
-                              <mat-chip
-                                *ngFor="let cat of form.value.category_of_element_id"
-                                [removable]="true"
-                                (removed)="onCatRemoved(cat)"
-                              >
-                                {{ cat.name_category }}
-                                <mat-icon matChipRemove>cancel</mat-icon>
-                              </mat-chip>
-                            </mat-chip-list>
-                          </mat-form-field>
-                        </div>
-                      <div class="col-3" style=" padding-bottom: 0%; padding-top: 0%;">
-                        <div class="form__div" >
+                    <div class="container" style="padding-left: 0%;">
+                      <div class="row" style="padding-left: 0%;">                      
+                        <div class="col-6" style="padding-left: 0%;">
+                        <div class="form__div">
                                                           <mat-toolbar>
-                                                              <button mat-icon-button [matMenuTriggerFor]="categorias">
-                                                                <mat-icon>class</mat-icon>
-                                                              </button>
+                                                            <button mat-raised-button [matMenuTriggerFor]="categorias" class="button">
+                                                                Seleccion Categoria
+                                                            </button>
                                                             </mat-toolbar>
                                                       
                                                             <mat-menu #categorias="matMenu">
@@ -127,7 +106,29 @@
                                                               </mat-menu>
                         </div>
                                                       
-                      </div>
+                        </div>
+                        <div class="col-6">
+                          <mat-form-field  class="form__div" appearance="outline" style="width: 100%; margin-bottom: 0%; padding-top: 8px">
+                                <mat-label><div *ngIf="!spinnerCategory">
+                                Categorias
+                              </div>
+                                <div *ngIf="spinnerCategory">
+                                    <span > Cargando...</span>
+                                <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
+                              </div></mat-label>
+                            <mat-chip-list formControlName="category_of_element_id">
+                              <mat-chip
+                                *ngFor="let cat of form.value.category_of_element_id"
+                                [removable]="true"
+                                (removed)="onCatRemoved(cat)"
+                              >
+                                {{ cat.name_category }}
+                                <mat-icon matChipRemove>cancel</mat-icon>
+                              </mat-chip>
+                            </mat-chip-list>
+                          </mat-form-field>
+                        </div>
+
 
                       </div>
                     </div>
@@ -138,13 +139,19 @@
             </div>
                  
         </div>
-      
-                <div class="form__button_guardar">
+        <div class="container">
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col" style="padding-right: 0%;">
                     <button type="submit" [disabled]="!form.valid" style="width: 100%;" id="register" class="button"
-                        (click)="enviar()" class="btn btn-primary form__button_guardar" value="Guardar">
-                        Guardar
+                            (click)="enviar()" class="btn btn-primary" value="Guardar">
+                            Guardar
                     </button>
                 </div>
+
+            </div>
+        </div>
+
            
     </form>
 </mat-dialog-content>

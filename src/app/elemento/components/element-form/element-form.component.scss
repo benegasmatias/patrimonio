@@ -1,3 +1,16 @@
-// *{
-//     position: relative;
-// }
+.button{
+    width: 100%; 
+    text-align: center;
+    background-color: rgba($color: #bbb3b3a1, $alpha: 1.0);
+    justify-content: end;
+
+  }
+
+  .button:hover, .button:focus, .button:active, .button.active, .open>.dropdown-toggle.button {
+    color: #fff;
+    background-color: rgba($color: #9c9797a1, $alpha: 1.0);
+    border-color: #000000; /*set the color you want here*/
+    justify-content: end;
+    width: 100%; 
+    text-align: center;
+  }
