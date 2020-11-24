@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog'
 
 import {EntradaDetalleComponent} from '../../../entrada/components/entrada-detalle/entrada-detalle.component'
+import {EntradaDeleteComponent} from '../../../entrada/components/entrada-delete/entrada-delete.component'
+
 import { ActivatedRoute } from '@angular/router';
 import { InputService } from 'src/app/services/input.service';
 
@@ -55,7 +57,7 @@ export class ListComponent implements OnInit {
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService) { }
   inputs=[]
-  displayedColumns: string[] = [ 'number_refer', 'created','provider','elements'];
+  displayedColumns: string[] = [ 'number_refer', 'created','provider','elements','actions'];
   dataSource: MatTableDataSource<InputData>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -89,7 +91,6 @@ export class ListComponent implements OnInit {
         console.log(err)
       }
     )
-    console.log(params);
 
   });
 
@@ -134,6 +135,18 @@ export class ListComponent implements OnInit {
     
   }
   
+  eliminaEntrada(input:ElementData[]): void{
+    const dialogref = this.dialog.open(EntradaDeleteComponent, {
+      data: {title: 'Eliminar Entrada',input}
+    });
+    dialogref.afterClosed().subscribe(result => {
+      if (result.confirm) {
+        this.ngOnInit();
+      }      
+    })
+
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -142,11 +155,6 @@ export class ListComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-
-  
-
-
 }
 
 

@@ -1,0 +1,14 @@
+<h2 mat-dialog-title class="text-center">{{data.title}}</h2>
+<mat-dialog-content>
+ 
+<p>
+  Seguro desea borrar?
+</p>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button  mat-stroked-button class="btn btn-info" (click)="save()" >Cerrar</button>
+    <button  mat-stroked-button class="btn btn-danger" (click)="borrar()" >Eliminar</button>
+</mat-dialog-actions>

@@ -14,6 +14,9 @@ export class InputService {
 
   getInputByStruct(struct_id){
     return this.http.get(`${this.API_URI}/inputs/struct/${struct_id}.json`)
+  }
 
+  deleteInput(input){
+    return this.http.post(`${this.API_URI}/inputs/delete.json`,input)
   }
 }
