@@ -26,7 +26,7 @@ export interface IventarioData {
 export class ListPrestamosComponent implements OnInit {
   inventarioss=false
   noInventarios=false
-
+  
   //Fin alerts
 
   inventarioData=[]
@@ -51,12 +51,9 @@ export class ListPrestamosComponent implements OnInit {
   getInventarios(){
     this.activatedRoute.params.subscribe(
       param=>{
-        if(param['struct']){
-          
-
+        if(param['struct']){          
           this.inventarioService.getOutputsByStructPrestamo(param['struct']).subscribe(
             data=>{
-                  console.log(data)
                   this.inventarioData = data['inventario'];
                   this.estructurasDestino = data['structsDestino'];
                   this.estructuraActual = data['structOrigin'][0];
@@ -64,6 +61,11 @@ export class ListPrestamosComponent implements OnInit {
                     let aux:any=[];
                     aux= this.estructurasDestino.find(elem=> elem.id==element.destination_id);
                     element.destination_id= aux.name;
+                    if(element.return_date){
+                      element.return_date=true;
+                    }
+                    else
+                      element.return_date=false;
                   });
                   if(this.inventarioData.length!=0){
                     this.inventarioss=true
@@ -72,12 +74,11 @@ export class ListPrestamosComponent implements OnInit {
                     this.inventarioss=false
                     this.noInventarios=true
                   }
-                  this.struct_id = param['struct']        
+                  this.struct_id = param['struct'];
                   this.dataSource = new MatTableDataSource(this.inventarioData);
+
                   this.dataSource.paginator = this.paginator;
                   this.dataSource.sort = this.sort;
-
-
             },
             err=>{console.log(err)}
           )
@@ -88,8 +89,15 @@ export class ListPrestamosComponent implements OnInit {
 
 
   applyFilter(event: Event) {
+
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if(filterValue.trim().toLowerCase().match(/^\d{4}/) && filterValue.trim().toLowerCase().length==4){
+      this.dataSource.filter= filterValue.trim().toLowerCase() +'-';
+      (event.target as HTMLInputElement).value= this.dataSource.filter;
+    }
+    else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -100,8 +108,7 @@ export class ListPrestamosComponent implements OnInit {
     const dialogref = this.dialog.open(PendingFormComponent, {
       data: {title: 'Datos de la Devolucion', row:datos},
       width: '600px',
-		});
-
+    });
 		dialogref.afterClosed().subscribe(result => {
       if(result){
         if (result.confirm) {
@@ -118,17 +125,61 @@ export class ListPrestamosComponent implements OnInit {
     {
       var aux;
       var n = parseInt(this.dataSource.filter.slice(5), aux)
+      var datos: DatosPDf[]=[];
       if(typeof n == 'number' && n<=12)
       {
-        this.pdfService.generatePdf(this.dataSource.filteredData,this.estructuraActual['name'],n);
+        var contador=0;
+        this.dataSource.filteredData.forEach((element:any)=>{//elimina
+          if(element.return_date){
+            contador++;
+          }
+        });
+        this.dataSource.filteredData.forEach((element:any) => {
+          if(element.return_date)//elimina
+          this.inventarioService.getPrestamo(element.pend_id).subscribe((dat:any)=>{              
+            datos.push({
+              expected_date: dat.pending[0].expected_date ,
+              phone_number: dat.pending[0].phone_number ,
+              receiver_name: dat.pending[0].receiver_name ,
+              return_date: dat.pending[0].return_date ,
+              return_description: dat.pending[0].return_description ,
+              return_quantity: dat.pending[0].return_quantity ,
+              availability_id: element.availability_id,
+              created: element.created,            ​
+              description: element.description,
+              destination_id: element.destination_id,
+              name_element: element.name_element,
+              origin_id: element.origin_id,
+              quantity_out: element.quantity_out,
+            });     
+            if(contador==datos.length){//this.dataSource.filteredData.length==datos.length
+              this.pdfService.generatePdf(datos,this.estructuraActual['name'],n);
+            }
+          },
+          err=>{
+            console.log(err);
+          })
+
+        });
       }
     }       
     
   }  
 
-//   if (v.match(/^\d{4}$/) !== null) {
-//     this.value = v + '/';
-// }
-
 }
 
+interface DatosPDf{
+  expected_date: any ,
+  phone_number: any ,
+  receiver_name: any ,
+  return_date: any ,
+  return_description: any ,
+  return_quantity: any ,
+  availability_id: any,
+  created: any,            ​
+  description: any,
+  destination_id: any,
+  name_element: any,
+  origin_id: any,
+  quantity_out: any,
+}

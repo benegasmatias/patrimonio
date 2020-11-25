@@ -15,14 +15,8 @@ export class EntradaDeleteComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-  
-  close(){
-    this.dialogref.close()
-  }
-
   save(){
-    this.dialogref.close({confirm:true})
+    this.dialogref.close({confirm:false})
   }
   borrar(){
     let input= this.data.input[0]._joinData.input_id;

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 
-export class PdfService {
+export class pdfServiceSalida {
 
     pdfMake: any;
     private datePipe: DatePipe;
@@ -15,7 +15,7 @@ export class PdfService {
       }
     }
   
-    async generatePdf(data, name, mes) {      
+    async generatePdf(data, name, mes, tipo) {      
       await this.loadPdfMaker();      
       this.datePipe= new DatePipe('en-US');
       let f= new Date();
@@ -70,22 +70,27 @@ export class PdfService {
           break;
         }
       }
+      var tipoSalida="";
+      if(tipo==0)      
+        tipoSalida="Donaciones"
+      else
+        tipoSalida="Entregas"
 
       var docDefinition = {
         content: [
-          { text: 'Informe de Prestamos: '+ name + "   \n"+ fecha+ "  "+ f.getFullYear(), margin: [0, 20, 0, 8] },
+
+          { text: 'Informe de '+ tipoSalida + " : "+ name + "   \n"+ fecha+ "  "+ f.getFullYear(), margin: [0, 20, 0, 8] },
           {
             style: 'tableExample',
             table: {
               headerRows: 1,
               body: [
                 [
-                { text: 'Fecha de Prestamo', style: 'tableHeader' }, 
-                { text: 'Retira', style: 'tableHeader' },{ text: 'Cantidad', style: 'tableHeader' }, 
-                { text: 'Materiales', style: 'tableHeader' }, { text: 'Area que Solicita', style: 'tableHeader' }, 
-                { text: 'Descripcion/Programa', style: 'tableHeader' },
-                { text: 'Fecha de Devolucion', style: 'tableHeader' },
-                
+                { text: 'Fecha de Donacion', style: 'tableHeader' }, 
+                { text: 'Cantidad', style: 'tableHeader' }, 
+                { text: 'Articulo', style: 'tableHeader' },                 
+                { text: 'Descripcion', style: 'tableHeader' },
+                { text: 'Programa que Recibe', style: 'tableHeader' },                 
               ],
               ]
             },
@@ -143,30 +148,15 @@ export class PdfService {
         }
       };
       data.forEach((element:any) => {  
-        if(element.return_date){
+        
           docDefinition.content[1].table.body.push(
             [
-              this.datePipe.transform(element.created,"dd-MM-yyyy"),//Fecha de Prestamo
-              element.receiver_name,//Retira
+              this.datePipe.transform(element.created,"dd-MM-yyyy"),//Fecha de Donacion
               element.quantity_out,//Cantidad
-              element.name_element,//Materiales
-              element.destination_id,//Origen
-              element.description,//Programa
-              this.datePipe.transform(element.return_date,"dd-MM-yyyy") + " Devuelto",//Fecha de Devolucion
-            ]);
-        }
-        else{
-          docDefinition.content[1].table.body.push(
-            [
-              this.datePipe.transform(element.created,"dd-MM-yyyy"),//Fecha de Prestamo
-              element.receiver_name,//Retira
-              element.quantity_out,//Cantidad
-              element.name_element,//Materiales
-              element.destination_id,//Origen
-              element.description,//Programa
-              this.datePipe.transform(element.expected_date,"dd-MM-yyyy")+"(Estimado)" + " Pendiente",//Fecha de Devolucion
-            ]);          
-        }
+              element.name_element,//Articulo
+              element.description,//Descripcion
+              element.destination_id,//Programa que Solicita
+            ]);        
       });
       this.pdfMake.createPdf(docDefinition).open();
     }

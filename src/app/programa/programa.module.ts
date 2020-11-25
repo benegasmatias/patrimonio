@@ -19,6 +19,8 @@ import { ListSalidasComponent } from './componets/list-salidas/list-salidas.comp
 import { ListPrestamosComponent } from './componets/list-prestamos/list-prestamos.component';
 import {PdfService} from './componets/list-prestamos/pdfService/pdfService';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {pdfServiceSalida} from './componets/list-salidas/pdfServiceSalida/pdfServiceSalida';
+
 import {ReactiveFormsModule} from '@angular/forms'; 
 @NgModule({
   declarations: [ProgramaComponent, ListComponent, ListInventariosComponent,ListSalidasComponent,ListPrestamosComponent],
@@ -30,6 +32,7 @@ import {ReactiveFormsModule} from '@angular/forms';
   ],
   providers:[
     PdfService,
+    pdfServiceSalida
   ]
 })
 export class ProgramaModule { }

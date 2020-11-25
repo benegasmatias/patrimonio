@@ -36,11 +36,7 @@ export class PendingFormComponent implements OnInit {
     });
    }
 
-  ngOnInit(): void {
-
-
-
-
+  ngOnInit(): void {    
     this.inventarioservice.getPrestamo(this.data.row.pend_id).subscribe((dat:any)=>{
       this.form.setValue({
         expected_date: dat.pending[0].expected_date ,
@@ -56,9 +52,6 @@ export class PendingFormComponent implements OnInit {
     err=>{
       console.log(err);
     })
-
-
-
   }
 
   get form_cant() { return this.form.get('return_quantity'); }
