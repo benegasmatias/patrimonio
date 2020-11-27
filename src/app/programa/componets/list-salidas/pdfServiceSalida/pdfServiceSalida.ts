@@ -19,6 +19,7 @@ export class pdfServiceSalida {
       await this.loadPdfMaker();      
       this.datePipe= new DatePipe('en-US');
       let f= new Date();
+      let aux="";
       var fecha="";
       switch(mes){
         case 1:{
@@ -72,25 +73,32 @@ export class pdfServiceSalida {
       }
       var tipoSalida="";
       if(tipo==0)      
-        tipoSalida="Donaciones"
-      else
-        tipoSalida="Entregas"
+      {
+        tipoSalida="Donacion";
+        aux="es";
+      }
+      else{
+        tipoSalida="Entrega";
+        aux="s";
+      }
 
       var docDefinition = {
         content: [
 
-          { text: 'Informe de '+ tipoSalida + " : "+ name + "   \n"+ fecha+ "  "+ f.getFullYear(), margin: [0, 20, 0, 8] },
+          { text: 'Informe de '+ tipoSalida+aux + " : "+ name + "   \n"+ fecha+ "  "+ f.getFullYear(), margin: [0, 20, 0, 8] },
           {
             style: 'tableExample',
             table: {
               headerRows: 1,
               body: [
                 [
-                { text: 'Fecha de Donacion', style: 'tableHeader' }, 
+                { text: 'Fecha de '+ tipoSalida, style: 'tableHeader' },
+                { text: 'Autoriza', style: 'tableHeader' },  
                 { text: 'Cantidad', style: 'tableHeader' }, 
                 { text: 'Articulo', style: 'tableHeader' },                 
                 { text: 'Descripcion', style: 'tableHeader' },
-                { text: 'Programa que Recibe', style: 'tableHeader' },                 
+                { text: 'Retira', style: 'tableHeader' },
+                { text: 'Solicita', style: 'tableHeader' },                 
               ],
               ]
             },
@@ -152,9 +160,11 @@ export class pdfServiceSalida {
           docDefinition.content[1].table.body.push(
             [
               this.datePipe.transform(element.created,"dd-MM-yyyy"),//Fecha de Donacion
+              element.autoriza,//autoriza
               element.quantity_out,//Cantidad
               element.name_element,//Articulo
               element.description,//Descripcion
+              element.retira,
               element.destination_id,//Programa que Solicita
             ]);        
       });

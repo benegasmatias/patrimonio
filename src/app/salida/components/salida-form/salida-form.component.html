@@ -98,31 +98,36 @@
             
             <mat-form-field appearance="outline" class="input-doble">
                 <mat-label>Descripcion</mat-label>
-                <textarea matInput  formControlName="description" placeholder="Descripcion...."></textarea>
+                <textarea matInput  formControlName="description" placeholder="Descripcion..."></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="input-doble">
+                <mat-label>Autoriza:</mat-label>
+                <textarea matInput  formControlName="autoriza" placeholder="Autoriza..."></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="input-doble" [hidden]="!muestratipodest">
+                <mat-label>Retira:</mat-label>
+                <textarea matInput  formControlName="retira" placeholder="Retira..."></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="input-doble" [hidden]="muestratipodest" [formGroup]="formdest">
-                <mat-label>Nombre de Receptor del Prestamo</mat-label>
-                <textarea matInput  formControlName="receiver_name" placeholder="Nombre de Receptor...."></textarea>
+                <mat-label>Retira:</mat-label>
+                <textarea matInput  formControlName="receiver_name" placeholder="Retira..."></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="input-doble" [hidden]="muestratipodest" [formGroup]="formdest">
-                <mat-label>Nro de Telefono de Receptor</mat-label>
-                <input matInput type="number" formControlName="phone_number"  placeholder="Nro de Telefono" >
+                <mat-label>Nro de Telefono</mat-label>
+                <input matInput type="number" formControlName="phone_number"  placeholder="Nro de Telefono..." >
             </mat-form-field>
-
                 
             <mat-form-field appearance="outline" class="input-doble" [hidden]="muestratipodest" [formGroup]="formdest">
                 <mat-label>Fecha de Devolución Estimada</mat-label>
                 <input matInput [matDatepicker]="datepicker" formControlName="expected_date" disabled>
                 <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
                 <mat-datepicker #datepicker disabled="false"></mat-datepicker>
-            </mat-form-field>
-
-    
-        </div>
- 
-
+            </mat-form-field>    
+        </div> 
     </form>
 
 </mat-dialog-content>

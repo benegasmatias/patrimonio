@@ -34,7 +34,9 @@ export class SalidaFormComponent implements OnInit {
     destination_id: new FormControl('',Validators.required),
     availability_id: new FormControl('',Validators.required),
     element_id: new FormControl(Validators.required),
+    autoriza: new FormControl('',Validators.required),
     description: new FormControl(''),
+    retira: new FormControl(''),
     quantity_out:new FormControl('',[Validators.required,Validators.max(this.data.element.stock),Validators.min(1)]),
   });
 

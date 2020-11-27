@@ -57,10 +57,12 @@ export class ListPrestamosComponent implements OnInit {
                   this.inventarioData = data['inventario'];
                   this.estructurasDestino = data['structsDestino'];
                   this.estructuraActual = data['structOrigin'][0];
+                  console.log(this.estructuraActual)
                   this.inventarioData.forEach(element => {
                     let aux:any=[];
                     aux= this.estructurasDestino.find(elem=> elem.id==element.destination_id);
                     element.destination_id= aux.name;
+                    element.typeDestino= aux.nombreType;
                     if(element.return_date){
                       element.return_date=true;
                     }
@@ -101,7 +103,6 @@ export class ListPrestamosComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-    
   }
 
   datoPrestamo(datos){
@@ -129,13 +130,13 @@ export class ListPrestamosComponent implements OnInit {
       if(typeof n == 'number' && n<=12)
       {
         var contador=0;
-        this.dataSource.filteredData.forEach((element:any)=>{//elimina
+        this.dataSource.filteredData.forEach((element:any)=>{//elimina para sacar limitacion de devuelto
           if(element.return_date){
             contador++;
           }
         });
         this.dataSource.filteredData.forEach((element:any) => {
-          if(element.return_date)//elimina
+          if(element.return_date)//elimina para sacar limitacion de devuelto
           this.inventarioService.getPrestamo(element.pend_id).subscribe((dat:any)=>{              
             datos.push({
               expected_date: dat.pending[0].expected_date ,
@@ -151,9 +152,13 @@ export class ListPrestamosComponent implements OnInit {
               name_element: element.name_element,
               origin_id: element.origin_id,
               quantity_out: element.quantity_out,
-            });     
-            if(contador==datos.length){//this.dataSource.filteredData.length==datos.length
-              this.pdfService.generatePdf(datos,this.estructuraActual['name'],n);
+              typeDestino: element.typeDestino,
+              autoriza: element.autoriza,
+            });
+            console.log(contador)
+            console.log(datos.length)    
+            if(contador==datos.length){//this.dataSource.filteredData.length==datos.length para sacar limitacion de devuelto
+              this.pdfService.generatePdf(datos,this.estructuraActual,n);
             }
           },
           err=>{
@@ -182,4 +187,6 @@ interface DatosPDf{
   name_element: any,
   origin_id: any,
   quantity_out: any,
+  typeDestino: any,
+  autoriza:any,
 }

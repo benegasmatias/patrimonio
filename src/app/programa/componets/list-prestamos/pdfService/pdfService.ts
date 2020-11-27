@@ -15,7 +15,7 @@ export class PdfService {
       }
     }
   
-    async generatePdf(data, name, mes) {      
+    async generatePdf(data, estructura, mes) {      
       await this.loadPdfMaker();      
       this.datePipe= new DatePipe('en-US');
       let f= new Date();
@@ -73,7 +73,7 @@ export class PdfService {
 
       var docDefinition = {
         content: [
-          { text: 'Informe de Prestamos: '+ name + "   \n"+ fecha+ "  "+ f.getFullYear(), margin: [0, 20, 0, 8] },
+          { text: 'Informe de Prestamos: '+ estructura.nombreType+'-'+estructura.name + "   \n"+ fecha+ "  "+ f.getFullYear(), margin: [0, 20, 0, 8] },
           {
             style: 'tableExample',
             table: {
@@ -81,9 +81,12 @@ export class PdfService {
               body: [
                 [
                 { text: 'Fecha de Prestamo', style: 'tableHeader' }, 
-                { text: 'Retira', style: 'tableHeader' },{ text: 'Cantidad', style: 'tableHeader' }, 
-                { text: 'Materiales', style: 'tableHeader' }, { text: 'Area que Solicita', style: 'tableHeader' }, 
-                { text: 'Descripcion/Programa', style: 'tableHeader' },
+                { text: 'Autoriza', style: 'tableHeader' },
+                { text: 'Retira', style: 'tableHeader' },
+                { text: 'Cantidad', style: 'tableHeader' }, 
+                { text: 'Materiales', style: 'tableHeader' }, 
+                { text: 'Area que Solicita', style: 'tableHeader' }, 
+                { text: 'Institucion a la que se Destina', style: 'tableHeader' },
                 { text: 'Fecha de Devolucion', style: 'tableHeader' },
                 
               ],
@@ -115,12 +118,12 @@ export class PdfService {
         ],
         styles: {
           header: {
-            fontSize: 18,
+            fontSize: 14,
             bold: true,
             margin: [0, 0, 0, 10]
           },
           subheader: {
-            fontSize: 16,
+            fontSize: 12,
             bold: true,
             margin: [0, 10, 0, 5]
           },
@@ -134,7 +137,7 @@ export class PdfService {
           },
           tableHeader: {
             bold: true,
-            fontSize: 13,
+            fontSize: 12,
             color: 'black'
           }
         },
@@ -147,23 +150,25 @@ export class PdfService {
           docDefinition.content[1].table.body.push(
             [
               this.datePipe.transform(element.created,"dd-MM-yyyy"),//Fecha de Prestamo
+              element.autoriza,
               element.receiver_name,//Retira
               element.quantity_out,//Cantidad
               element.name_element,//Materiales
-              element.destination_id,//Origen
-              element.description,//Programa
-              this.datePipe.transform(element.return_date,"dd-MM-yyyy") + " Devuelto",//Fecha de Devolucion
+              element.destination_id,//Area que Solicita
+              element.description,//Institucion a la que se Destina
+              this.datePipe.transform(element.return_date,"dd-MM-yyyy") + " Devuelto (Se devolvio "+element.return_quantity 	+")",//Fecha de Devolucion
             ]);
         }
         else{
           docDefinition.content[1].table.body.push(
             [
               this.datePipe.transform(element.created,"dd-MM-yyyy"),//Fecha de Prestamo
+              element.autoriza,
               element.receiver_name,//Retira
               element.quantity_out,//Cantidad
               element.name_element,//Materiales
-              element.destination_id,//Origen
-              element.description,//Programa
+              element.destination_id,//Area que Solicita
+              element.description,//Institucion a la que se Destina
               this.datePipe.transform(element.expected_date,"dd-MM-yyyy")+"(Estimado)" + " Pendiente",//Fecha de Devolucion
             ]);          
         }
