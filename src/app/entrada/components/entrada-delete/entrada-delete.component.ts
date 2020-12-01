@@ -13,24 +13,23 @@ export class EntradaDeleteComponent implements OnInit {
   
 
   ngOnInit(): void {
-
+    console.log(this.data)
   }
   save(){
     this.dialogref.close({confirm:false})
   }
   borrar(){
-    let input= this.data.input[0]._joinData.input_id;
-    let inputelements=[];
-    this.data.input.forEach(element => {
-      inputelements.push(element._joinData.id)
-    });    
-    this.inputService.deleteInput({input_id: input, input_elements:inputelements }).subscribe(data=>{
-        console.log(data)
-        this.dialogref.close({confirm:true})
-      },
-      err=>{
-        console.log(err)
-      });
+      let input= this.data.input;
+      let inputelements=[];
+      this.data.elements.forEach(element => {
+        inputelements.push(element._joinData.id)
+      });    
+      this.inputService.deleteInput({input_id: input, input_elements:inputelements }).subscribe(data=>{
+          this.dialogref.close({confirm:true})
+        },
+        err=>{
+          console.log(err)
+        });
   }
 }
 

@@ -38,6 +38,7 @@ export class SalidaFormComponent implements OnInit {
     description: new FormControl(''),
     retira: new FormControl(''),
     quantity_out:new FormControl('',[Validators.required,Validators.max(this.data.element.stock),Validators.min(1)]),
+    created: new FormControl('',Validators.required),
   });
 
   formdest = new FormGroup({
@@ -180,6 +181,8 @@ export class SalidaFormComponent implements OnInit {
 
   save(){
     if(this.form.get('availability_id').value!=5){
+      var fecha= this.datePipe.transform(this.form.value.created,"yyyy-MM-dd HH:mm:SS");
+      this.form.controls['created'].setValue(fecha);
     this.outputService.addOutput(this.form.value).subscribe(
       data=>{
           this.dialogref.close({confirm:true})

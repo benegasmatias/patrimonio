@@ -72,9 +72,7 @@ export class ListComponent implements OnInit {
     this.serviceInput.getInputByStruct(params['id']).subscribe(
       data=>{
         this.inputs = data['inputs']
-
         this.dataSource = new MatTableDataSource(this.inputs);
-        //console.log(this.dataSource)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 
@@ -135,9 +133,13 @@ export class ListComponent implements OnInit {
     
   }
   
-  eliminaEntrada(input:ElementData[]): void{
+  eliminaEntrada(input:any): void{
+    console.log(input)
     const dialogref = this.dialog.open(EntradaDeleteComponent, {
-      data: {title: 'Eliminar Entrada',input}
+      data: {title: 'Eliminar Entrada',
+      input:input.id,
+      elements:input.elements,
+    }
     });
     dialogref.afterClosed().subscribe(result => {
       if (result.confirm) {

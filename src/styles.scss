@@ -156,14 +156,17 @@ text-align: center;
 
 .buttonMas{
   background:transparent;
-    color: rgb(8, 126, 12);
+  color: rgb(220, 114, 37);
+    //color: rgb(8, 126, 12);
     font-size: 2em !important;
     border: 0;
 }
 
 .buttonMas:hover {
   background:transparent;
-    color: rgb(14, 68, 15);
+  color: rgb(234, 91, 43);
+
+    //color: rgb(14, 68, 15);
 
     border: 0;
     cursor: pointer ;
@@ -173,27 +176,29 @@ text-align: center;
 
 .btn-primary{
   color:  #fff;
-  background-color: #a0453f;
-  border-color: #c4543d;
+  //background-color: #a0453f;
+  background-color: rgb(234, 91, 43);
+  border-color: rgb(231, 54, 46);
 
 }
 
 .btn-primary.disabled, .btn-primary:disabled{
   color:  #fff;
-background-color: #a0453f;
-border-color: #c4543d;
+//background-color: #a0453f;
+background-color: rgb(231, 52, 46);
+border-color:  rgb(231, 54, 46);
 }
 
 
  .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
 color: #fff;
-background-color: #c4544d;
-border-color: #c4543d; /*set the color you want here*/
+background-color:  rgb(231, 54, 46);
+border-color:  rgb(231, 54, 46); /*set the color you want here*/
 }
 
 .badge-primary{
   color: #fff;
-background-color: #c4544d;
+background-color: rgb(231, 54, 46);
 }
 
 .pass

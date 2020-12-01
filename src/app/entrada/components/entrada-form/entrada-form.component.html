@@ -81,25 +81,25 @@
                             <div class="row categbut" >
                                 <div class="col-5 form__div" style="padding-left:0%; padding-right: 0% ">
                                     <mat-toolbar style="padding-left:0%; padding-right: 0%;">
-                                        <button mat-raised-button [matMenuTriggerFor]="categorias" class="button">
+                                        <button mat-raised-button [matMenuTriggerFor]="categorias" class="button" type="button">
                                             Filtro Categoria
                                         </button>
                                     </mat-toolbar>
                                 
                                       <mat-menu #categorias="matMenu">
-                                        <button mat-menu-item (click)="selectvoid()"> - </button>
+                                        <button mat-menu-item (click)="selectvoid()" type="button"> - </button>
 
                                         <div *ngFor="let categ of arraycateg">            
-                                            <button *ngIf="categ.hijo.length==0" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>
-                                            <button *ngIf="categ.hijo.length!=0" [matMenuTriggerFor]="submenu" [matMenuTriggerData]="{categorias: categ}" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>                                                        
+                                            <button type="button" *ngIf="categ.hijo.length==0" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>
+                                            <button type="button" *ngIf="categ.hijo.length!=0" [matMenuTriggerFor]="submenu" [matMenuTriggerData]="{categorias: categ}" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>                                                        
                                         </div>
                                       </mat-menu>
             
                                         <mat-menu #submenu="matMenu" >
                                             <ng-template matMenuContent let-categorias="categorias">
                                                 <div *ngFor="let hijo of categorias.hijo" >
-                                                    <button *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
-                                                    <button *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                    <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                    <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
                                                 </div>
                                             </ng-template>
                                         </mat-menu>
@@ -107,8 +107,8 @@
                                         <mat-menu #menuaux="matMenu" >
                                             <ng-template matMenuContent let-categorias="categorias">
                                                 <div *ngFor="let hijo of categorias.hijo" >
-                                                    <button *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
-                                                    <button *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux2" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                    <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                    <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux2" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
                                                 </div>
                                             </ng-template>
                                         </mat-menu>
@@ -116,8 +116,8 @@
                                         <mat-menu #menuaux2="matMenu" >
                                             <ng-template matMenuContent let-categorias="categorias">
                                                 <div *ngFor="let hijo of categorias.hijo" >
-                                                    <button *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
-                                                    <button *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux3" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                    <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                    <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux3" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
                                                 </div>
                                             </ng-template>
                                         </mat-menu>
@@ -125,8 +125,8 @@
                                         <mat-menu #menuaux3="matMenu" >
                                             <ng-template matMenuContent let-categorias="categorias">
                                                 <div *ngFor="let hijo of categorias.hijo" >
-                                                    <button *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
-                                                    <button *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux4" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                    <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                    <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux4" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
                                                 </div>
                                             </ng-template>
                                         </mat-menu>
@@ -134,7 +134,7 @@
                                         <mat-menu #menuaux4="matMenu" >
                                             <ng-template matMenuContent let-categorias="categorias">
                                                 <div *ngFor="let hijo of categorias.hijo" >
-                                                    <button mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                    <button type="button" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
                                                 </div>
                                             </ng-template>
                                         </mat-menu>
@@ -229,7 +229,7 @@
             <strong>¡Exito!</strong> El inventario se guadó exitosamente.
           </div>
             <div >
-                <button type="submit" [disabled]="!form.valid || contadorSeleccion==0 || spinnerGuardar" style="width: 100%;" id="guardar" class="btn btn-primary">
+                <button type="submit" [disabled]="!form.valid || contadorSeleccion==0 || spinnerGuardar" style="width: 100%;" id="guardar" class="btn btn-primary" >
                     <div *ngIf="!spinnerGuardar">
                         Guardar
                       </div>

@@ -8,7 +8,7 @@
 
         <div class="row ml-2">
 
-         <h6 class="mt-4 mr-1" style="color: #08a810; font-size: 25px;">{{struct|uppercase}}</h6> 
+         <h6 class="mt-4 mr-1" style="color: rgb(220, 114, 37); font-size: 25px;">{{struct|uppercase}}</h6> 
          <span class="material-icons mt-3" >
             exit_to_app
             </span>
@@ -96,8 +96,16 @@
                 La cantidad supera el stock disponible
               </div>
             
+              <mat-form-field appearance="outline" class="input-doble">
+                <mat-label>Fecha de Salida</mat-label>
+                <input matInput [matDatepicker]="datepicker2" formControlName="created" disabled>
+                <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker2 disabled="false"></mat-datepicker>
+            </mat-form-field>  
+
             <mat-form-field appearance="outline" class="input-doble">
-                <mat-label>Descripcion</mat-label>
+                <!-- <mat-label>Descripcion</mat-label> -->
+                <mat-label>Area que Solicita</mat-label>
                 <textarea matInput  formControlName="description" placeholder="Descripcion..."></textarea>
             </mat-form-field>
 

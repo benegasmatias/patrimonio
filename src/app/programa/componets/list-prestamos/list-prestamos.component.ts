@@ -154,9 +154,7 @@ export class ListPrestamosComponent implements OnInit {
               quantity_out: element.quantity_out,
               typeDestino: element.typeDestino,
               autoriza: element.autoriza,
-            });
-            console.log(contador)
-            console.log(datos.length)    
+            });   
             if(contador==datos.length){//this.dataSource.filteredData.length==datos.length para sacar limitacion de devuelto
               this.pdfService.generatePdf(datos,this.estructuraActual,n);
             }

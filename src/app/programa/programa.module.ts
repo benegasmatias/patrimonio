@@ -20,6 +20,7 @@ import { ListPrestamosComponent } from './componets/list-prestamos/list-prestamo
 import {PdfService} from './componets/list-prestamos/pdfService/pdfService';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {pdfServiceSalida} from './componets/list-salidas/pdfServiceSalida/pdfServiceSalida';
+import{ MatIconModule} from '@angular/material/icon';
 
 import {ReactiveFormsModule} from '@angular/forms'; 
 @NgModule({
@@ -28,7 +29,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     CommonModule,
     ProgramaRoutingModule,
     MatListModule,MatDialogModule,MatButtonModule,MatTableModule,CdkTableModule,MatInputModule,MatPaginatorModule,MatSortModule
-    ,MatDatepickerModule,ReactiveFormsModule
+    ,MatDatepickerModule,ReactiveFormsModule,MatIconModule
   ],
   providers:[
     PdfService,

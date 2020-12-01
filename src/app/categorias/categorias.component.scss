@@ -1,4 +1,3 @@
-
 .card, .card-img-top {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
@@ -11,7 +10,7 @@ text-align: center;
 }
 
 .carga{
-  background-color: rgba(138, 10, 1, 0.253);
+  background-color: rgba(220, 113, 37, 0.452);
   width: 100%
 }
 
@@ -33,42 +32,24 @@ text-align: center;
 
 .btn-primary {
   color: #fff;
-  background-color: #c4543d;
-  border-color: #c4544d;
+  background-color: rgb(220, 114, 37);
   margin-right: 50px; 
   justify-content: end;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
   color: #fff;
-  background-color: #c4544d;
-  border-color: #c4543d;
+  background-color: rgb(234, 91, 43);
   margin-right: 50px; 
   justify-content: end;
 }
-
-.btn-sec {
-  color: rgb(0, 0, 0);
-  background-color: #eea293;
-  border-color: #d1453b;
-  margin-right: 50px; 
-  justify-content: end;
-}
-.btn-sec:hover, .btn-sec:focus, .btn-sec:active, .btn-sec.active, .open>.dropdown-toggle.btn-sec {
-  color: rgb(0, 0, 0);
-  background-color: #9b5550;
-  border-color: #d1453b;
-  margin-right: 50px; 
-  justify-content: end;
-}
-
 
 [class*="cat col-md"] {
   padding-top: 15px;
   padding-bottom: 15px;
   background-color: #eee;
-  background-color: rgba(138, 10, 1, 0.253);
+  background-color: rgba(220, 113, 37, 0.452);
   border: 1px solid #ddd;
-  border: 1px solid rgba(97, 30, 30, 0.2);
+  border: 1px solid rgba(220, 113, 37, 0.2);
 }
 
 
