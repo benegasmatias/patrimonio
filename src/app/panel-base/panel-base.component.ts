@@ -58,9 +58,8 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
         console.log(data)
       },
       err=>console.log(err)
-    )
-
- 
+    )    
+      console.log(this.loginService.getRol());
    }
 
 
@@ -110,6 +109,11 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
               }
               ]
            })
+
+           if(!this.verifica()){
+            this.fillerNav[i].subMenu.splice(1,1);
+           }
+
      }
     },
     err=>console.log(err)
@@ -122,14 +126,16 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   }
 
   categorias(){
-    this.muestrabutton=true;
-    this.fillerNav=[];
-    this.fillerNav.push(  { 
-      name: `Categorias`,
-      icon: 'folder',
-      route:'categorias'
-
-     })
+    let aux=this.loginService.getRol();
+    if(aux=="admin" || aux=="user"){
+      this.muestrabutton=true;
+      this.fillerNav=[];
+      this.fillerNav.push({ 
+        name: `Categorias`,
+        icon: 'folder',
+        route:'categorias'
+      })
+    }
   }
 
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
@@ -171,12 +177,12 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     error=>{
       console.log(error)
     })
-    
-
-
-
   }
 
+  verifica(){
+    let aux=this.loginService.getRol();
+    return (aux=="admin" || aux=="user");
+  } 
 
 
 

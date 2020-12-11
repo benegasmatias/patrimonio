@@ -7,6 +7,7 @@ import {EntradaDeleteComponent} from '../../../entrada/components/entrada-delete
 
 import { ActivatedRoute } from '@angular/router';
 import { InputService } from 'src/app/services/input.service';
+import { LoginService } from '../../../login/services/login.service';
 
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
@@ -55,7 +56,7 @@ export class ListComponent implements OnInit {
   title;
 
 
-  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService) { }
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService, private loginService: LoginService) { }
   inputs=[]
   displayedColumns: string[] = [ 'number_refer', 'created','provider','elements','actions'];
   dataSource: MatTableDataSource<InputData>;
@@ -65,8 +66,8 @@ export class ListComponent implements OnInit {
 
 
   ngOnInit(): void {
-  this.inputs= []
-   this.activatedRoute.params.subscribe(params => {
+    this.inputs= []
+    this.activatedRoute.params.subscribe(params => {
     this.spinnerInput = true
     this.title = params['id'];
     this.serviceInput.getInputByStruct(params['id']).subscribe(
@@ -91,9 +92,10 @@ export class ListComponent implements OnInit {
     )
 
   });
-
-
-
+    if(this.verifica()){
+      this.displayedColumns.pop();
+      
+    }
   }
 
   edit(): void {
@@ -156,6 +158,11 @@ export class ListComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  verifica(){
+    let aux= this.loginService.getRol();
+    return (aux=="guest");    
   }
 }
 

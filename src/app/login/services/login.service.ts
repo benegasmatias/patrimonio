@@ -27,7 +27,7 @@ export class LoginService {
     sessionStorage.setItem('currentUser', login_user);
   }
   getUser() {
-    console.log(sessionStorage.getItem('currentUser'));
+    return(sessionStorage.getItem('currentUser'));
   }
 
   // setAcademia(academi) {
@@ -54,4 +54,9 @@ export class LoginService {
   // }
 
   //login de edit
+
+  getRol(){
+    let d= sessionStorage.getItem('currentUser');
+    return (JSON.parse(atob(d.split('.')[1]))).dat.rol_id;
+  }
 }

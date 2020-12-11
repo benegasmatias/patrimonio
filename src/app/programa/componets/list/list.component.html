@@ -94,7 +94,7 @@
       </ng-container>
 
       <!-- eliminar element Column -->
-      <ng-container matColumnDef="actions">
+      <ng-container matColumnDef="actions" *ngIf="!verifica()">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ACCIONES </th>
         <td mat-cell *matCellDef="let row">
           <button mat-icon-button (click)="eliminaEntrada(row)" aria-label="Eliminar Entrada" style="color:rgb(231, 52, 46);">

@@ -7,6 +7,7 @@ import {MatSort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { PendingFormComponent } from '../pending-form/pending-form.component';
 import {PdfService} from './pdfService/pdfService';
+import { LoginService } from '../../../login/services/login.service';
 
 
 export interface IventarioData {
@@ -34,7 +35,7 @@ export class ListPrestamosComponent implements OnInit {
   estructuraActual=[];
   availabilities=[];    
 
-  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService,private pdfService: PdfService) {
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService,private pdfService: PdfService, private loginService: LoginService) {
   }
 
    displayedColumns: string[] = ['name_element', 'description','quantity_out','destination_id','created', 'estado','action', ];
@@ -106,19 +107,39 @@ export class ListPrestamosComponent implements OnInit {
   }
 
   datoPrestamo(datos){
-    const dialogref = this.dialog.open(PendingFormComponent, {
-      data: {title: 'Datos de la Devolucion', row:datos},
-      width: '600px',
-    });
-		dialogref.afterClosed().subscribe(result => {
-      if(result){
-        if (result.confirm) {
-          console.log(result.data);
-          this.getInventarios()
-        }
-      }
 
-		});
+    if(this.verifica()){
+      if( datos.return_date){
+        const dialogref = this.dialog.open(PendingFormComponent, {
+          data: {title: 'Datos de la Devolucion', row:datos},
+          width: '600px',
+        });
+        dialogref.afterClosed().subscribe(result => {
+          if(result){
+            if (result.confirm) {
+              console.log(result.data);
+              this.getInventarios()
+            }
+          }
+  
+        });
+      }
+    }
+    else{
+      const dialogref = this.dialog.open(PendingFormComponent, {
+        data: {title: 'Datos de la Devolucion', row:datos},
+        width: '600px',
+      });
+      dialogref.afterClosed().subscribe(result => {
+        if(result){
+          if (result.confirm) {
+            console.log(result.data);
+            this.getInventarios()
+          }
+        }
+
+      });
+    }
   }
 
   generaPdf(){
@@ -168,6 +189,12 @@ export class ListPrestamosComponent implements OnInit {
     }       
     
   }  
+
+  verifica(){
+    let aux= this.loginService.getRol();
+    return (aux=="guest");    
+  }
+
 
 }
 

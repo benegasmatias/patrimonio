@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InventarioService } from 'src/app/services/inventario.service';
 
-
+import { LoginService } from '../../../login/services/login.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -36,19 +36,18 @@ export class ListInventariosComponent implements OnInit {
   
   
 
-  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService) {}
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private loginService: LoginService) {}
    displayedColumns: string[] = [ 'name_element', 'description', 'stock','action'];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  ngOnInit(): void {
-
-    
-
-   this.getInventarios()
-  
+  ngOnInit(): void {    
+    this.getInventarios()
+    if(this.verifica()){
+      this.displayedColumns.pop();
+    }
   }
 
   getInventarios(){
@@ -101,6 +100,11 @@ export class ListInventariosComponent implements OnInit {
         
       }
 		});
+  }
+
+  verifica(){
+    let aux= this.loginService.getRol();
+    return (aux=="guest");    
   }
 
 }
