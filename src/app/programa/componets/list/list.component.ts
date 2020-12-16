@@ -76,9 +76,8 @@ export class ListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.inputs);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-
-        if(this.dataSource){
-       // this.cantElementos = this.dataSource.filteredData[0]elements.length
+        console.log()
+        if(data['inputs'].length!=0){
         this.spinnerInput=false
           
       }else{

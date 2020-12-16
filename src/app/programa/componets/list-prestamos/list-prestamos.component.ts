@@ -54,11 +54,11 @@ export class ListPrestamosComponent implements OnInit {
       param=>{
         if(param['struct']){          
           this.inventarioService.getOutputsByStructPrestamo(param['struct']).subscribe(
-            data=>{
+            (data:any)=>{
+                console.log(data.data)
                   this.inventarioData = data['inventario'];
                   this.estructurasDestino = data['structsDestino'];
                   this.estructuraActual = data['structOrigin'][0];
-                  console.log(this.estructuraActual)
                   this.inventarioData.forEach(element => {
                     let aux:any=[];
                     aux= this.estructurasDestino.find(elem=> elem.id==element.destination_id);
@@ -150,14 +150,14 @@ export class ListPrestamosComponent implements OnInit {
       var datos: DatosPDf[]=[];
       if(typeof n == 'number' && n<=12)
       {
-        var contador=0;
-        this.dataSource.filteredData.forEach((element:any)=>{//elimina para sacar limitacion de devuelto
-          if(element.return_date){
-            contador++;
-          }
-        });
+        // var contador=0;
+        // this.dataSource.filteredData.forEach((element:any)=>{//elimina para sacar limitacion de devuelto
+        //   if(element.return_date){
+        //     contador++;
+        //   }
+        // });
         this.dataSource.filteredData.forEach((element:any) => {
-          if(element.return_date)//elimina para sacar limitacion de devuelto
+          // if(element.return_date)//elimina para sacar limitacion de devuelto
           this.inventarioService.getPrestamo(element.pend_id).subscribe((dat:any)=>{              
             datos.push({
               expected_date: dat.pending[0].expected_date ,
@@ -176,7 +176,11 @@ export class ListPrestamosComponent implements OnInit {
               typeDestino: element.typeDestino,
               autoriza: element.autoriza,
             });   
-            if(contador==datos.length){//this.dataSource.filteredData.length==datos.length para sacar limitacion de devuelto
+            // if(contador==datos.length){
+            //   this.pdfService.generatePdf(datos,this.estructuraActual,n);
+            // }
+            if(this.dataSource.filteredData.length==datos.length){
+              //this.dataSource.filteredData.length==datos.length para sacar limitacion de devuelto
               this.pdfService.generatePdf(datos,this.estructuraActual,n);
             }
           },
@@ -193,6 +197,18 @@ export class ListPrestamosComponent implements OnInit {
   verifica(){
     let aux= this.loginService.getRol();
     return (aux=="guest");    
+  }
+
+  verificabutt(row){
+    let aux= this.loginService.getRol();
+    if(aux=="guest" && row.return_date)
+      return true;
+    else
+      if(aux=="user"|| aux=="admin"){
+        return true;
+      }
+      else
+        return false;
   }
 
 

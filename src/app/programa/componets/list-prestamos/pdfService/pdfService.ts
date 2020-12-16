@@ -146,6 +146,7 @@ export class PdfService {
         }
       };
       data.forEach((element:any) => {  
+        console.log(element)
         if(element.return_date){
           docDefinition.content[1].table.body.push(
             [
@@ -154,9 +155,9 @@ export class PdfService {
               element.receiver_name,//Retira
               element.quantity_out,//Cantidad
               element.name_element,//Materiales
-              element.destination_id,//Area que Solicita
-              element.description,//Institucion a la que se Destina
-              this.datePipe.transform(element.return_date,"dd-MM-yyyy") + " Devuelto (Se devolvio "+element.return_quantity 	+")",//Fecha de Devolucion
+              element.typeDestino,//Area que Solicita
+              element.destination_id,//Institucion a la que se Destina
+              this.datePipe.transform(element.return_date,"dd-MM-yyyy") + " Devuelto ("+element.return_quantity+")",//Fecha de Devolucion
             ]);
         }
         else{
@@ -167,9 +168,9 @@ export class PdfService {
               element.receiver_name,//Retira
               element.quantity_out,//Cantidad
               element.name_element,//Materiales
-              element.destination_id,//Area que Solicita
-              element.description,//Institucion a la que se Destina
-              this.datePipe.transform(element.expected_date,"dd-MM-yyyy")+"(Estimado)" + " Pendiente",//Fecha de Devolucion
+              element.typeDestino,//Area que Solicita
+              element.destination_id,//Institucion a la que se Destina
+              this.datePipe.transform(element.expected_date,"dd-MM-yyyy")+" (Estimado)",//Fecha de Devolucion
             ]);          
         }
       });
@@ -177,3 +178,13 @@ export class PdfService {
     }
   
   }
+
+  // { text: 'Fecha de Prestamo', style: 'tableHeader' }, 
+  // { text: 'Autoriza', style: 'tableHeader' },
+  // { text: 'Retira', style: 'tableHeader' },
+  // { text: 'Cantidad', style: 'tableHeader' }, 
+  // { text: 'Materiales', style: 'tableHeader' }, 
+  // { text: 'Area que Solicita', style: 'tableHeader' }, 
+  // { text: 'Institucion a la que se Destina', style: 'tableHeader' },
+  // { text: 'Fecha de Devolucion', style: 'tableHeader' },
+  

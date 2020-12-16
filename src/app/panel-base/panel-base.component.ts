@@ -55,11 +55,9 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
       data=>{
         this.destinosNav = data['types_structs']
         this.spinnerNav = false
-        console.log(data)
       },
       err=>console.log(err)
     )    
-      console.log(this.loginService.getRol());
    }
 
 
@@ -76,7 +74,6 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     
   this.serviceStruct.getStructs(destinoNav.id).subscribe(
     data=>{
-      console.log(data)
       this.fillerNav=[];
       this.estructuras=data['structs']
       this.muestrabutton=false;

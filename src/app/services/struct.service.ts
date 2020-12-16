@@ -16,7 +16,7 @@ export class StructService {
     return this.http.post(`${this.API_URI}/types-structs.json`,typeStruct);
   }
   getStructsByOrigin(id){
-    return this.http.get(`${this.API_URI}//structs/origin/${id}.json`);
+    return this.http.get(`${this.API_URI}/structs/origin/${id}.json`);
   }
 
   getStructs(id){
