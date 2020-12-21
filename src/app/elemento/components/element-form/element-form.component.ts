@@ -9,6 +9,8 @@ import { Marca } from '../../model/marca';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { MarcaComponent } from '../marca/marca.component';
 import { CategoriasService } from 'src/app/services/categorias.service';
+import { LoginService } from '../../../login/services/login.service'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -45,7 +47,7 @@ export class ElementFormComponent implements OnInit {
     category_of_element_id: new FormControl([], Validators.required)
   });
 
-  constructor(private elementoService: ElementoService, private dialog: MatDialog, private serviceCategoria: CategoriasService, private marcaService: MarcaService, @Inject(MAT_DIALOG_DATA) public data: any, public dialogref: MatDialogRef<ElementFormComponent>) { }
+  constructor(private elementoService: ElementoService, private dialog: MatDialog, private serviceCategoria: CategoriasService, private marcaService: MarcaService, @Inject(MAT_DIALOG_DATA) public data: any, public dialogref: MatDialogRef<ElementFormComponent>,private loginService: LoginService, protected route: Router) { }
 
   ngOnInit(): void {
     this.spinnerCategory = true
@@ -96,7 +98,8 @@ export class ElementFormComponent implements OnInit {
 
       },
       err => {
-
+        this.loginService.logout();
+        window.location.assign("/")
       }
     )
 
@@ -105,6 +108,10 @@ export class ElementFormComponent implements OnInit {
         console.log(data)
         this.marcas = data['marks']
         this.spinnerMarks = false
+      }
+      , err=>{
+        this.loginService.logout();
+        window.location.assign("/")        
       }
     )
 
@@ -156,8 +163,11 @@ export class ElementFormComponent implements OnInit {
     console.log(this.form.value)
     this.elementoService.addElement(this.form.value).subscribe(
       (data: any) => {
-        //console.log(data)
- 
+        //console.log(data) 
+      },
+      err=>{
+        this.loginService.logout();
+        window.location.assign("/")
       }
     )
 
@@ -201,9 +211,17 @@ export class ElementFormComponent implements OnInit {
             console.log(data)
             this.spinnerMarks = false
             this.marcas = data['marks']
+          },
+          err=>{
+            this.loginService.logout();
+            window.location.assign("/")            
           }
         )
       }
+    },
+    err=>{
+      this.loginService.logout();
+      window.location.assign("/")
     });
 
   }

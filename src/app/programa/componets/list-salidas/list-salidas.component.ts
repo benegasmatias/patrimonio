@@ -6,6 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import {pdfServiceSalida} from './pdfServiceSalida/pdfServiceSalida';
+import { LoginService } from 'src/app/login/services/login.service';
 
 export interface IventarioData {
   id_element: string;
@@ -34,7 +35,7 @@ export class ListSalidasComponent implements OnInit {
   estructuraActual=[];
   
 
-  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private pdfService: pdfServiceSalida) {}
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private pdfService: pdfServiceSalida, private loginService: LoginService) {}
 
    displayedColumns: string[] = ['name_element', 'description','quantity_out','destination_id', 'availability_id','created'];
    dataSource: MatTableDataSource<IventarioData>;
@@ -83,7 +84,11 @@ export class ListSalidasComponent implements OnInit {
                   this.dataSource.paginator = this.paginator;
                   this.dataSource.sort = this.sort;
             },
-            err=>{console.log(err)}
+            err=>{
+              console.log(err)
+              this.loginService.logout();
+              window.location.assign("/")
+            }
           )
         }
       }

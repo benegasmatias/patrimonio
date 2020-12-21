@@ -17,7 +17,7 @@ export class authlogin implements CanActivate {
 
     const redirectUrl = route['_routerState']['url'];
     if (this.customerService.isLogged()===false) {
-
+  
       return  true;
     }else{ 
 

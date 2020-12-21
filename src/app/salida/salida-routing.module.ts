@@ -5,10 +5,12 @@ import { SalidaComponent } from './salida.component';
 import { SalidaListaComponent } from './components/salida-lista/salida-lista.component';
 import { SalidaFormComponent } from './components/salida-form/salida-form.component';
 
+import { authGuard } from '../login/authGuard';
+
 const routes: Routes = [{ path: '', component: SalidaComponent,
 children:[
-     {path:'',component: SalidaListaComponent},
-    {path:'add',component:SalidaFormComponent}
+     {path:'',component: SalidaListaComponent, canActivate:[authGuard]},
+    {path:'add',component:SalidaFormComponent, canActivate:[authGuard]}
       ]
     }];
 

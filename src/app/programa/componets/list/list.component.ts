@@ -87,6 +87,8 @@ export class ListComponent implements OnInit {
       },
       err =>{
         console.log(err)
+        this.loginService.logout();
+        window.location.assign("/")
       }
     )
 
@@ -110,7 +112,11 @@ export class ListComponent implements OnInit {
 				}
         console.log("false")
 			}
-		});
+    },
+    err=>{
+      this.loginService.logout();
+      window.location.assign("/")
+    });
   }
 
 

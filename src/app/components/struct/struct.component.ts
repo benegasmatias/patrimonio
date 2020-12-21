@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { LoginService } from 'src/app/login/services/login.service';
 import { StructService } from 'src/app/services/struct.service';
 import { TypestructComponent } from '../typestruct/typestruct.component';
 
@@ -19,8 +20,7 @@ export class StructComponent implements OnInit {
 
   typeStructs:any[];
 
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private dialog:MatDialog,private dialogRef: MatDialogRef<StructComponent>, private serviceStruct:StructService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private dialog:MatDialog,private dialogRef: MatDialogRef<StructComponent>, private serviceStruct:StructService, private loginService: LoginService) { }
   
   form= new FormGroup({  
     name: new FormControl ('', Validators.required),
@@ -49,6 +49,10 @@ export class StructComponent implements OnInit {
         this.spinnerTypeStruct=true;
         this.typeStructs = data['types_structs'];
         console.log(this.typeStructs)
+      },
+      err=>{
+        this.loginService.logout();
+        window.location.assign("/")
       }
     )
   }
@@ -58,6 +62,10 @@ export class StructComponent implements OnInit {
     this.serviceStruct.addStruct(this.form.value).subscribe(
       data=>{
         console.log(data)
+      },
+      err=>{
+        this.loginService.logout();
+         window.location.assign("/")   
       }
     )
     this.dialogRef.close(this.form.value);
@@ -78,10 +86,11 @@ export class StructComponent implements OnInit {
 			}else {
         
       }
-		});
+    },
+    err=>{
+      this.loginService.logout();
+      window.location.assign("/")   
+    });
   }
-
-
-
 
 }

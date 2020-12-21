@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StructService } from 'src/app/services/struct.service';
 import { StructComponent } from '../struct/struct.component';
+import { LoginService } from 'src/app/login/services/login.service';
 
 @Component({
   selector: 'app-typestruct',
@@ -15,7 +16,7 @@ export class TypestructComponent implements OnInit {
     name: new FormControl ('', Validators.required)
   });   
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private dialogRef: MatDialogRef<TypestructComponent>,private serviceStruct:StructService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private dialogRef: MatDialogRef<TypestructComponent>,private serviceStruct:StructService, private loginService:LoginService) { }
 
   ngOnInit(): void {
   }
@@ -25,6 +26,10 @@ export class TypestructComponent implements OnInit {
     this.serviceStruct.addTypeStruct(this.form.value).subscribe(
       data=>{
 
+      },
+      err=>{
+        this.loginService.logout();
+        window.location.assign("/")
       }
     )
     this.dialogRef.close(true);

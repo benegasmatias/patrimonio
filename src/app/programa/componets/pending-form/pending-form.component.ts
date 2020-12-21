@@ -4,7 +4,7 @@ import { OutputService } from 'src/app/services/output.service';
 import { FormGroup, FormControl, Validators, MinLengthValidator } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { InventarioService } from 'src/app/services/inventario.service';
-
+import { LoginService } from 'src/app/login/services/login.service';
 
 @Component({
   selector: 'app-pending-form',
@@ -18,7 +18,7 @@ export class PendingFormComponent implements OnInit {
 
   form = null;
 
-  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<PendingFormComponent>,private dialog:MatDialog,private outputService:OutputService, private datePipe: DatePipe, private inventarioservice:InventarioService,) {
+  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<PendingFormComponent>,private dialog:MatDialog,private outputService:OutputService, private datePipe: DatePipe, private inventarioservice:InventarioService, private loginService:LoginService) {
     if(this.data.row.return_date){
       this.modifica= true;
     }
@@ -51,6 +51,8 @@ export class PendingFormComponent implements OnInit {
     },
     err=>{
       console.log(err);
+      this.loginService.logout();
+      window.location.assign("/")
     })
   }
 
@@ -67,7 +69,10 @@ export class PendingFormComponent implements OnInit {
       return_description: this.form.value.return_description, return_date: fecha, pend_id: parseInt(this.data.row.pend_id,10) }).subscribe((data:any)=>{
         console.log(data)
       },
-      err=>{console.log(err)}
+      err=>{console.log(err)
+        this.loginService.logout();
+        window.location.assign("/")      
+      }
       );
 
     this.dialogref.close({confirm:true, })

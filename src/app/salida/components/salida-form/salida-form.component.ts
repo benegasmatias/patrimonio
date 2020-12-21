@@ -6,6 +6,7 @@ import { StructService } from 'src/app/services/struct.service';
 import { OriginService } from 'src/app/services/origin.service';
 import { StructComponent } from 'src/app/components/struct/struct.component';
 import { DatePipe } from '@angular/common';
+import { LoginService } from 'src/app/login/services/login.service';
 
 @Component({
   selector: 'app-salida-form',
@@ -48,7 +49,7 @@ export class SalidaFormComponent implements OnInit {
     expected_date: new FormControl('', Validators.required),
   });
 
-  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<SalidaFormComponent>,private dialog:MatDialog,private outputService:OutputService,private structService:StructService,private serviceOirign:OriginService, private datePipe: DatePipe) { }
+  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<SalidaFormComponent>,private dialog:MatDialog,private outputService:OutputService,private structService:StructService,private serviceOirign:OriginService, private datePipe: DatePipe, private loginService:LoginService) { }
 
   ngOnInit(): void {
     this.StructExterior=false
@@ -56,6 +57,10 @@ export class SalidaFormComponent implements OnInit {
       data=>{
         console.log(data['struct'].name)
         this.struct = data['struct'].name
+      },
+      err=>{
+        this.loginService.logout();
+        window.location.assign("/")      
       }
     )
     this.getOrigenes()
@@ -75,6 +80,10 @@ export class SalidaFormComponent implements OnInit {
          console.log(this.availabilitys)
          this.spinnerAvailability=true
         }
+      },err=>
+      {
+        this.loginService.logout();
+        window.location.assign("/")
       })
 
 
@@ -87,6 +96,10 @@ export class SalidaFormComponent implements OnInit {
         this.spinnertypOrigenDestino=false
         this.origenes =  data['OriginStructs']
       console.log(data)
+      },
+      err=>{
+        this.loginService.logout();
+        window.location.assign("/")
       }
     )
   }
@@ -112,6 +125,9 @@ export class SalidaFormComponent implements OnInit {
               this.destinos.splice(i,1)
             }
           }
+        },err=>{
+          this.loginService.logout();
+          window.location.assign("/")
         }
       )
     }else  if(this.form.get('availability_id').value==4){//Entrega
@@ -126,6 +142,10 @@ export class SalidaFormComponent implements OnInit {
               this.destinos.splice(i,1)
             }
           }
+        },
+        err=>{
+          this.loginService.logout();
+          window.location.assign("/")
         }
       )
     }
@@ -171,6 +191,9 @@ export class SalidaFormComponent implements OnInit {
             this.destinos.splice(i,1)
           }
         }
+      },err=>{
+        this.loginService.logout();
+        window.location.assign("/")
       }
     )
 
@@ -189,6 +212,8 @@ export class SalidaFormComponent implements OnInit {
       },
       err=>{
         console.log(err);
+        this.loginService.logout();
+        window.location.assign("/")
       }
     )
     }
@@ -210,6 +235,8 @@ export class SalidaFormComponent implements OnInit {
         },
         (err:any)=>{
           console.log(err);
+          this.loginService.logout();
+          window.location.assign("/")
         }
       )
     }

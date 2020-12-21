@@ -16,7 +16,7 @@ export class LoginService {
     return this.http.post(`${this.API_URI}/users/login.json`, user);
   }
   logout() {
-    let tokenAccess = sessionStorage.getItem('accessToken');
+    
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('currentUser');
     return;
@@ -57,6 +57,8 @@ export class LoginService {
 
   getRol(){
     let d= sessionStorage.getItem('currentUser');
+    if(d)
     return (JSON.parse(atob(d.split('.')[1]))).dat.rol_id;
+    else return {}
   }
 }

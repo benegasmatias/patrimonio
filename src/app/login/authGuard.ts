@@ -14,19 +14,20 @@ export class authGuard implements CanActivate {
 
     const redirectUrl = route['_routerState']['url'];
     if (this.customerService.isLogged()===true) {
-
+      console.log('asssssssssssssssssssssssssss')
       return  true;
     }else{ 
-
-    this.router.navigateByUrl(
-      this.router.createUrlTree(
-        [''], {
-          queryParams: {
-            redirectUrl
+      console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      this.router.navigateByUrl(
+        this.router.createUrlTree(
+          ['/'], {
+            queryParams: {
+              redirectUrl
+            }
           }
-        }
-      )
-    );
+        )
+      );
+      //this.router.navigate(['/'])
 
     return false;
       }

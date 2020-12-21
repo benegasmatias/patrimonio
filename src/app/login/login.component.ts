@@ -23,27 +23,19 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     //posisiciona el scrol en las coordenadas x y
-    document.getElementById('username').focus({ preventScroll: false });
+    //document.getElementById('username').focus({ preventScroll: false });
   }
 
   login() {
     let usuario;
     this.spinner = true;
     this.isloged = false;
-    console.log(this.form.value)
     this.loginService.login(this.form.value).subscribe(
       (data) => {
         usuario = data['token']
        
         this.loginService.setUser(usuario);
-        console.log(usuario)
-        //academia = usuario['usuario']['academia'];
-        //  this.loginService.getUser();
-        // this.loginService.getAcademia();
-
         this.loginService.setToken(usuario);
-        // this.loginService.setAcademia(academia);
-
         this.route.navigateByUrl('panel');
       },
       (err) => {

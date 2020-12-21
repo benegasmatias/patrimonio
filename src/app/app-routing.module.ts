@@ -7,7 +7,8 @@ import { authGuard } from './login/authGuard';
 import { authlogin } from './login/authlogin';
 
 import {PanelBaseComponent} from '../app/panel-base/panel-base.component'
-
+import {LoginService} from '../app/login/services/login.service';
+import { LoginModule } from './login/login.module';
 
 const routes: Routes = [{
   path:'',
@@ -16,7 +17,7 @@ const routes: Routes = [{
   { 
    // path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule)},
    path: 'panel', loadChildren: () => import('./panel-base/panel-base.module').then(m => m.PanelBaseModule), canActivate:[authGuard]},
-  { path: 'categorias', loadChildren: () => import('./categorias/categorias.module').then(m => m.CategoriasModule) }
+  { path: 'categorias', loadChildren: () => import('./categorias/categorias.module').then(m => m.CategoriasModule),canActivate:[authGuard] }
    
   ]
  
@@ -24,6 +25,7 @@ const routes: Routes = [{
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  bootstrap:[PanelBaseComponent]
+  bootstrap:[PanelBaseComponent],
+
 })
 export class AppRoutingModule { }

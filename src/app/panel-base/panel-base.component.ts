@@ -56,7 +56,10 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
         this.destinosNav = data['types_structs']
         this.spinnerNav = false
       },
-      err=>console.log(err)
+      err=>{console.log(err)
+        this.loginService.logout();
+        window.location.assign("/")
+      }
     )    
    }
 
@@ -113,8 +116,11 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
 
      }
     },
-    err=>console.log(err)
-  )
+    err=>{
+      this.loginService.logout();
+      window.location.assign("/")
+    }
+    )
    this.route.navigateByUrl('panel/programa')
   }
   logout() {
@@ -167,6 +173,8 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
           },
           err=>{
             console.log(err)
+            this.loginService.logout();
+            window.location.assign("/")
           })
 
       }

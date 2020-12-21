@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ElementFormComponent } from 'src/app/elemento/components/element-form/element-form.component';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { MarcaService } from 'src/app/services/marca.service';
-
+import { LoginService } from 'src/app/login/services/login.service';
 
 
 @Component({
@@ -102,8 +102,10 @@ tipoDestino=''
       private serviceInput:InputService,
       private serviceMarca:MarcaService,
       private serviceProvider:ProveedorService,
-      private activatedRoute:ActivatedRoute) {
-        
+      private activatedRoute:ActivatedRoute,
+      private loginService: LoginService
+      ) {
+      
        }
 
 
@@ -142,7 +144,11 @@ tipoDestino=''
 
     
       },
-      err=>console.log(err)
+      err=>{
+        console.log(err)
+        this.loginService.logout();
+        window.location.assign("/")
+      }
     )      
     
     this.serviceCategorias.getCategorias().subscribe(
@@ -186,6 +192,8 @@ tipoDestino=''
       error => {
         console.log(error)
         console.log("No se pudo recuperar Categorias")
+        this.loginService.logout();
+        window.location.assign("/")
       });
       
       this.getMarcas()         
@@ -227,12 +235,20 @@ tipoDestino=''
         this.marcas = data['marks']
         this.spinnerMarks= false;
       },
-      err=>console.log(err)
+      err=>{
+        console.log(err)
+        this.loginService.logout();
+        window.location.assign("/")
+      }
     )
     this.serviceProvider.getProviders().subscribe(
       data=>{
         this.proveedores = data['providers']
         this.spinnerProvider=false
+      },
+      err=>{
+        this.loginService.logout();
+        window.location.assign("/")
       }
     )
 
@@ -251,11 +267,19 @@ tipoDestino=''
           data=>{
             this.proveedores = data['providers']
             this.spinnerProvider=false
+          },
+          err=>{
+            this.loginService.logout();
+            window.location.assign("/")
           }
         )
       }else{
         this.spinnerProvider=false
       }
+    },
+    err=>{
+      this.loginService.logout();
+      window.location.assign("/")
     });
     
   }
@@ -280,6 +304,10 @@ tipoDestino=''
          }else{
           this.spinnerElement=true;
          }
+       },
+       err=>{
+        this.loginService.logout();
+        window.location.assign("/")
        }
      )
       }
@@ -304,7 +332,12 @@ tipoDestino=''
              this.spinnerElement=true;
             }
         },
-        err=>console.log(err)
+        err=>{
+          console.log(err)
+          this.loginService.logout();
+          window.location.assign("/")
+        }
+          
       )}
       else
     if(this.form.get('categoria').value.id_category==-1 && this.form.get('marca').value){
@@ -320,7 +353,11 @@ tipoDestino=''
             this.spinnerElement=true;
            }
         },
-        err=>console.log(err)
+        err=>{
+          console.log(err)
+          this.loginService.logout();
+          window.location.assign("/")
+        }
       )}else{
         if(this.form.get('categoria').value.id_category!=-1 && this.form.get('marca').value){
         this.serviceElement.getElementosByCategoryAndMark(this.form.get('categoria').value.id_category,this.form.get('marca').value).subscribe(
@@ -335,7 +372,11 @@ tipoDestino=''
             this.spinnerElement=true;
            }
           },
-          err=>console.log(err)
+          err=>{
+            console.log(err)
+            this.loginService.logout();
+            window.location.assign("/")
+          }
         )}else
           {this.spinnerNoElement=true;
            this.spinnerElement=true;}
@@ -359,7 +400,10 @@ tipoDestino=''
             this.spinnerElement=true;
            }
         },
-        err=>console.log(err)
+        err=>{console.log(err)
+          this.loginService.logout();
+          window.location.assign("/")
+        }
       )}else
 
     if(!this.form.get('marca').value && this.form.get('categoria').value.id_category!=-1 ){
@@ -374,7 +418,11 @@ tipoDestino=''
             this.spinnerElement=true;
            }
        },
-       err=>console.log(err)
+       err=>{
+         console.log(err)
+         this.loginService.logout();
+         window.location.assign("/")
+      }
      )}else{
        if(this.form.get('categoria').value.id_category!=-1 && this.form.get('marca').value!= ''){
          this.serviceElement.getElementosByCategoryAndMark(this.form.get('categoria').value.id_category,this.form.get('marca').value).subscribe(
@@ -388,7 +436,11 @@ tipoDestino=''
                this.spinnerElement=true;
              }
           },
-           err=>console.log(err)
+           err=>{
+             console.log(err)
+             this.loginService.logout();
+             window.location.assign("/")
+          }
          )
       }else{
         this.spinnerNoElement=true;
@@ -414,6 +466,10 @@ tipoDestino=''
           this.form.get('struct_id').setValue(data['struct'].id)
           this.estructuraNombre = data['struct'].name
           // this.form.get('estructura').setValue(data['struct'].id)
+        },
+        err=>{
+          this.loginService.logout();
+          window.location.assign("/")
         }
       )
       }else{
@@ -425,7 +481,11 @@ tipoDestino=''
               this.spinnerDestinoStruct = false
             },
     
-            err => console.log(err)
+            err =>{
+              console.log(err)
+              this.loginService.logout();
+              window.location.assign("/")
+            } 
           )
         } else {
           this.spinnerDestinoStruct = false
@@ -456,6 +516,8 @@ tipoDestino=''
       },
       err=>{
         console.log(err)
+        this.loginService.logout();
+        window.location.assign("/")
       }
     )
   }
@@ -498,6 +560,10 @@ tipoDestino=''
         }
       }
      
+    },
+    err=>{
+      this.loginService.logout();
+      window.location.assign("/")
     });
     
    } 

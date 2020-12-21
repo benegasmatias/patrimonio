@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {InputService} from '../../../services/input.service';
-
+import { LoginService } from 'src/app/login/services/login.service';
 @Component({
   selector: 'app-entrada-delete',
   templateUrl: './entrada-delete.component.html',
@@ -9,9 +9,8 @@ import {InputService} from '../../../services/input.service';
 })
 export class EntradaDeleteComponent implements OnInit {
   
-  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<EntradaDeleteComponent>, public inputService: InputService) { }
+  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<EntradaDeleteComponent>, public inputService: InputService, private loginService: LoginService) { }
   
-
   ngOnInit(): void {
     console.log(this.data)
   }
@@ -29,6 +28,8 @@ export class EntradaDeleteComponent implements OnInit {
         },
         err=>{
           console.log(err)
+          this.loginService.logout();
+          window.location.assign("/")
         });
   }
 }

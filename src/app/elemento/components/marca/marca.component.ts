@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/dialog/dialog/dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MarcaService } from '../../../services/marca.service';
-
+import { LoginService } from 'src/app/login/services/login.service';
 @Component({
   selector: 'app-marca',
   templateUrl: './marca.component.html',
@@ -17,7 +17,7 @@ export class MarcaComponent implements OnInit {
   });
 
 
-  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<DialogComponent>,private marcaService:MarcaService) { }
+  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<DialogComponent>,private marcaService:MarcaService, private loginService: LoginService) { }
 
   ngOnInit(): void {
   }
@@ -32,7 +32,11 @@ export class MarcaComponent implements OnInit {
     
 
     this.marcaService.addMarca(this.form.value).subscribe(
-      data=>console.log(data)
+      data=>console.log(data),
+      err=>{
+        this.loginService.logout();
+        window.location.assign("/")
+      }
     )
     this.dialogref.close({confirm:true})
   }

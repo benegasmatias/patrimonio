@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/materia
 import { ViewChild, TemplateRef } from '@angular/core';
 import {CategoriasService} from '../services/categorias.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LoginService } from '../login/services/login.service';
 
 
 @Component({
@@ -96,6 +97,8 @@ public nestedCateg = {
       error => {
         console.log(error)
         console.log("No se pudo recuperar Categorias")
+        this.loginService.logout();
+        window.location.assign("/")
       });
       
     }
@@ -153,7 +156,7 @@ public nestedCateg = {
 
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
 
-  constructor(private serviceCategoria: CategoriasService ) {}
+  constructor(private serviceCategoria: CategoriasService, private loginService: LoginService ) {}
 
 //ELIMINAR
 
@@ -232,6 +235,8 @@ DeshacerCambios(){
     },
     error=>{
       console.log(error)
+      this.loginService.logout();
+      window.location.assign("/")
     });
     
     

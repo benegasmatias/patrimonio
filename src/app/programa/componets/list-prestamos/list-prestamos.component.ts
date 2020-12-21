@@ -83,7 +83,11 @@ export class ListPrestamosComponent implements OnInit {
                   this.dataSource.paginator = this.paginator;
                   this.dataSource.sort = this.sort;
             },
-            err=>{console.log(err)}
+            err=>{
+              console.log(err)
+              this.loginService.logout();
+              window.location.assign("/")
+            }
           )
         }
       }
@@ -186,6 +190,8 @@ export class ListPrestamosComponent implements OnInit {
           },
           err=>{
             console.log(err);
+            this.loginService.logout();
+            window.location.assign("/")
           })
 
         });
