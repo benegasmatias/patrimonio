@@ -76,7 +76,6 @@ export class ListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.inputs);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log()
         if(data['inputs'].length!=0){
         this.spinnerInput=false
           
@@ -121,7 +120,6 @@ export class ListComponent implements OnInit {
 
 
   verEntrada(input:ElementData[]): void {
-  //  console.log(input)
 		const dialogref = this.dialog.open(EntradaDetalleComponent, {
       data: {title: 'Elementos',input}
 		});
@@ -141,7 +139,6 @@ export class ListComponent implements OnInit {
   }
   
   eliminaEntrada(input:any): void{
-    console.log(input)
     const dialogref = this.dialog.open(EntradaDeleteComponent, {
       data: {title: 'Eliminar Entrada',
       input:input.id,

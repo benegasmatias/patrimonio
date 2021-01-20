@@ -14,10 +14,8 @@ export class authGuard implements CanActivate {
 
     const redirectUrl = route['_routerState']['url'];
     if (this.customerService.isLogged()===true) {
-      console.log('asssssssssssssssssssssssssss')
       return  true;
     }else{ 
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
       this.router.navigateByUrl(
         this.router.createUrlTree(
           ['/'], {
