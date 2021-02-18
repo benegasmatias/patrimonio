@@ -1,29 +1,32 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { OutputService } from 'src/app/services/output.service';
+import { FormGroup, FormControl, Validators, MinLengthValidator } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { InventarioService } from 'src/app/services/inventario.service';
+import { LoginService } from 'src/app/login/services/login.service';
+
+
 import { ElementoService } from 'src/app/elemento/service/elemento.service';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogCantElementComponent } from 'src/app/elemento/components/dialog-cant-element/dialog-cant-element.component';
-
 import { StructService } from 'src/app/services/struct.service';
-
 import { InputService } from 'src/app/services/input.service';
-
 import { ProveedorService } from 'src/app/services/proveedor.service';
 import { DialogProveedorComponent } from 'src/app/dialog/proveedor/dialog-proveedor/dialog-proveedor.component';
 import { ActivatedRoute } from '@angular/router';
 import { ElementFormComponent } from 'src/app/elemento/components/element-form/element-form.component';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { MarcaService } from 'src/app/services/marca.service';
-import { LoginService } from 'src/app/login/services/login.service';
+
 
 
 @Component({
-  selector: 'app-entrada-form',
-  templateUrl: './entrada-form.component.html',
-  styleUrls: ['./entrada-form.component.scss']
+  selector: 'app-pending-form',
+  templateUrl: './entrada-edit.component.html',
+  styleUrls: ['./entrada-edit.component.scss']
 })
+export class EntradaEditComponent implements OnInit {
 
-export class EntradaFormComponent implements OnInit {
   @ViewChild('auto') auto;
 
 
@@ -91,10 +94,9 @@ tipoDestino=''
     stock: new FormControl(this.stock),
     marca: new FormControl('')
   });
- 
-
 
   constructor(
+      @Inject (MAT_DIALOG_DATA) public datos : any,
       private serviceElement: ElementoService,
       private dialog: MatDialog,
       private serviceStruct: StructService,
@@ -103,14 +105,47 @@ tipoDestino=''
       private serviceMarca:MarcaService,
       private serviceProvider:ProveedorService,
       private activatedRoute:ActivatedRoute,
-      private loginService: LoginService
-      ) {
+      private loginService: LoginService,
       
+      public dialogref: MatDialogRef<EntradaEditComponent>,
+      private outputService:OutputService, 
+      private datePipe: DatePipe, 
+      private inventarioservice:InventarioService, 
+      ) {
+        this.form.setValue({
+          number_refer: datos.row.number_refer,
+          typeStruct_id: datos.row.struct.type_struct_id,
+          categoria: this.form.value.categoria,
+          struct_id: datos.row.struct.id,
+          provider_id: datos.row.provider.id,
+          stock: this.form.value.stock,
+          marca: this.form.value.marca
+        })
+        datos.row.elements.forEach(element => {
+          let newelem={
+            cantidad: element._joinData.quantity,
+            elemento:{
+              category_of_element_id: null,
+              description: element.description,
+              id_element: element.id_element,
+              mark_id: element.mark_id,
+              name_element: element.name_element,
+              quantity: null,
+            }
+
+          }
+          let newstock= {
+            element_id: newelem.elemento.id_element,
+            quantity: newelem.cantidad,
+          }
+          this.elementosSelecionados.push(newelem);
+          this.stock.push(newstock);
+          this.contadorSeleccion++;
+          
+        });
        }
 
-
-  ngOnInit(): void {
-
+  ngOnInit(): void {    
     //spinners
     this.spinnerGuardar = false;
     this.spinnerProvider = true;
@@ -127,22 +162,14 @@ tipoDestino=''
       data=>{
            this.destinos = data['types_structs']
            this.spinnerDestino=false 
-
-           this.activatedRoute.params.subscribe(param=>{
-            console.log(param)
             // console.log('asdasdasd', this.form.get('estructura').value)
 
+            //this.form.get('typeStruct_id').setValue(param['typeStruct'])
 
-            this.form.get('typeStruct_id').setValue(param['typeStruct'])
-
-            if(param['struct'])
             this.params=true
             this.disabledSelect=true;
-            this.getEstructura(param['struct']);
-
-          })
-
-    
+            this.getEstructura(this.datos.row.struct.id);
+   
       },
       err=>{
         console.log(err)
@@ -198,8 +225,10 @@ tipoDestino=''
       
       this.getMarcas()         
     
-  }//end
+  }
 
+  get form_cant() { return this.form.get('return_quantity'); }
+ 
   //aux de categorias
   CargaRec(result, categorias: categ[],arregloaux, num){
     
@@ -224,6 +253,7 @@ tipoDestino=''
     });
     return(arregloaux);
   }
+
   comparar ( a, b ){ return a.id_category - b.id_category; }
 
 
@@ -231,7 +261,6 @@ tipoDestino=''
     this.spinnerMarks= true;
     this.serviceMarca.getMarcas().subscribe(
       data=>{
-     //   console.log(data)
         this.marcas = data['marks']
         this.spinnerMarks= false;
       },
@@ -290,7 +319,6 @@ tipoDestino=''
 		});
 
 		dialogref.afterClosed().subscribe(element => {
-      console.log(element)
 			this.getMarcas()
 			if (element.confirm) {
         this.spinnerElement=false;
@@ -314,8 +342,6 @@ tipoDestino=''
     });
     
 	}
-
-
 
   getElementByMark(){
     this.spinnerElement=false;
@@ -451,18 +477,11 @@ tipoDestino=''
 
   getEstructura(struct_id = null) {
     // if(struct_id)
-
-
     this.spinnerDestinoStruct = true;
-    console.log(this.destinos)
-
-   
-
-    //let select = <HTMLInputElement>document.getElementById('selecEstructura')
+  //let select = <HTMLInputElement>document.getElementById('selecEstructura')
     if(struct_id){
       this.serviceStruct.getStruct(struct_id).subscribe(
         data=>{
-          console.log(data)
           this.form.get('struct_id').setValue(data['struct'].id)
           this.estructuraNombre = data['struct'].name
           // this.form.get('estructura').setValue(data['struct'].id)
@@ -476,7 +495,6 @@ tipoDestino=''
         if (this.form.get('struct_id').value) {
           this.serviceStruct.getStructs(this.form.get('struct_id').value).subscribe(
             data => {
-              console.log(data)
               this.estructuras = data['structs']
               this.spinnerDestinoStruct = false
             },
@@ -495,32 +513,26 @@ tipoDestino=''
    
   }
 
-
-
-
   enviar() {
     this.spinnerGuardar=true
-    console.log(this.form.value)
-    
-    this.serviceInput.addInput(this.form.value).subscribe(
-      data=>{
-        console.log(data)
-        this.alertExito=true;
-        this.stock = []
-        this.elementosSelecionados = []
-        this.form.get('number_refer').setValue('')
-       // this.form.get('typeStruct_id').setValue('')
-      //  this.form.get('struct_id').setValue('')
-        this.form.get('categoria').setValue('')
-        this.form.get('provider_id').setValue('')
-        this.spinnerGuardar=false;
-      },
-      err=>{
-        console.log(err)
-        this.loginService.logout();
-        window.location.assign("/")
-      }
-    )
+    this.serviceInput.editInput({
+      input_id: this.datos.row.id,
+      number_refer: this.form.value.number_refer,
+      provider_id: this.form.value.provider_id,
+      stock: this.form.value.stock,
+
+    }).subscribe((data:any)=>{
+      this.alertExito=true;
+      this.spinnerGuardar=false;
+      this.dialogref.close({confirm:true, })
+    },
+    err=>{
+      console.log(err)
+      this.loginService.logout();
+      window.location.assign("/")
+    })
+
+
   }
 
   noSeleccionar(id) {
@@ -534,7 +546,7 @@ tipoDestino=''
 
   selectEvent(item) {
     // do something with selected item
-    //console.log(item.name_element)
+    console.log(item.name_element)
 
     if(item!=''){
 
@@ -545,18 +557,17 @@ tipoDestino=''
     dialogref.afterClosed().subscribe(result => {
       if (result.confirm) {
         if (this.elementosSelecionados.find(element => element.elemento.id_element == item.id_element)) {
-          //console.log(this.elementosSelecionados.find(element => element.elemento.id_element == item.id_element))
+          console.log(this.elementosSelecionados.find(element => element.elemento.id_element == item.id_element))
           alert("El elemento ya se agrego a la lista.")
+
         } else {
           let elemento = {
             elemento: item,
             cantidad: result.cantidad
           }
-          //console.log(elemento)
+          console.log(elemento)
           this.elementosSelecionados.push(elemento);
          this.stock.push({element_id:item.id_element,quantity:result.cantidad})
-         console.log(this.elementosSelecionados)
-         console.log(this.stock)
           this.contadorSeleccion = this.elementosSelecionados.length;
         }
       }
@@ -614,6 +625,27 @@ tipoDestino=''
     })
     this.getElementByCategory();
    }
+
+
+
+
+   //cierre de dialogo
+    close(){
+    this.dialogref.close({confirm:false})
+  }
+
+  // save(){
+  //   var fecha= this.datePipe.transform(this.form.value.return_date,"yyyy-MM-dd");
+  //   this.inventarioservice.updatePrestamo({return_quantity: this.form.value.return_quantity, 
+  //     return_description: this.form.value.return_description, return_date: fecha, pend_id: parseInt(this.data.row.pend_id,10) }).subscribe((data:any)=>{
+  //       console.log(data)
+  //     },
+  //     err=>{console.log(err)
+  //       this.loginService.logout();
+  //       window.location.assign("/")      
+  //     }
+  //     );
+  // }
 
 }
 

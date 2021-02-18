@@ -1,0 +1,241 @@
+<!-- <h2 mat-dialog-title class="text-center"></h2> -->
+
+<mat-dialog-content>
+
+<form (ngSubmit)="enviar()" [formGroup]="form" class="mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 pt-5 container" >
+  <div class="container">
+      <div class="row">
+          <div class="m-1 card" style="overflow-y: auto;" style="width: 100%;">
+              <h4 class=" titulo text-center">Editar entrada</h4>
+              <br>
+              <div>
+
+              </div>
+
+              <div class="form__div">
+
+              <mat-form-field class="" style="margin-right: 5px; width: 45%;"  appearance="">
+                  <mat-label>N° remito</mat-label>
+                  <input matInput  formControlName="number_refer" value="" placeholder="Numero de remito">
+              </mat-form-field>
+              <mat-form-field class="" style="width: 45%; margin-right: 3px;" appearance="">
+                  <mat-label>
+                  <div *ngIf="!spinnerProvider">
+                      Proveedor
+                  </div>
+                  <div *ngIf="spinnerProvider">
+                          <span > Cargando...</span>
+                      <span class="spinner-grow spinner-grow-sm text-secondary " role="status"  aria-hidden="true"></span>
+                  </div></mat-label>
+                    <select matNativeControl formControlName="provider_id">
+                     
+                      <option value="" selected></option>
+                      <option *ngFor="let proveedor of proveedores" [ngValue]='proveedor.id'> {{proveedor.name}} </option> 
+                  </select>
+                
+              </mat-form-field><a (click)="addProveedor()"><span style="position: relative; top: 5px;"  class=" buttonMas material-icons ">
+                  add_circle_outline 
+                  </span></a>
+             
+              </div>
+             
+              <div>
+                  <h6> Destino</h6>
+                  <mat-form-field class="form__input_container" appearance="">
+                      <mat-label><div *ngIf="!spinnerDestino">Estructura
+                        </div>
+                          <div *ngIf="spinnerDestino">
+                              <span > Cargando...</span>
+                          <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
+                        </div></mat-label>
+                      <select matNativeControl  formControlName="typeStruct_id"  id="selecDestino"(change)="getEstructura()">
+                          <option *ngFor="let destino of destinos" [disabled]='disabledSelect'  [value]='destino.id'> {{ destino.name}} </option> 
+                      </select>
+
+                  
+
+                  </mat-form-field>
+       
+                  <mat-form-field  *ngIf="!params" class="form__input_container" appearance="">
+                      <mat-label><div *ngIf="!spinnerDestino && !spinnerDestinoStruct"></div>
+                          <!-- {{tipoDestino}} -->
+                            
+                          <div *ngIf="spinnerDestinoStruct">
+                              <span > Cargando...</span>
+                          <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
+                        </div></mat-label>
+                      <select matNativeControl  formControlName="struct_id" id="selecEstructura">
+                          <option *ngFor="let estructur of estructuras"  [value]="estructur.id">{{estructur.name}} </option> 
+                      </select>
+                  </mat-form-field>
+
+                  <mat-form-field class="" *ngIf="params" style="margin-left: 5px; width: 45%;"  appearance="">
+                      <input matInput  value="{{estructuraNombre}}" [disabled]='disabledSelect'>
+                  
+                  </mat-form-field>
+
+              </div>
+
+              <hr>
+              <h6>Filtrado de elementos</h6>
+              <div class="form__div_container">
+
+
+                          <!--Categorias-->
+                          
+                          <div class="row categbut" >
+                              <div class="col-5 form__div" style="padding-left:0%; padding-right: 0% ">
+                                  <mat-toolbar style="padding-left:0%; padding-right: 0%;">
+                                      <button mat-raised-button [matMenuTriggerFor]="categorias" class="button" type="button">
+                                          Filtro Categoria
+                                      </button>
+                                  </mat-toolbar>
+                              
+                                    <mat-menu #categorias="matMenu">
+                                      <button mat-menu-item (click)="selectvoid()" type="button"> - </button>
+
+                                      <div *ngFor="let categ of arraycateg">            
+                                          <button type="button" *ngIf="categ.hijo.length==0" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>
+                                          <button type="button" *ngIf="categ.hijo.length!=0" [matMenuTriggerFor]="submenu" [matMenuTriggerData]="{categorias: categ}" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>                                                        
+                                      </div>
+                                    </mat-menu>
+          
+                                      <mat-menu #submenu="matMenu" >
+                                          <ng-template matMenuContent let-categorias="categorias">
+                                              <div *ngFor="let hijo of categorias.hijo" >
+                                                  <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                  <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                              </div>
+                                          </ng-template>
+                                      </mat-menu>
+          
+                                      <mat-menu #menuaux="matMenu" >
+                                          <ng-template matMenuContent let-categorias="categorias">
+                                              <div *ngFor="let hijo of categorias.hijo" >
+                                                  <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                  <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux2" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                              </div>
+                                          </ng-template>
+                                      </mat-menu>
+          
+                                      <mat-menu #menuaux2="matMenu" >
+                                          <ng-template matMenuContent let-categorias="categorias">
+                                              <div *ngFor="let hijo of categorias.hijo" >
+                                                  <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                  <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux3" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                              </div>
+                                          </ng-template>
+                                      </mat-menu>
+          
+                                      <mat-menu #menuaux3="matMenu" >
+                                          <ng-template matMenuContent let-categorias="categorias">
+                                              <div *ngFor="let hijo of categorias.hijo" >
+                                                  <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                                  <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux4" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                              </div>
+                                          </ng-template>
+                                      </mat-menu>
+          
+                                      <mat-menu #menuaux4="matMenu" >
+                                          <ng-template matMenuContent let-categorias="categorias">
+                                              <div *ngFor="let hijo of categorias.hijo" >
+                                                  <button type="button" mat-menu-item (click)="select(hijo)">{{ hijo.name_category }}</button>
+                                              </div>
+                                          </ng-template>
+                                      </mat-menu>
+                              </div>
+                              
+                              <div class="col-7 form__div" >
+                                  <div class="" style="box-sizing: border-box;padding-top: 5%;"  appearance="">
+                                      <mat-label>Categoria Seleccionada</mat-label>
+                                      <input matInput [value]="form.value.categoria.name_category" [disabled]='disabledSelect'>                                    
+                                  </div>
+                              </div>
+                          </div>
+                        
+
+
+
+                  
+                  <mat-form-field class="form__div_container_selects">
+                      <mat-label><div *ngIf="!spinnerMarks">
+                          Filtro de Marcas
+                        </div>
+                          <div *ngIf="spinnerMarks">
+                              <span > Cargando...</span>
+                          <span class="spinner-grow spinner-grow-sm" role="status"  aria-hidden="true"></span>
+                        </div></mat-label>
+                      <select matNativeControl formControlName="marca"  (change)="getElementByMark()">
+                          <option value="" selected></option>
+                          <option *ngFor="let marca of marcas" [ngValue]='marca.id'> {{marca.name}} </option> 
+                      </select>
+                  </mat-form-field>
+
+                  <a (click)="addElement()"><span style="position: relative; top: 12px;" class=" buttonMas material-icons ">
+                      add_circle_outline 
+                      </span></a>
+                  
+              </div>
+              
+
+         <hr>
+          
+       <h4 class="ml-3" *ngIf="!spinnerElement "><span class="spinner-grow spinner-grow" role="status"  aria-hidden="true"></span>Cargando Elementos...</h4>
+       <h4 *ngIf="spinnerNoElement">No hay elementos disponibles!</h4>      
+              <div class="form__div" *ngIf="spinnerElement && !spinnerNoElement">
+                  <div class="autocomplete">
+                      <h6>Selección de Elementos</h6>
+                      <br>
+                      <ng-autocomplete  placeHolder="Elementos..." [data]="data" [searchKeyword]="keyword"   (selected)='selectEvent($event)'
+                          (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'  [itemTemplate]="itemTemplate"
+                          [notFoundTemplate]="coso"  #auto >
+                      </ng-autocomplete>
+                  
+                      <ng-template #itemTemplate let-item >
+                          <a [innerHTML]="item.name_element"></a> 
+                      </ng-template>
+                  
+                      <ng-template #coso let-notFound>
+                          <div [innerHTML]="notFound"></div>
+                      </ng-template>
+                      <br><br>
+                  </div>                
+                     
+              </div>
+             
+
+
+          </div>
+
+          <div class="m-1 card" style="width: 100%;">
+            <h4 class="titulo text-center" >Elementos Seleccionados <span class="badge badge-primary">{{contadorSeleccion}}</span></h4>
+         
+            <br>
+            <cdk-virtual-scroll-viewport class="example-viewportt" itemSize="60" >
+                <dl class="dl_list" >
+                  <ng-container *ngFor="let element of elementosSelecionados;let i = index" >
+                    <dt class="dt__list"> <span class="dt__list_span">Nombre:</span>{{element.elemento.name_element}}<span class="dt__list_span">Cantidad:</span>{{element.cantidad}}<button mat-stroked-button color="warn"  (click)="noSeleccionar(i)">Delete</button></dt>
+               
+                  </ng-container>
+                </dl>
+              </cdk-virtual-scroll-viewport>
+
+            
+
+        </div>
+
+      </div>
+                 
+  </div>
+</form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions style="margin-left: 72%;">
+    <button mat-stroked-button color="primary" (click)="enviar()" [disabled]="!form.valid">Guardar</button>
+    <button mat-stroked-button color="warn" (click)="close()">Cerrar</button>
+</mat-dialog-actions>
+
+
+
+

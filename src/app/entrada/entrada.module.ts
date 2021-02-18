@@ -21,6 +21,7 @@ import { DialogCantElementComponent } from '../elemento/components/dialog-cant-e
 import {MatDialogModule} from '@angular/material/dialog';
 import { EntradaDetalleComponent } from './components/entrada-detalle/entrada-detalle.component';
 import { EntradaDeleteComponent } from './components/entrada-delete/entrada-delete.component';
+import { EntradaEditComponent } from './components/entrada-edit/entrada-edit.component';
 
 import {MatMenuModule} from '@angular/material/menu';
 
@@ -28,7 +29,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 
 @NgModule({
-  declarations: [EntradaComponent, EntradaFormComponent,DialogCantElementComponent, EntradaDetalleComponent,EntradaDeleteComponent],
+  declarations: [EntradaComponent, EntradaFormComponent,DialogCantElementComponent, EntradaDetalleComponent,EntradaDeleteComponent,EntradaEditComponent],
   imports: [
     CommonModule,
     EntradaRoutingModule,

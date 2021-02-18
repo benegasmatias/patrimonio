@@ -38,6 +38,7 @@ export class PendingFormComponent implements OnInit {
 
   ngOnInit(): void {    
     this.inventarioservice.getPrestamo(this.data.row.pend_id).subscribe((dat:any)=>{
+      console.log(dat)
       this.form.setValue({
         expected_date: dat.pending[0].expected_date ,
         phone_number: dat.pending[0].phone_number ,

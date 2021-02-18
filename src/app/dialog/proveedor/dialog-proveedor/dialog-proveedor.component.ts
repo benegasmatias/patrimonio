@@ -34,8 +34,9 @@ export class DialogProveedorComponent implements OnInit {
     this.serviceProveedor.addProvider(this.form.value).subscribe(
       data=>console.log(data),
       err=>{
-        this.loginService.logout();
-        window.location.assign("/")
+        console.log(err);
+        // this.loginService.logout();
+        // window.location.assign("/")
       }
     )
     this.dialogref.close({confirm:true})

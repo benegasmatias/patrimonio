@@ -1,0 +1,119 @@
+.Select{
+  display: inline;
+//    margin-right: 50%;
+//     margin-left: 50%;
+}
+.input-doble{
+    display: inline;
+    margin-right: 50%;
+    margin-left: 50%;
+}
+*{
+  box-sizing: border-box;
+}
+
+.example-viewport {
+    height: 4em;
+    width: 27em;
+   
+  }
+
+  .example-viewportt {
+    height: 25em;
+    width: 25em;
+   
+  }
+
+.form__div_container{
+  //display: inline;
+  width: 100%;
+  margin: 3px;
+}
+
+.form__input_container{
+  margin: 5px;
+}
+.form__div_container_selects{
+  margin: 5px;
+}
+
+.form__input_Estructura{
+  display: inline-block;
+  width: 50%;
+}
+  .example-dd {
+    height: 30px;
+  }
+
+  dt{
+    border: groove;
+    font-weight:400;
+    display: block;
+    padding: 2px;
+  }
+  dt  span{
+    
+    font-weight:700;
+    margin-left: 3px;
+  }
+
+  dt button{
+   margin-left: 4%;
+  }
+.form__div{
+  display: inline-block;
+  width: 100%;
+  
+}
+.autocomplete{
+  display: inline-block;
+  width: 90%;
+  margin: 3px;
+}
+
+// .form__div button {
+//   background-color: rgb(58, 131, 16);
+//   color: #fff;
+//   border: 0;
+//   width: 2em;
+  
+// }
+
+// .form__div button:hover {
+//   background-color: rgb(47, 88, 23);
+// }
+
+
+  @media only screen and (max-width:591px){
+    dt button{
+      margin:0;
+     }
+  }
+
+  div.row.categbut{
+    padding-bottom: 0% !important;
+    padding-top: 0% !important;     
+  }
+
+  hr {
+    clear: none;
+    visibility: visible;
+}
+
+
+  .button{
+    width: 100%; 
+    text-align: center;
+    background-color: rgba($color: #bbb3b3a1, $alpha: 1.0);
+    justify-content: end;
+    padding-left: 0%;
+  }
+
+  .button:hover, .button:focus, .button:active, .button.active, .open>.dropdown-toggle.button {
+    color: #fff;
+    background-color: rgba($color: #9c9797a1, $alpha: 1.0);
+    border-color: #000000; /*set the color you want here*/
+    justify-content: end;
+    width: 100%; 
+    text-align: center;
+  }

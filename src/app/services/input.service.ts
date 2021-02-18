@@ -12,6 +12,10 @@ export class InputService {
     return this.http.post(`${this.API_URI}/inputs.json`,input)
   }
 
+  editInput(input){
+    return this.http.post(`${this.API_URI}/inputs/edit.json`,input)
+  }
+
   getInputByStruct(struct_id){
     return this.http.get(`${this.API_URI}/inputs/struct/${struct_id}.json`)
   }

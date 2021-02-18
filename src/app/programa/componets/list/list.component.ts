@@ -4,6 +4,8 @@ import {MatDialog} from '@angular/material/dialog'
 
 import {EntradaDetalleComponent} from '../../../entrada/components/entrada-detalle/entrada-detalle.component'
 import {EntradaDeleteComponent} from '../../../entrada/components/entrada-delete/entrada-delete.component'
+import {EntradaEditComponent} from '../../../entrada/components/entrada-edit/entrada-edit.component'
+
 
 import { ActivatedRoute } from '@angular/router';
 import { InputService } from 'src/app/services/input.service';
@@ -58,7 +60,7 @@ export class ListComponent implements OnInit {
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService, private loginService: LoginService) { }
   inputs=[]
-  displayedColumns: string[] = [ 'number_refer', 'created','provider','elements','actions'];
+  displayedColumns: string[] = [ 'number_refer', 'created','provider','elements','actions', 'modify'];
   dataSource: MatTableDataSource<InputData>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -66,6 +68,10 @@ export class ListComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.cargaTabla();
+  }
+
+  public cargaTabla(){
     this.inputs= []
     this.activatedRoute.params.subscribe(params => {
     this.spinnerInput = true
@@ -93,23 +99,19 @@ export class ListComponent implements OnInit {
 
   });
     if(this.verifica()){
-      this.displayedColumns.pop();
-      
+      this.displayedColumns.pop();      
     }
   }
 
-  edit(): void {
-		const dialogref = this.dialog.open(EntradaDetalleComponent, {
-      data: {title: 'austin'}
+  edit(row): void {
+		const dialogref = this.dialog.open(EntradaEditComponent, {
+      data: {row: row}
 		});
 
 		dialogref.afterClosed().subscribe(result => {
 			console.log(result);
-			if (result && result.status && result.status == 'saved') {
-				if (result.routes && result.routes.another_guest) {
-          console.log("true")
-				}
-        console.log("false")
+			if (result.confirm) {
+        this.cargaTabla();
 			}
     },
     err=>{
@@ -123,19 +125,6 @@ export class ListComponent implements OnInit {
 		const dialogref = this.dialog.open(EntradaDetalleComponent, {
       data: {title: 'Elementos',input}
 		});
-
-		// dialogref.afterClosed().subscribe(result => {
-			
-		// 	if (result.confirm) {
-    //   this.marcaService.getMarcas().subscribe(
-    //     data=>{
-    //       console.log(data)
-    //       this.marcas = data['marks']
-    //     }
-    //   )
-    //   }
-    // });
-    
   }
   
   eliminaEntrada(input:any): void{
