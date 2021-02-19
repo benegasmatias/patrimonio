@@ -522,6 +522,7 @@ tipoDestino=''
       stock: this.form.value.stock,
 
     }).subscribe((data:any)=>{
+      console.log(data)
       this.alertExito=true;
       this.spinnerGuardar=false;
       this.dialogref.close({confirm:true, })
