@@ -80,11 +80,14 @@ export class PdfService {
               headerRows: 1,
               body: [
                 [
-                { text: 'Fecha de Prestamo', style: 'tableHeader' }, 
+                //{ text: 'Fecha de Prestamo', style: 'tableHeader' }, 
                 { text: 'Autoriza', style: 'tableHeader' },
                 { text: 'Retira', style: 'tableHeader' },
                 { text: 'Cantidad', style: 'tableHeader' }, 
                 { text: 'Materiales', style: 'tableHeader' }, 
+
+                { text: 'Marca', style: 'tableHeader' }, 
+
                 { text: 'Area que Solicita', style: 'tableHeader' }, 
                 { text: 'Institucion a la que se Destina', style: 'tableHeader' },
                 { text: 'Fecha de Devolucion', style: 'tableHeader' },
@@ -150,11 +153,14 @@ export class PdfService {
         if(element.return_date){
           docDefinition.content[1].table.body.push(
             [
-              this.datePipe.transform(element.created,"dd-MM-yyyy"),//Fecha de Prestamo
+              //this.datePipe.transform(element.created,"dd-MM-yyyy"),//Fecha de Prestamo
               element.autoriza,
               element.receiver_name,//Retira
               element.quantity_out,//Cantidad
               element.name_element,//Materiales
+
+              element.mark_name,//marca
+
               element.typeDestino,//Area que Solicita
               element.destination_id,//Institucion a la que se Destina
               this.datePipe.transform(element.return_date,"dd-MM-yyyy") + " Devuelto ("+element.return_quantity+")",//Fecha de Devolucion
@@ -163,11 +169,14 @@ export class PdfService {
         else{
           docDefinition.content[1].table.body.push(
             [
-              this.datePipe.transform(element.created,"dd-MM-yyyy"),//Fecha de Prestamo
+              //this.datePipe.transform(element.created,"dd-MM-yyyy"),//Fecha de Prestamo
               element.autoriza,
               element.receiver_name,//Retira
               element.quantity_out,//Cantidad
               element.name_element,//Materiales
+
+              element.mark_name,//marca
+
               element.typeDestino,//Area que Solicita
               element.destination_id,//Institucion a la que se Destina
               this.datePipe.transform(element.expected_date,"dd-MM-yyyy")+" (Estimado)",//Fecha de Devolucion

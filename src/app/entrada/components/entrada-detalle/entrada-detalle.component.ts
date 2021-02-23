@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ElementoService } from 'src/app/elemento/service/elemento.service';
 
 
 @Component({
@@ -13,16 +14,25 @@ export class EntradaDetalleComponent implements OnInit {
 
   total=0;
 
-  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<EntradaDetalleComponent>) { }
+  constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<EntradaDetalleComponent>, private serviceElement: ElementoService,
+  ) { }
   
 
   ngOnInit(): void {
-    console.log(this.data.input.length )
    for(let i=0; i<this.data.input.length;i++){
      let cant = parseInt(this.data.input[i]._joinData.quantity)
-      this.total = this.total+cant
-      
+      this.total = this.total+cant      
    }
+
+   this.data.input.forEach(element => {
+    this.serviceElement.getMarkbyId(element.mark_id).subscribe((data:any)=>{
+      element.mark_name= data.mark.name;
+    },
+    err=>{
+      console.log(err)
+    })
+  });
+  console.log(this.data.input)
   }
 
   

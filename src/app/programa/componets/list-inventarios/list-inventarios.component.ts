@@ -29,15 +29,10 @@ export class ListInventariosComponent implements OnInit {
   salidaGenerada=false
 
   //Fin alerts
-
   iventarioData=[]
 
-
-  
-  
-
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private loginService: LoginService) {}
-   displayedColumns: string[] = [ 'name_element', 'description', 'stock','action'];
+   displayedColumns: string[] = [ 'name_element', 'description','marca', 'stock','action'];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -56,8 +51,10 @@ export class ListInventariosComponent implements OnInit {
         if(param['struct']){
           this.inventarioService.getIventariosByStruct(param['struct']).subscribe(
             data=>{
+                console.log(data);
+                
               this.iventarioData = data['inventario']
-              console.log(this.iventarioData.length)
+              console.log(this.iventarioData)
 
               if(this.iventarioData.length!=0){
                 this.inventarioss=true

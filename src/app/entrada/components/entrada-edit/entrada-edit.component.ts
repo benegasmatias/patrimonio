@@ -122,25 +122,34 @@ tipoDestino=''
           marca: this.form.value.marca
         })
         datos.row.elements.forEach(element => {
-          let newelem={
-            cantidad: element._joinData.quantity,
-            elemento:{
-              category_of_element_id: null,
-              description: element.description,
-              id_element: element.id_element,
-              mark_id: element.mark_id,
-              name_element: element.name_element,
-              quantity: null,
-            }
 
-          }
-          let newstock= {
-            element_id: newelem.elemento.id_element,
-            quantity: newelem.cantidad,
-          }
-          this.elementosSelecionados.push(newelem);
-          this.stock.push(newstock);
-          this.contadorSeleccion++;
+          this.serviceElement.getMarkbyId(element.mark_id).subscribe((data:any)=>{
+            let newelem={
+              cantidad: element._joinData.quantity,
+              elemento:{
+                category_of_element_id: null,
+                description: element.description,
+                id_element: element.id_element,
+                mark_id: element.mark_id,
+                name_element: element.name_element,
+                quantity: null,
+              },
+                mark_name: data.mark.name
+            }
+            let newstock= {
+              element_id: newelem.elemento.id_element,
+              quantity: newelem.cantidad,
+              mark_name: data.mark.name
+            }
+            this.elementosSelecionados.push(newelem);
+            console.log(this.elementosSelecionados)
+            this.stock.push(newstock);
+            this.contadorSeleccion++;
+          },
+          err=>{
+            console.log(err)
+          })
+
           
         });
        }
@@ -319,6 +328,7 @@ tipoDestino=''
 		});
 
 		dialogref.afterClosed().subscribe(element => {
+      alert("El elemento fue creado. Ya se puede incluir a la entrada.")
 			this.getMarcas()
 			if (element.confirm) {
         this.spinnerElement=false;
@@ -547,7 +557,7 @@ tipoDestino=''
 
   selectEvent(item) {
     // do something with selected item
-    console.log(item.name_element)
+    //console.log(item.name_element)
 
     if(item!=''){
 
@@ -562,14 +572,20 @@ tipoDestino=''
           alert("El elemento ya se agrego a la lista.")
 
         } else {
-          let elemento = {
-            elemento: item,
-            cantidad: result.cantidad
-          }
-          console.log(elemento)
-          this.elementosSelecionados.push(elemento);
-         this.stock.push({element_id:item.id_element,quantity:result.cantidad})
-          this.contadorSeleccion = this.elementosSelecionados.length;
+          let elemento;
+          this.serviceElement.getMarkbyId(item.mark_id).subscribe((data:any)=>{
+            elemento = {
+              elemento: item,
+              cantidad: result.cantidad,
+              mark_name: data.mark.name
+            }
+            this.elementosSelecionados.push(elemento);
+            this.stock.push({element_id:item.id_element,quantity:result.cantidad})
+            this.contadorSeleccion = this.elementosSelecionados.length;
+          },
+          err=>{
+            console.log(err)
+          })
         }
       }
      

@@ -37,7 +37,7 @@ export class ListSalidasComponent implements OnInit {
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private pdfService: pdfServiceSalida, private loginService: LoginService) {}
 
-   displayedColumns: string[] = ['name_element', 'description','quantity_out','destination_id', 'availability_id','created'];
+   displayedColumns: string[] = ['name_element', 'description','marca','quantity_out','destination_id', 'availability_id','created'];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -55,6 +55,7 @@ export class ListSalidasComponent implements OnInit {
         if(param['struct']){
           this.inventarioService.getOutputsByStruct(param['struct']).subscribe(
             data=>{
+              //console.log(data)
                   this.iventarioData = data['inventario']
                   this.estructurasDestino = data['structsDestino']
                   this.availabilities = data['availabilities'];

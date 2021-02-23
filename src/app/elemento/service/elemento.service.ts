@@ -30,9 +30,10 @@ export class ElementoService {
     return this.http.get(`${this.API_URI}/elements/category/${id_Category}/mark/${id_mark}.json`);
   }
   getElementByMarca(id_mark){
-    return this.http.get(`${this.API_URI}/elements/mark/${id_mark}.json`);
- 
+    return this.http.get(`${this.API_URI}/elements/mark/${id_mark}.json`); 
   }
 
-
+  getMarkbyId(id_mark){
+    return this.http.get(`${this.API_URI}/marks/getid/${id_mark}.json`); 
+  }
 }

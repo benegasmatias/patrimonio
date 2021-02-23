@@ -209,7 +209,13 @@
                 <cdk-virtual-scroll-viewport class="example-viewportt" itemSize="60" >
                     <dl class="dl_list" >
                       <ng-container *ngFor="let element of elementosSelecionados;let i = index" >
-                        <dt class="dt__list"> <span class="dt__list_span">Nombre:</span>{{element.elemento.name_element}}<span class="dt__list_span">Cantidad:</span>{{element.cantidad}}<button mat-stroked-button color="warn"  (click)="noSeleccionar(i)">Delete</button></dt>
+                        <dt class="dt__list"> 
+                            <span class="dt__list_span">Nombre:</span>{{element.elemento.name_element}}
+                            <span class="dt__list_span">Cantidad:</span>{{element.cantidad}}
+                            <span class="dt__list_span">Marca:</span>{{element.mark_name}}
+                            
+                            <button mat-stroked-button color="warn"  (click)="noSeleccionar(i)">Delete</button>
+                        </dt>
                    
                       </ng-container>
                     </dl>

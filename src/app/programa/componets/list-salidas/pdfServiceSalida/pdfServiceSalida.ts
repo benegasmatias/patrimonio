@@ -97,6 +97,9 @@ export class pdfServiceSalida {
                 { text: 'Cantidad', style: 'tableHeader' }, 
                 { text: 'Articulo', style: 'tableHeader' },                 
                 { text: 'Descripcion', style: 'tableHeader' },
+
+                { text: 'Marca', style: 'tableHeader' },
+
                 { text: 'Retira', style: 'tableHeader' },
                 { text: 'Solicita', style: 'tableHeader' },                 
               ],
@@ -164,6 +167,10 @@ export class pdfServiceSalida {
               element.quantity_out,//Cantidad
               element.name_element,//Articulo
               element.description,//Descripcion
+
+              element.mark_name,//marca
+
+
               element.retira,
               element.destination_id,//Programa que Solicita
             ]);        

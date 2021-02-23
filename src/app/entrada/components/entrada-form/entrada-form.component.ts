@@ -290,7 +290,7 @@ tipoDestino=''
 		});
 
 		dialogref.afterClosed().subscribe(element => {
-      console.log(element)
+      alert("El elemento fue creado. Ya se puede incluir a la entrada.")
 			this.getMarcas()
 			if (element.confirm) {
         this.spinnerElement=false;
@@ -548,16 +548,23 @@ tipoDestino=''
           //console.log(this.elementosSelecionados.find(element => element.elemento.id_element == item.id_element))
           alert("El elemento ya se agrego a la lista.")
         } else {
-          let elemento = {
-            elemento: item,
-            cantidad: result.cantidad
-          }
-          //console.log(elemento)
-          this.elementosSelecionados.push(elemento);
-         this.stock.push({element_id:item.id_element,quantity:result.cantidad})
-         console.log(this.elementosSelecionados)
-         console.log(this.stock)
-          this.contadorSeleccion = this.elementosSelecionados.length;
+          let elemento;
+          this.serviceElement.getMarkbyId(item.mark_id).subscribe((data:any)=>{
+            elemento = {
+              elemento: item,
+              cantidad: result.cantidad,
+              mark_name: data.mark.name
+            }
+            this.elementosSelecionados.push(elemento);
+            this.stock.push({element_id:item.id_element,quantity:result.cantidad})
+            this.contadorSeleccion = this.elementosSelecionados.length;
+          },
+          err=>{
+            console.log(err)
+          })
+
+
+
         }
       }
      

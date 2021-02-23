@@ -38,7 +38,7 @@ export class ListPrestamosComponent implements OnInit {
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService,private pdfService: PdfService, private loginService: LoginService) {
   }
 
-   displayedColumns: string[] = ['name_element', 'description','quantity_out','destination_id','created', 'estado','action', ];
+   displayedColumns: string[] = ['name_element', 'description','quantity_out','mark','destination_id','created', 'estado','action', ];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -55,7 +55,8 @@ export class ListPrestamosComponent implements OnInit {
         if(param['struct']){          
           this.inventarioService.getOutputsByStructPrestamo(param['struct']).subscribe(
             (data:any)=>{
-                console.log(data.data)
+              //console.log(data)
+                //console.log(data.data)
                   this.inventarioData = data['inventario'];
                   this.estructurasDestino = data['structsDestino'];
                   this.estructuraActual = data['structOrigin'][0];
@@ -179,6 +180,7 @@ export class ListPrestamosComponent implements OnInit {
               quantity_out: element.quantity_out,
               typeDestino: element.typeDestino,
               autoriza: element.autoriza,
+              mark_name: element.mark_name,
             });   
             // if(contador==datos.length){
             //   this.pdfService.generatePdf(datos,this.estructuraActual,n);
@@ -216,8 +218,6 @@ export class ListPrestamosComponent implements OnInit {
       else
         return false;
   }
-
-
 }
 
 interface DatosPDf{
@@ -236,4 +236,5 @@ interface DatosPDf{
   quantity_out: any,
   typeDestino: any,
   autoriza:any,
+  mark_name:any,
 }
