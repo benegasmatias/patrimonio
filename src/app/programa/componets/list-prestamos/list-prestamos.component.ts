@@ -46,7 +46,15 @@ export class ListPrestamosComponent implements OnInit {
  
 
   ngOnInit(): void {
-   this.getInventarios()     
+   this.getInventarios() 
+   
+   this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+    if (typeof data[sortHeaderId] === 'string') {
+      return data[sortHeaderId].toLocaleLowerCase();
+    }
+  
+    return data[sortHeaderId];
+  };
   }
 
   getInventarios(){
@@ -83,6 +91,14 @@ export class ListPrestamosComponent implements OnInit {
 
                   this.dataSource.paginator = this.paginator;
                   this.dataSource.sort = this.sort;
+
+                  this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+                    if (typeof data[sortHeaderId] === 'string') {
+                      return data[sortHeaderId].toLocaleLowerCase();
+                    }
+                  
+                    return data[sortHeaderId];
+                  };
             },
             err=>{
               console.log(err)

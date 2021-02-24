@@ -14,6 +14,7 @@ import { LoginService } from '../../../login/services/login.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import { element } from 'protractor';
 
 export interface provider{
   id:string;
@@ -36,6 +37,7 @@ export interface InputData {
   created: string;
   elements: ElementData[];
   provider: provider;
+  name_element: string;
 }
 
 @Component({
@@ -60,7 +62,7 @@ export class ListComponent implements OnInit {
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService, private loginService: LoginService) { }
   inputs=[]
-  displayedColumns: string[] = [ 'number_refer', 'created','provider','elements','actions', 'modify'];
+  displayedColumns: string[] = [ 'number_refer', 'created','name_element','elements','actions', 'modify'];
   dataSource: MatTableDataSource<InputData>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -69,6 +71,13 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargaTabla();
+    this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+      if (typeof data[sortHeaderId] === 'string') {
+        return data[sortHeaderId].toLocaleLowerCase();
+      }
+    
+      return data[sortHeaderId];
+    };
   }
 
   public cargaTabla(){
@@ -79,9 +88,21 @@ export class ListComponent implements OnInit {
     this.serviceInput.getInputByStruct(params['id']).subscribe(
       data=>{
         this.inputs = data['inputs']
+        this.inputs.forEach(element => {
+          element.name_element= element.elements[0].name_element;
+        });
         this.dataSource = new MatTableDataSource(this.inputs);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
+        this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+          if (typeof data[sortHeaderId] === 'string') {
+            return data[sortHeaderId].toLocaleLowerCase();
+          }
+        
+          return data[sortHeaderId];
+        };
+        
         if(data['inputs'].length!=0){
         this.spinnerInput=false
           
@@ -145,7 +166,7 @@ export class ListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    console.log(this.dataSource.filter)
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

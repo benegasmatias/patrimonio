@@ -78,10 +78,11 @@
     </ng-container>
 
     <!-- PROVEEDOR Column -->
-    <ng-container matColumnDef="provider">
+    <ng-container matColumnDef="name_element">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> PRIMER ELEMENTO </th>
       <!-- <td mat-cell *matCellDef="let row" > {{row.provider.name}} </td> -->
-      <td mat-cell *matCellDef="let row"> {{row.elements[0].name_element}} </td>      
+      <!-- <td mat-cell *matCellDef="let row"> {{row.elements[0].name_element}} </td> -->
+      <td mat-cell *matCellDef="let row"> {{row.name_element}} </td>      
     </ng-container>
 
        <!-- Button element Column -->

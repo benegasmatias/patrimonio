@@ -34,6 +34,8 @@
         </span>{{destinoNav.name| uppercase}}</li>
         
         <li (click)="categorias()" class="nav__li_button" style="text-transform: uppercase; font-size: 12px;"> Categorias</li>
+        <!-- <li (click)="elementos()" class="nav__li_button" style="text-transform: uppercase; font-size: 12px;"> Elementos</li> -->
+
 <!-- 
       <li (click)="entrada()" class="nav__li_button "><span class="material-icons">
         input
@@ -53,7 +55,7 @@
       <a (click)="elementos()" class="nav__responsive_a_button">Elementos</a>
     </div> -->
 
-    <button class="btn  text-white nav__button_menu" [matMenuTriggerFor]="menu">
+    <button class="btn  text-white nav__button_menu" [matMenuTriggerFor]="menu" style="margin-left: 50px;">
       <div class="d-flex flex-row m-0 p-0">
         <!-- <img src="{{datoUser.imagen}}" style="background-color: white;" width="30" height="30"
           class="d-inline-block m-auto rounded-circle" alt="" loading="lazy"> -->

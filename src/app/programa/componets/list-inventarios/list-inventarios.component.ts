@@ -43,6 +43,13 @@ export class ListInventariosComponent implements OnInit {
     if(this.verifica()){
       this.displayedColumns.pop();
     }
+    this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+      if (typeof data[sortHeaderId] === 'string') {
+        return data[sortHeaderId].toLocaleLowerCase();
+      }
+    
+      return data[sortHeaderId];
+    };
   }
 
   getInventarios(){
@@ -67,6 +74,13 @@ export class ListInventariosComponent implements OnInit {
               this.dataSource = new MatTableDataSource(this.iventarioData);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
+              this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+                if (typeof data[sortHeaderId] === 'string') {
+                  return data[sortHeaderId].toLocaleLowerCase();
+                }
+              
+                return data[sortHeaderId];
+              };
             },
             err=>{
               console.log(err)

@@ -141,6 +141,19 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     }
   }
 
+  // elementos(){
+  //   let aux=this.loginService.getRol();
+  //   if(aux=="admin" || aux=="user"){
+  //     this.muestrabutton=true;
+  //     this.fillerNav=[];
+  //     this.fillerNav.push({ 
+  //       name: `Elementos`,
+  //       icon: 'folder',
+  //       route:'list-elementos'
+  //     })
+  //   }
+  // }
+
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
 
   nuevoStruct(){
