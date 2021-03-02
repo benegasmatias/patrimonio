@@ -35,8 +35,8 @@ export class DialogProveedorComponent implements OnInit {
       data=>console.log(data),
       err=>{
         console.log(err);
-        // this.loginService.logout();
-        // window.location.assign("/")
+        this.loginService.logout();
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
     this.dialogref.close({confirm:true})

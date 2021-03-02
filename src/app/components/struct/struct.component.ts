@@ -52,7 +52,7 @@ export class StructComponent implements OnInit {
       },
       err=>{
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
   }
@@ -65,7 +65,7 @@ export class StructComponent implements OnInit {
       },
       err=>{
         this.loginService.logout();
-         window.location.assign("/")   
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
     this.dialogRef.close(this.form.value);
@@ -89,7 +89,7 @@ export class StructComponent implements OnInit {
     },
     err=>{
       this.loginService.logout();
-      window.location.assign("/")   
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
   }
 

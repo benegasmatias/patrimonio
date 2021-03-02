@@ -102,7 +102,7 @@
       </ng-container>
  
       <!-- modificar element Column -->
-      <ng-container matColumnDef="modify">
+      <ng-container matColumnDef="modify" *ngIf="!verifica()">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> EDITAR </th>
         <td mat-cell *matCellDef="let row">
           <button mat-icon-button (click)="edit(row)" aria-label="Modificar Entrada" style="color:rgb(68, 231, 46);">

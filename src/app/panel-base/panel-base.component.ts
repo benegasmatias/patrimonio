@@ -58,7 +58,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
       },
       err=>{console.log(err)
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )    
    }
@@ -118,7 +118,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     },
     err=>{
       this.loginService.logout();
-      window.location.assign("/")
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     }
     )
    this.route.navigateByUrl('panel/programa')
@@ -141,18 +141,18 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     }
   }
 
-  // elementos(){
-  //   let aux=this.loginService.getRol();
-  //   if(aux=="admin" || aux=="user"){
-  //     this.muestrabutton=true;
-  //     this.fillerNav=[];
-  //     this.fillerNav.push({ 
-  //       name: `Elementos`,
-  //       icon: 'folder',
-  //       route:'list-elementos'
-  //     })
-  //   }
-  // }
+  elementos(){
+    let aux=this.loginService.getRol();
+    if(aux=="admin" || aux=="user"){
+      this.muestrabutton=true;
+      this.fillerNav=[];
+      this.fillerNav.push({ 
+        name: `Elementos`,
+        icon: 'folder',
+        route:'list-elementos'
+      })
+    }
+  }
 
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
 
@@ -187,7 +187,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
           err=>{
             console.log(err)
             this.loginService.logout();
-            window.location.assign("/")
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           })
 
       }

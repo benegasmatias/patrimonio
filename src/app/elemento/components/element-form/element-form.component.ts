@@ -99,7 +99,7 @@ export class ElementFormComponent implements OnInit {
       },
       err => {
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
 
@@ -111,7 +111,7 @@ export class ElementFormComponent implements OnInit {
       }
       , err=>{
         this.loginService.logout();
-        window.location.assign("/")        
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
 
@@ -167,7 +167,7 @@ export class ElementFormComponent implements OnInit {
       },
       err=>{
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
 
@@ -175,6 +175,9 @@ export class ElementFormComponent implements OnInit {
 
   }
 
+  cancelar(){
+    this.dialogref.close({ confirm: false })
+  }
   //Chips
 
   onCatRemoved(avaRem: string) {
@@ -214,14 +217,14 @@ export class ElementFormComponent implements OnInit {
           },
           err=>{
             this.loginService.logout();
-            window.location.assign("/")            
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           }
         )
       }
     },
     err=>{
       this.loginService.logout();
-      window.location.assign("/")
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
 
   }

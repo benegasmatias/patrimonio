@@ -23,7 +23,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 //import { DndModule } from "ngx-drag-drop";
 import {DndListModule } from "ngx-drag-and-drop-lists";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [ListElementosComponent],
@@ -32,7 +34,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     CategoriasRoutingModule,
     ReactiveFormsModule,
     MatInputModule,MatIconModule,MatSelectModule, MatCardModule, MatButtonModule, MatFormFieldModule/*, MaterialFileInputModule*/, MatListModule,MatDialogModule,MatExpansionModule,MatTreeModule,
-    MatTreeModule, DragDropModule, MatSnackBarModule,DndListModule
+    MatTreeModule, DragDropModule, MatSnackBarModule,DndListModule,MatTableModule,MatSortModule,MatPaginatorModule
   ]
 })
 export class ListElementosModule { }

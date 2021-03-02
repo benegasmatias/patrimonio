@@ -183,7 +183,7 @@ tipoDestino=''
       err=>{
         console.log(err)
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )      
     
@@ -229,7 +229,7 @@ tipoDestino=''
         console.log(error)
         console.log("No se pudo recuperar Categorias")
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       });
       
       this.getMarcas()         
@@ -276,7 +276,7 @@ tipoDestino=''
       err=>{
         console.log(err)
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
     this.serviceProvider.getProviders().subscribe(
@@ -286,7 +286,7 @@ tipoDestino=''
       },
       err=>{
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
 
@@ -308,7 +308,7 @@ tipoDestino=''
           },
           err=>{
             this.loginService.logout();
-            window.location.assign("/")
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           }
         )
       }else{
@@ -317,7 +317,7 @@ tipoDestino=''
     },
     err=>{
       this.loginService.logout();
-      window.location.assign("/")
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
     
   }
@@ -345,7 +345,7 @@ tipoDestino=''
        },
        err=>{
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
        }
      )
       }
@@ -371,7 +371,7 @@ tipoDestino=''
         err=>{
           console.log(err)
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
           
       )}
@@ -392,7 +392,7 @@ tipoDestino=''
         err=>{
           console.log(err)
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
       )}else{
         if(this.form.get('categoria').value.id_category!=-1 && this.form.get('marca').value){
@@ -411,7 +411,7 @@ tipoDestino=''
           err=>{
             console.log(err)
             this.loginService.logout();
-            window.location.assign("/")
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           }
         )}else
           {this.spinnerNoElement=true;
@@ -438,7 +438,7 @@ tipoDestino=''
         },
         err=>{console.log(err)
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
       )}else
 
@@ -457,7 +457,7 @@ tipoDestino=''
        err=>{
          console.log(err)
          this.loginService.logout();
-         window.location.assign("/")
+         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
      )}else{
        if(this.form.get('categoria').value.id_category!=-1 && this.form.get('marca').value!= ''){
@@ -475,7 +475,7 @@ tipoDestino=''
            err=>{
              console.log(err)
              this.loginService.logout();
-             window.location.assign("/")
+             window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           }
          )
       }else{
@@ -498,7 +498,7 @@ tipoDestino=''
         },
         err=>{
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
       )
       }else{
@@ -512,7 +512,7 @@ tipoDestino=''
             err =>{
               console.log(err)
               this.loginService.logout();
-              window.location.assign("/")
+              window.location.assign("https://sedacreditaciones.com/app/patrimonio")
             } 
           )
         } else {
@@ -540,7 +540,7 @@ tipoDestino=''
     err=>{
       console.log(err)
       this.loginService.logout();
-      window.location.assign("/")
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     })
 
 
@@ -592,7 +592,7 @@ tipoDestino=''
     },
     err=>{
       this.loginService.logout();
-      window.location.assign("/")
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
     
    } 
@@ -659,7 +659,7 @@ tipoDestino=''
   //     },
   //     err=>{console.log(err)
   //       this.loginService.logout();
-  //       window.location.assign("/")      
+  //       window.location.assign("https://sedacreditaciones.com/app/patrimonio")      
   //     }
   //     );
   // }

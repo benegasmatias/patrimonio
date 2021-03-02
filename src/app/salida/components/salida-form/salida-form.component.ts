@@ -60,7 +60,7 @@ export class SalidaFormComponent implements OnInit {
       },
       err=>{
         this.loginService.logout();
-        window.location.assign("/")      
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")      
       }
     )
     this.getOrigenes()
@@ -83,7 +83,7 @@ export class SalidaFormComponent implements OnInit {
       },err=>
       {
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       })
 
 
@@ -99,7 +99,7 @@ export class SalidaFormComponent implements OnInit {
       },
       err=>{
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
   }
@@ -127,7 +127,7 @@ export class SalidaFormComponent implements OnInit {
           }
         },err=>{
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
       )
     }else  if(this.form.get('availability_id').value==4){//Entrega
@@ -145,7 +145,7 @@ export class SalidaFormComponent implements OnInit {
         },
         err=>{
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
       )
     }
@@ -193,7 +193,7 @@ export class SalidaFormComponent implements OnInit {
         }
       },err=>{
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
 
@@ -213,7 +213,7 @@ export class SalidaFormComponent implements OnInit {
       err=>{
         console.log(err);
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
     }
@@ -236,7 +236,7 @@ export class SalidaFormComponent implements OnInit {
         (err:any)=>{
           console.log(err);
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
       )
     }

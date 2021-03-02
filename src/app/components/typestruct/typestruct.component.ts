@@ -29,7 +29,7 @@ export class TypestructComponent implements OnInit {
       },
       err=>{
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
     this.dialogRef.close(true);

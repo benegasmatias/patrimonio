@@ -35,7 +35,7 @@ export class MarcaComponent implements OnInit {
       data=>console.log(data),
       err=>{
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
     this.dialogref.close({confirm:true})

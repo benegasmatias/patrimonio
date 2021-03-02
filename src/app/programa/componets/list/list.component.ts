@@ -114,7 +114,7 @@ export class ListComponent implements OnInit {
       err =>{
         console.log(err)
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
 
@@ -137,7 +137,7 @@ export class ListComponent implements OnInit {
     },
     err=>{
       this.loginService.logout();
-      window.location.assign("/")
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
   }
 

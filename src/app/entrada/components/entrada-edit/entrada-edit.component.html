@@ -5,7 +5,7 @@
 <form (ngSubmit)="enviar()" [formGroup]="form" class="mx-auto col-sm-10 col-md-10 col-lg-10 col-xl-10 pt-5 container" >
   <div class="container">
       <div class="row">
-          <div class="m-1 card" style="overflow-y: auto;" style="width: 100%;">
+          <div class="m-1 card" style="overflow-y: auto;" style="width: 100%; overflow: scroll;">
               <h4 class=" titulo text-center">Editar entrada</h4>
               <br>
               <div>
@@ -199,11 +199,11 @@
                           <div [innerHTML]="notFound"></div>
                       </ng-template>
                       <br><br>
+
                   </div>                
                      
               </div>
              
-
 
           </div>
 

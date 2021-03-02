@@ -85,7 +85,7 @@ export class ListInventariosComponent implements OnInit {
             err=>{
               console.log(err)
               this.loginService.logout();
-              window.location.assign("/")  
+              window.location.assign("https://sedacreditaciones.com/app/patrimonio")  
             }
           )
         }

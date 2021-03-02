@@ -147,7 +147,7 @@ tipoDestino=''
       err=>{
         console.log(err)
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )      
     
@@ -193,7 +193,7 @@ tipoDestino=''
         console.log(error)
         console.log("No se pudo recuperar Categorias")
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       });
       
       this.getMarcas()         
@@ -238,7 +238,7 @@ tipoDestino=''
       err=>{
         console.log(err)
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
     this.serviceProvider.getProviders().subscribe(
@@ -248,7 +248,7 @@ tipoDestino=''
       },
       err=>{
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
 
@@ -270,7 +270,7 @@ tipoDestino=''
           },
           err=>{
             this.loginService.logout();
-            window.location.assign("/")
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           }
         )
       }else{
@@ -279,7 +279,7 @@ tipoDestino=''
     },
     err=>{
       this.loginService.logout();
-      window.location.assign("/")
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
     
   }
@@ -290,32 +290,31 @@ tipoDestino=''
 		});
 
 		dialogref.afterClosed().subscribe(element => {
-      alert("El elemento fue creado. Ya se puede incluir a la entrada.")
-			this.getMarcas()
-			if (element.confirm) {
+      if(element.confirm){
+        this.getMarcas()
+        alert("El elemento fue creado. Ya se puede incluir a la entrada.")
         this.spinnerElement=false;
         this.spinnerNoElement = false;
-     this.serviceElement.getElementos().subscribe(
-       data=>{
-        this.data = data['elements']
-        if(this.data.length==0){
-          this.spinnerNoElement=true;
-          this.spinnerElement=true;
-         }else{
-          this.spinnerElement=true;
-         }
-       },
-       err=>{
-        this.loginService.logout();
-        window.location.assign("/")
-       }
-     )
+        this.serviceElement.getElementos().subscribe(
+          data=>{
+            this.data = data['elements']
+            if(this.data.length==0){
+              this.spinnerNoElement=true;
+              this.spinnerElement=true;
+            }else{
+              this.spinnerElement=true;
+            }
+          },
+          err=>{
+            console.log(err)
+            //this.loginService.logout();
+            // window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+          }
+        )
       }
     });
     
 	}
-
-
 
   getElementByMark(){
     this.spinnerElement=false;
@@ -335,7 +334,7 @@ tipoDestino=''
         err=>{
           console.log(err)
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
           
       )}
@@ -356,7 +355,7 @@ tipoDestino=''
         err=>{
           console.log(err)
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
       )}else{
         if(this.form.get('categoria').value.id_category!=-1 && this.form.get('marca').value){
@@ -375,7 +374,7 @@ tipoDestino=''
           err=>{
             console.log(err)
             this.loginService.logout();
-            window.location.assign("/")
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           }
         )}else
           {this.spinnerNoElement=true;
@@ -402,7 +401,7 @@ tipoDestino=''
         },
         err=>{console.log(err)
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
       )}else
 
@@ -421,7 +420,7 @@ tipoDestino=''
        err=>{
          console.log(err)
          this.loginService.logout();
-         window.location.assign("/")
+         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
      )}else{
        if(this.form.get('categoria').value.id_category!=-1 && this.form.get('marca').value!= ''){
@@ -439,7 +438,7 @@ tipoDestino=''
            err=>{
              console.log(err)
              this.loginService.logout();
-             window.location.assign("/")
+             window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           }
          )
       }else{
@@ -469,7 +468,7 @@ tipoDestino=''
         },
         err=>{
           this.loginService.logout();
-          window.location.assign("/")
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
       )
       }else{
@@ -484,7 +483,7 @@ tipoDestino=''
             err =>{
               console.log(err)
               this.loginService.logout();
-              window.location.assign("/")
+              window.location.assign("https://sedacreditaciones.com/app/patrimonio")
             } 
           )
         } else {
@@ -494,9 +493,6 @@ tipoDestino=''
       }
    
   }
-
-
-
 
   enviar() {
     this.spinnerGuardar=true
@@ -518,7 +514,7 @@ tipoDestino=''
       err=>{
         console.log(err)
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
   }
@@ -571,15 +567,12 @@ tipoDestino=''
     },
     err=>{
       this.loginService.logout();
-      window.location.assign("/")
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
     
    } 
     
   }
-
-
-
 
   onChangeSearch(val: string) {
     // fetch remote data from here
@@ -605,6 +598,7 @@ tipoDestino=''
      })
      this.getElementByCategory();
    }
+
    selectvoid(){
     this.categoriaseleccionada= {  type: '',
     id_category: -1,

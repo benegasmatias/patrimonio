@@ -98,7 +98,7 @@ public nestedCateg = {
         console.log(error)
         console.log("No se pudo recuperar Categorias")
         this.loginService.logout();
-        window.location.assign("/")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       });
       
     }
@@ -236,7 +236,7 @@ DeshacerCambios(){
     error=>{
       console.log(error)
       this.loginService.logout();
-      window.location.assign("/")
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
     
     

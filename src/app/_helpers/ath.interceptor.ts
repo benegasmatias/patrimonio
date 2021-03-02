@@ -73,7 +73,9 @@ export class AthInterceptor implements HttpInterceptor {
             // ))
             // this.route.navigateByUrl('')
             //this.router.serializeUrl
-            window.location.assign("/")
+            //window.location.assign("/")
+
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           }
           
       }

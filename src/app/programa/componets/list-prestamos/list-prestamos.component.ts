@@ -103,7 +103,7 @@ export class ListPrestamosComponent implements OnInit {
             err=>{
               console.log(err)
               this.loginService.logout();
-              window.location.assign("/")
+              window.location.assign("https://sedacreditaciones.com/app/patrimonio")
             }
           )
         }
@@ -209,7 +209,7 @@ export class ListPrestamosComponent implements OnInit {
           err=>{
             console.log(err);
             this.loginService.logout();
-            window.location.assign("/")
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           })
 
         });
