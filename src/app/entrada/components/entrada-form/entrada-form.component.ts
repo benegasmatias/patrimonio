@@ -247,8 +247,9 @@ tipoDestino=''
         this.spinnerProvider=false
       },
       err=>{
+        console.log(err)
         this.loginService.logout();
-        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+       window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
 
@@ -307,8 +308,8 @@ tipoDestino=''
           },
           err=>{
             console.log(err)
-            //this.loginService.logout();
-            // window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+            this.loginService.logout();
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           }
         )
       }

@@ -10,11 +10,21 @@
                     <hr>
                     <mat-form-field appearance="outline">
                         <mat-label>Nombre</mat-label>
-                        <input matInput formControlName="name_element" value="" placeholder="Nombre del elemento">
+                        <input matInput #name formControlName="name_element" value="" placeholder="Nombre del elemento">
+                        <mat-error
+                        *ngIf="form_name_element">Se supero el maximo de caracteres</mat-error>
+                        <mat-hint align="end"
+                        >{{ name.value.length }} / 100</mat-hint
+                      >
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Descripcion</mat-label>
-                        <input matInput formControlName="description" value="" placeholder="Descripcion">
+                        <input matInput #desc formControlName="description" value="" placeholder="Descripcion">
+                        <mat-error
+                        *ngIf="form_description">Se supero el maximo de caracteres</mat-error>
+                        <mat-hint align="end"
+                        >{{ desc.value.length }} / 255</mat-hint
+                      >
                     </mat-form-field>
             
                     <div class="form__div">

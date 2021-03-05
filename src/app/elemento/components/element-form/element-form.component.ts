@@ -41,11 +41,19 @@ export class ElementFormComponent implements OnInit {
   hide = true;
 
   form = new FormGroup({
-    name_element: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
+    name_element: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+    description: new FormControl('', [Validators.required, Validators.maxLength(255)]),
     mark_id: new FormControl(''),
     category_of_element_id: new FormControl([], Validators.required)
   });
+  
+  get form_name_element() { 
+    return this.form.controls.name_element.hasError('maxlength');
+  }
+
+  get form_description() { 
+    return this.form.controls.description.hasError('maxlength');
+  }
 
   constructor(private elementoService: ElementoService, private dialog: MatDialog, private serviceCategoria: CategoriasService, private marcaService: MarcaService, @Inject(MAT_DIALOG_DATA) public data: any, public dialogref: MatDialogRef<ElementFormComponent>,private loginService: LoginService, protected route: Router) { }
 

@@ -98,3 +98,14 @@ mat-form-field .inputcateg {
     transform: translateY(-1.1em) scale(.75) !important;
     width: 50% !important;  
 }
+
+td.mat-cell, td.mat-header-cell{
+ padding-left: 30px !important;
+ padding-right: 30px !important;
+}
+.mat-elevation-z8{
+  width: 600px;
+}
+.mat-sort-header-button{
+  padding-left: 30px !important;
+}

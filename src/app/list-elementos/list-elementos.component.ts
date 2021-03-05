@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/materia
 import {CategoriasService} from '../services/categorias.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../login/services/login.service';
+import { InventarioService } from '../services/inventario.service';
 
 import {MatDialog} from '@angular/material/dialog'
 
@@ -25,90 +26,82 @@ import {MatSort} from '@angular/material/sort';
 export class ListElementosComponent implements OnInit {
 
 //////////////////////////////////////////////////////////////////////////////
-inputs=[]
+elementos=[]
 cantElementos=0;
 spinnerInput= false
 noInputs=false
-displayedColumns: string[] = [ 'number_refer', 'created','name_element','elements','actions', 'modify'];
-dataSource: MatTableDataSource<InputData>;
+displayedColumns: string[] = [ 'name_element', 'description','mark_name','estado'];
+
+dataSource: MatTableDataSource<Elementos>;
 
 @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 ///////////////////////////////////////////////////////////////////////////////
-  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService,private loginService: LoginService) { }
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService,private loginService: LoginService, private servicioInventario: InventarioService) { }
 
   ngOnInit(): void {
-    this.cargaTabla();
-    this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
-      if (typeof data[sortHeaderId] === 'string') {
-        return data[sortHeaderId].toLocaleLowerCase();
-      }
+    //this.cargaTabla();
+    this.servicioInventario.getAllElements().subscribe((data:any)=>{
+      console.log(data.list_elem)
+      this.elementos= data.list_elem;
+      this.dataSource = new MatTableDataSource(this.elementos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    },
+    err=>{
+      console.log(err)
+    })
+    // this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+    //   if (typeof data[sortHeaderId] === 'string') {
+    //     return data[sortHeaderId].toLocaleLowerCase();
+    //   }
     
-      return data[sortHeaderId];
-    };
+    //   return data[sortHeaderId];
+    // };
   }
   public cargaTabla(){
-    this.inputs= []
-    this.spinnerInput = true
-    this.serviceInput.getInputByStruct(1).subscribe(
-      data=>{
-        this.inputs = data['inputs']
-        this.inputs.forEach(element => {
-          element.name_element= element.elements[0].name_element;
-        });
-        this.dataSource = new MatTableDataSource(this.inputs);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
 
-        this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
-          if (typeof data[sortHeaderId] === 'string') {
-            return data[sortHeaderId].toLocaleLowerCase();
-          }
+    // this.inputs= []
+    // this.spinnerInput = true
+    // this.serviceInput.getInputByStruct(1).subscribe(
+    //   data=>{
+    //     this.inputs = data['inputs']
+    //     this.inputs.forEach(element => {
+    //       element.name_element= element.elements[0].name_element;
+    //     });
+    //     this.dataSource = new MatTableDataSource(this.inputs);
+    //     this.dataSource.paginator = this.paginator;
+    //     this.dataSource.sort = this.sort;
+
+    //     this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+    //       if (typeof data[sortHeaderId] === 'string') {
+    //         return data[sortHeaderId].toLocaleLowerCase();
+    //       }
         
-          return data[sortHeaderId];
-        };
+    //       return data[sortHeaderId];
+    //     };
         
-        if(data['inputs'].length!=0){
-        this.spinnerInput=false
+    //     if(data['inputs'].length!=0){
+    //     this.spinnerInput=false
           
-      }else{
-        this.noInputs=true
-      }
+    //   }else{
+    //     this.noInputs=true
+    //   }
  
-      },
-      err =>{
-        console.log(err)
-        this.loginService.logout();
-        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
-      }
-    )
+    //   },
+    //   err =>{
+    //     console.log(err)
+    //     this.loginService.logout();
+    //     window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+    //   }
+    // )
 
-    if(this.verifica()){
-      this.displayedColumns.pop();      
-    }
+    // if(this.verifica()){
+    //   this.displayedColumns.pop();      
+    // }
   }
 
-  // verEntrada(input:ElementData[]): void {
-	// 	const dialogref = this.dialog.open(EntradaDetalleComponent, {
-  //     data: {title: 'Elementos',input}
-	// 	});
-  // }
-  
-  // eliminaEntrada(input:any): void{
-  //   const dialogref = this.dialog.open(EntradaDeleteComponent, {
-  //     data: {title: 'Eliminar Entrada',
-  //     input:input.id,
-  //     elements:input.elements,
-  //   }
-  //   });
-  //   dialogref.afterClosed().subscribe(result => {
-  //     if (result.confirm) {
-  //       this.ngOnInit();
-  //     }      
-  //   })
-
-  // }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -124,28 +117,18 @@ dataSource: MatTableDataSource<InputData>;
     return (aux=="guest");    
   }
 
+  estado(row){
+
+  }
+
 }
 
-export interface provider{
-  id:string;
-  created:string;
-  name:string;
-}
-
-export interface ElementData {
-  id_element:string;
-  name_element:string;
-  description:string;
-  quantity:string;
-  mark_id:string;
-  category_of_element_id:string;
-}
-
-export interface InputData {
-  id: string;
-  number_refer: string;
-  created: string;
-  elements: ElementData[];
-  provider: provider;
-  name_element: string;
+export interface Elementos{
+  description: string,
+  id_element: number,
+  mark_id:number,
+  mark_name: string,
+  name_element: string,
+  output_id: number,
+  input_id: number,
 }

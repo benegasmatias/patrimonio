@@ -38,4 +38,8 @@ export class InventarioService {
     return this.http.post(`${this.API_URI}/outputs/struct-pending.json`, archivo);
   }
 
+  getAllElements(){
+    return this.http.get(`${this.API_URI}/elements/list-all.json`);
+  }
+
 }
