@@ -42,4 +42,8 @@ export class InventarioService {
     return this.http.get(`${this.API_URI}/elements/list-all.json`);
   }
 
+  getIntersectElements(id_elem){
+    return this.http.get(`${this.API_URI}/elements/intersect-elem/${id_elem}.json`);
+  }
+
 }

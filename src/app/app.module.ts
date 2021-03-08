@@ -26,6 +26,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {DatePipe} from '@angular/common';
 
 import { PendingFormComponent } from './programa/componets/pending-form/pending-form.component';
+// import { FormElementosComponent } from './list-elementos/form-elementos/form-elementos.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +36,8 @@ import { PendingFormComponent } from './programa/componets/pending-form/pending-
     StructComponent,
     TypestructComponent,
     dialogoNuevoStructComponent,
-    PendingFormComponent
-
+    PendingFormComponent,
+    // FormElementosComponent
   ],
   imports: [
     BrowserModule,

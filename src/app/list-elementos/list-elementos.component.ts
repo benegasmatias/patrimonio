@@ -13,7 +13,7 @@ import { InputService } from 'src/app/services/input.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-
+import{ FormElementosComponent} from './form-elementos/form-elementos.component';
 @Component({
   selector: 'app-categorias',
   templateUrl: './list-elementos.component.html',
@@ -41,9 +41,11 @@ dataSource: MatTableDataSource<Elementos>;
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService,private loginService: LoginService, private servicioInventario: InventarioService) { }
 
   ngOnInit(): void {
-    //this.cargaTabla();
+    this.cargaTabla();
+  }
+  public cargaTabla(){
+    this.elementos=[];
     this.servicioInventario.getAllElements().subscribe((data:any)=>{
-      console.log(data.list_elem)
       this.elementos= data.list_elem;
       this.dataSource = new MatTableDataSource(this.elementos);
       this.dataSource.paginator = this.paginator;
@@ -52,54 +54,7 @@ dataSource: MatTableDataSource<Elementos>;
     err=>{
       console.log(err)
     })
-    // this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
-    //   if (typeof data[sortHeaderId] === 'string') {
-    //     return data[sortHeaderId].toLocaleLowerCase();
-    //   }
-    
-    //   return data[sortHeaderId];
-    // };
-  }
-  public cargaTabla(){
 
-    // this.inputs= []
-    // this.spinnerInput = true
-    // this.serviceInput.getInputByStruct(1).subscribe(
-    //   data=>{
-    //     this.inputs = data['inputs']
-    //     this.inputs.forEach(element => {
-    //       element.name_element= element.elements[0].name_element;
-    //     });
-    //     this.dataSource = new MatTableDataSource(this.inputs);
-    //     this.dataSource.paginator = this.paginator;
-    //     this.dataSource.sort = this.sort;
-
-    //     this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
-    //       if (typeof data[sortHeaderId] === 'string') {
-    //         return data[sortHeaderId].toLocaleLowerCase();
-    //       }
-        
-    //       return data[sortHeaderId];
-    //     };
-        
-    //     if(data['inputs'].length!=0){
-    //     this.spinnerInput=false
-          
-    //   }else{
-    //     this.noInputs=true
-    //   }
- 
-    //   },
-    //   err =>{
-    //     console.log(err)
-    //     this.loginService.logout();
-    //     window.location.assign("https://sedacreditaciones.com/app/patrimonio")
-    //   }
-    // )
-
-    // if(this.verifica()){
-    //   this.displayedColumns.pop();      
-    // }
   }
 
 
@@ -117,7 +72,18 @@ dataSource: MatTableDataSource<Elementos>;
     return (aux=="guest");    
   }
 
-  estado(row){
+  estado(row,tipo){
+
+    const dialogref = this.dialog.open(FormElementosComponent, {
+      data: {title: 'Verificacion Elemento', row:row, tipo:tipo},
+      width: '600px',
+    });
+    dialogref.afterClosed().subscribe((result:any) => {
+      if(result.confirm)
+        console.log('xd')
+          //this.cargaTabla();
+
+    });
 
   }
 

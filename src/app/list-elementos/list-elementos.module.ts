@@ -20,21 +20,22 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTreeModule} from '@angular/material/tree';
 import {DragDropModule} from '@angular/cdk/drag-drop'; 
 
-//import { DndModule } from "ngx-drag-drop";
-import {DndListModule } from "ngx-drag-and-drop-lists";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import {FormElementosComponent} from './form-elementos/form-elementos.component';
 
 @NgModule({
-  declarations: [ListElementosComponent],
+  declarations: [ListElementosComponent,FormElementosComponent],
   imports: [
     CommonModule,
     CategoriasRoutingModule,
     ReactiveFormsModule,
-    MatInputModule,MatIconModule,MatSelectModule, MatCardModule, MatButtonModule, MatFormFieldModule/*, MaterialFileInputModule*/, MatListModule,MatDialogModule,MatExpansionModule,MatTreeModule,
-    MatTreeModule, DragDropModule, MatSnackBarModule,DndListModule,MatTableModule,MatSortModule,MatPaginatorModule
+    MatInputModule,MatIconModule,MatSelectModule, MatCardModule,MatButtonModule, 
+    MatFormFieldModule/*, MaterialFileInputModule*/, MatListModule,MatDialogModule,
+    MatExpansionModule,MatTreeModule,MatTreeModule, DragDropModule, MatSnackBarModule,
+    MatTableModule,MatSortModule,MatPaginatorModule,
   ]
 })
 export class ListElementosModule { }
