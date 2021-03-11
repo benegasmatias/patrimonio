@@ -80,9 +80,7 @@ dataSource: MatTableDataSource<Elementos>;
     });
     dialogref.afterClosed().subscribe((result:any) => {
       if(result.confirm)
-        console.log('xd')
-          //this.cargaTabla();
-
+        this.cargaTabla();
     });
 
   }

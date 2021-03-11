@@ -1,6 +1,6 @@
 <mat-dialog-content>
 <ng-container *ngIf="tipo==1;">
-    <!-- separar entre columnas las entradas y salidas -->
+    <!-- Entradas -->
     <div class="container" *ngIf="entradas.length>0">
         <h1>Entradas: </h1>
         <div class="card " *ngFor="let entrada of entradas">
@@ -11,14 +11,16 @@
             </div>
           </div>
     </div>
+
+    <!-- Salidas -->
     <div class="container" *ngIf="outputs.length>0">
         <h1>Salidas: </h1>
         <div class="card " *ngFor="let salidas of outputs">
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Name: {{salidas.name_element}} </h6>
-              <h6 class="card-subtitle mb-2 text-muted">Cantidad: {{salidas.quantity}} </h6>
-              <!-- <p class="card-text">N° Remito: {{salidas.number_refer}}</p>
-              <p class="card-text">Ubicacion: {{salidas.typestruct_name}} - {{salidas.struct_name}}</p> -->
+              <h6 class="card-subtitle mb-2 text-muted">Tipo: {{salidas.name_availability}} </h6>
+              <h6 class="card-subtitle mb-2 text-muted">Cantidad: {{salidas.quantity_out}} </h6>
+              <p class="card-text">Ubicacion Origen: {{salidas.typestrOrig}} - {{salidas.structDest}}</p>
+              <p class="card-text">Ubicacion Destino: {{salidas.typestrDest}} - {{salidas.structOrigin}}</p>
             </div>
           </div>
         <!-- <div class="row" *ngFor="let salidas of outputs">
@@ -28,12 +30,19 @@
 
 </ng-container>
 <ng-container *ngIf="tipo==0">
-    
+    <h5> Eliminar elemento?</h5>
 </ng-container>
 
 </mat-dialog-content>
 
 <mat-dialog-actions style="margin-left: 72%;">
-    <button mat-stroked-button color="primary" *ngIf="!modifica"  (click)="save()">Guardar</button> <!-- [disabled]="!form.valid" -->
-    <button mat-stroked-button color="warn" (click)="close()">Cerrar</button>
+    <!-- <button mat-stroked-button color="primary" *ngIf="tipo==1"  (click)="save()">Guardar</button> [disabled]="!form.valid" -->
+    <div class="row">
+      <div class="col">
+        <button mat-stroked-button color="warn" *ngIf="tipo==0"  (click)="delete()">Borrar</button>
+      </div>
+      <div class="col">
+        <button mat-stroked-button color="primary" (click)="close()">Cerrar</button>
+      </div>
+    </div>
 </mat-dialog-actions>
