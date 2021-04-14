@@ -32,4 +32,11 @@ export class StructService {
   addStruct(struct){
     return this.http.post(`${this.API_URI}/structs.json`,struct);
   }
+
+  editStruct(struct){
+    return this.http.post(`${this.API_URI}/structs/edit.json`,struct);
+  }
+  deleteStruct(struct){
+    return this.http.post(`${this.API_URI}/structs/delete.json`,struct);
+  }
 }

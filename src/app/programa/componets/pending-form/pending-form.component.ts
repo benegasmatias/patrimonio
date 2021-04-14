@@ -48,6 +48,7 @@ export class PendingFormComponent implements OnInit {
         return_quantity: dat.pending[0].return_quantity ,
         quantity_out: this.data.row.quantity_out,
       })
+      
       console.log(this.data.row)
     },
     err=>{

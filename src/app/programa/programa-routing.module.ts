@@ -6,6 +6,7 @@ import {ListComponent} from './componets/list/list.component'
 import { ListInventariosComponent } from './componets/list-inventarios/list-inventarios.component';
 import { ListSalidasComponent } from './componets/list-salidas/list-salidas.component';
 import { ListPrestamosComponent } from './componets/list-prestamos/list-prestamos.component';
+import { ConfigComponent } from './componets/config/config.component';
 
 
 const routes: Routes = [
@@ -14,9 +15,8 @@ const routes: Routes = [
    { path: ':id', component:ListComponent},
    {path:'inventarios/:struct',component:ListInventariosComponent},
    {path:'salidas/:struct',component:ListSalidasComponent},
-   {path:'prestamos/:struct',component:ListPrestamosComponent}
-
-
+   {path:'prestamos/:struct',component:ListPrestamosComponent},
+   {path:'configuracion/:struct',component:ConfigComponent}
   ]}
   ];
 

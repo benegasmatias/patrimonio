@@ -106,6 +106,10 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
               {
                 name: 'Listar Prestamos',
                 route: `programa/prestamos/${this.estructuras[i].id}`,
+              },
+              {
+                name: 'Configuracion',
+                route: `programa/configuracion/${this.estructuras[i].id}`,
               }
               ]
            })
@@ -123,6 +127,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     )
    this.route.navigateByUrl('panel/programa')
   }
+
   logout() {
     this.loginService.logout();
     this.route.navigateByUrl('')
@@ -201,8 +206,6 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     let aux=this.loginService.getRol();
     return (aux=="admin" || aux=="user");
   } 
-
-
 
   // private cargarUser (){
 

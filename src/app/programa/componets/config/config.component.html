@@ -1,0 +1,59 @@
+<form [formGroup]="form">
+  <br>
+  <div class="container">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <div class="card" style="overflow-y: auto;">
+        <h4 class=" titulo text-center container">Configuración de Nombre</h4>
+        <br>
+        <div class=" row container form__div">
+          <div class="col-2"></div>
+          <div class="col">
+            <mat-form-field class="" style=" width: 100%;"  appearance="">
+              <mat-label>Cambio de Nombre</mat-label>
+              <input matInput  formControlName="name" value="" placeholder="Nombre" maxlength="100">
+          </mat-form-field>
+          </div>
+          <div class="col-2"></div>      
+        </div>
+        <div class="row container form__div">
+          <div class="col-8"></div>
+          <div class="col">
+            <button  [disabled]="spinnerGuardar"  id="guardar" class="btn btn-primary" (click)="edit()">
+              <div *ngIf="!spinnerGuardar">
+                  Guardar
+                </div>
+                <div *ngIf="spinnerGuardar">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <span > Guardando...</span>
+                </div>
+
+          </button> 
+          </div>             
+        </div>
+        <br>
+        <br>
+        <h4 class=" titulo text-center container">Eliminación</h4>
+
+        <div class="row container form__div">
+          <div class="col-8"></div>
+          <div class="col">
+            <button  [disabled]="spinnerEliminar"  id="guardar" class="btn btn-primary" (click)="delete()">
+              <div *ngIf="!spinnerEliminar">
+                  Eliminar
+                </div>
+                <div *ngIf="spinnerEliminar">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <span > Elminando...</span>
+                </div>
+          </button> 
+          </div>             
+        </div>
+        <hr>      
+      </div>
+    </div>
+    <div class="col-2"></div>
+
+  </div>
+
+</form>

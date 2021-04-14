@@ -496,8 +496,7 @@ tipoDestino=''
   }
 
   enviar() {
-    this.spinnerGuardar=true
-    console.log(this.form.value)
+    this.spinnerGuardar=true;
     
     this.serviceInput.addInput(this.form.value).subscribe(
       data=>{

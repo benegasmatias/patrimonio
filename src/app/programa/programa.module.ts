@@ -11,11 +11,14 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 
 import {MatTableModule} from '@angular/material/table';
 
+
+import {MatFormFieldModule} from '@angular/material/form-field'; 
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ListInventariosComponent } from './componets/list-inventarios/list-inventarios.component';
 import { ListSalidasComponent } from './componets/list-salidas/list-salidas.component';
+import { ConfigComponent } from './componets/config/config.component';
 import { ListPrestamosComponent } from './componets/list-prestamos/list-prestamos.component';
 import {PdfService} from './componets/list-prestamos/pdfService/pdfService';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -24,12 +27,12 @@ import{ MatIconModule} from '@angular/material/icon';
 
 import {ReactiveFormsModule} from '@angular/forms'; 
 @NgModule({
-  declarations: [ProgramaComponent, ListComponent, ListInventariosComponent,ListSalidasComponent,ListPrestamosComponent],
+  declarations: [ProgramaComponent, ListComponent, ListInventariosComponent,ListSalidasComponent,ListPrestamosComponent,ConfigComponent],
   imports: [
     CommonModule,
     ProgramaRoutingModule,
     MatListModule,MatDialogModule,MatButtonModule,MatTableModule,CdkTableModule,MatInputModule,MatPaginatorModule,MatSortModule
-    ,MatDatepickerModule,ReactiveFormsModule,MatIconModule
+    ,MatDatepickerModule,ReactiveFormsModule,MatIconModule,MatFormFieldModule
   ],
   providers:[
     PdfService,
