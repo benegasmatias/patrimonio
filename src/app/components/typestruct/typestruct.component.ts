@@ -25,14 +25,14 @@ export class TypestructComponent implements OnInit {
   public save(){
     this.serviceStruct.addTypeStruct(this.form.value).subscribe(
       data=>{
-
+        this.dialogRef.close(true);
       },
       err=>{
         this.loginService.logout();
         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
-    this.dialogRef.close(true);
+ 
   }
 
 }

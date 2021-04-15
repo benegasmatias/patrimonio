@@ -39,11 +39,12 @@ export class StructComponent implements OnInit {
      //set el origen id a externo
      this.form.get('origin_struct_id').setValue(this.data.origin_id)
 
-     this.getTypeStruct()
+     this.getTypeStruct();
     
   }
 
   getTypeStruct(){
+    this.typeStructs=[];
     this.serviceStruct.getTypeStructs().subscribe(
       data=>{
         this.spinnerTypeStruct=true;
@@ -82,7 +83,10 @@ export class StructComponent implements OnInit {
 			if (result) {
         // this.salidaGenerada=true 
         // this.getInventarios()
-        this.getTypeStruct()
+        setTimeout(() => {
+          this.getTypeStruct();
+        }, 500);
+        
 			}else {
         
       }

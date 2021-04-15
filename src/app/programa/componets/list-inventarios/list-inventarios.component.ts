@@ -9,6 +9,7 @@ import {MatSort} from '@angular/material/sort';
 
 import { SalidaFormComponent } from 'src/app/salida/components/salida-form/salida-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import {pdfServiceInventarios} from './pdfServiceInventarios/pdfServiceInventarios';
 
 
 export interface IventarioData {
@@ -31,7 +32,7 @@ export class ListInventariosComponent implements OnInit {
   //Fin alerts
   iventarioData=[]
 
-  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private loginService: LoginService) {}
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private loginService: LoginService,private pdfService: pdfServiceInventarios,) {}
    displayedColumns: string[] = [ 'name_element', 'description','marca', 'stock','action'];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
@@ -122,5 +123,9 @@ export class ListInventariosComponent implements OnInit {
     return (aux=="guest");    
   }
 
+  generaPdf(){
+    //let datos=  this.dataSource.filteredData
+    //  this.pdfService.generatePdf(datos);      
+  }  
 }
 

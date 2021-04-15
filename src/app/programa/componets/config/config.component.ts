@@ -67,21 +67,19 @@ export class ConfigComponent implements OnInit {
   }
 
   delete(){
-    if(confirm("¿Seguro que desea eliminar?")){
-      console.log("si")
-      //window.location.assign("https://sedacreditaciones.com/app/patrimonio/panel")
-      //window.location.assign("/panel")
-
+    if(confirm("¿Seguro que desea eliminar?\nSe Elminarain todas las entradas y salidas relacionadas")){
+      this.spinnerEliminar=true;
       this.structService.deleteStruct({
         struct_id: this.struct.id,
       }).subscribe((data:any)=>{      
         console.log(data)
-        this.spinnerGuardar=false;
+        this.spinnerEliminar=false;
         //window.location.assign("https://sedacreditaciones.com/app/patrimonio/panel")
-        //window.location.assign("/panel")
+        window.location.assign("/panel")
       },
       err=>{
         console.log(err)
+        this.spinnerEliminar=false;
       })
     }
   }

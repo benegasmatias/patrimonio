@@ -504,11 +504,19 @@ tipoDestino=''
         this.alertExito=true;
         this.stock = []
         this.elementosSelecionados = []
+        this.categoriaseleccionada= {  type: '',
+        id_category: -1,
+        name_category:'-----',
+        hijo: [] };
+
         this.form.get('number_refer').setValue('')
        // this.form.get('typeStruct_id').setValue('')
       //  this.form.get('struct_id').setValue('')
-        this.form.get('categoria').setValue('')
+        this.form.get('categoria').setValue(this.categoriaseleccionada)
         this.form.get('provider_id').setValue('')
+
+
+
         this.spinnerGuardar=false;
       },
       err=>{
