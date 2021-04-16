@@ -58,8 +58,8 @@ export class ConfigComponent implements OnInit {
       name: this.form.get('name').value
     }).subscribe((data:any)=>{      
       this.spinnerGuardar=false;
-      //window.location.assign("https://sedacreditaciones.com/app/patrimonio/panel")
-      window.location.assign("/panel")
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio/panel")
+      //window.location.assign("/panel")
     },
     err=>{
       console.log(err)
@@ -74,8 +74,8 @@ export class ConfigComponent implements OnInit {
       }).subscribe((data:any)=>{      
         console.log(data)
         this.spinnerEliminar=false;
-        //window.location.assign("https://sedacreditaciones.com/app/patrimonio/panel")
-        window.location.assign("/panel")
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio/panel")
+        //window.location.assign("/panel")
       },
       err=>{
         console.log(err)

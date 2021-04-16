@@ -23,6 +23,8 @@ import { ListPrestamosComponent } from './componets/list-prestamos/list-prestamo
 import {PdfService} from './componets/list-prestamos/pdfService/pdfService';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {pdfServiceSalida} from './componets/list-salidas/pdfServiceSalida/pdfServiceSalida';
+import {pdfServiceInventarios} from './componets/list-inventarios/pdfServiceInventarios/pdfServiceInventarios';
+
 import{ MatIconModule} from '@angular/material/icon';
 
 import {ReactiveFormsModule} from '@angular/forms'; 
@@ -36,7 +38,8 @@ import {ReactiveFormsModule} from '@angular/forms';
   ],
   providers:[
     PdfService,
-    pdfServiceSalida
+    pdfServiceSalida,
+    pdfServiceInventarios
   ]
 })
 export class ProgramaModule { }

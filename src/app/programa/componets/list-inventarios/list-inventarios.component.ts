@@ -31,7 +31,7 @@ export class ListInventariosComponent implements OnInit {
 
   //Fin alerts
   iventarioData=[]
-
+  estructuraActual='';
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private loginService: LoginService,private pdfService: pdfServiceInventarios,) {}
    displayedColumns: string[] = [ 'name_element', 'description','marca', 'stock','action'];
    dataSource: MatTableDataSource<IventarioData>;
@@ -61,8 +61,9 @@ export class ListInventariosComponent implements OnInit {
             data=>{
                 console.log(data);
                 
-              this.iventarioData = data['inventario']
-              console.log(this.iventarioData)
+              this.iventarioData = data['inventario'];
+              this.estructuraActual= data['struct'];
+              console.log(this.estructuraActual)
 
               if(this.iventarioData.length!=0){
                 this.inventarioss=true
@@ -124,8 +125,9 @@ export class ListInventariosComponent implements OnInit {
   }
 
   generaPdf(){
-    //let datos=  this.dataSource.filteredData
-    //  this.pdfService.generatePdf(datos);      
+    let datos=  this.dataSource.filteredData
+    console.log(datos)
+    this.pdfService.generatePdf(datos,this.estructuraActual);      
   }  
 }
 
