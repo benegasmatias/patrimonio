@@ -164,7 +164,7 @@ export class SalidaFormComponent implements OnInit {
 
 		dialogref.afterClosed().subscribe(result => {
 			console.log(result);
-			if (result.confirm) {
+			if (result) {
         // this.salidaGenerada=true 
         // this.getInventarios()
         this.getStrct()

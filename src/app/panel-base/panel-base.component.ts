@@ -116,6 +116,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
 
            if(!this.verifica()){
             this.fillerNav[i].subMenu.splice(1,1);
+            this.fillerNav[i].subMenu.splice(4,1);
            }
 
      }

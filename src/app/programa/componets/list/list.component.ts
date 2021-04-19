@@ -120,6 +120,7 @@ export class ListComponent implements OnInit {
 
   });
     if(this.verifica()){
+      this.displayedColumns.pop();
       this.displayedColumns.pop();      
     }
   }
