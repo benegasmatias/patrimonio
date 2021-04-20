@@ -48,7 +48,7 @@
 
 
 </div> -->
-<div [hidden]="noInputs">
+<div *ngIf="inputs.length">
 
   <mat-form-field class="buscar" >
     <mat-label>Buscar</mat-label>
@@ -124,6 +124,6 @@
 </div>
 </div>
 
-<div class="text-center" *ngIf="noInputs">
+<div class="text-center" *ngIf="!inputs.length">
   <h1>No existen inventarios para mostrar..!</h1>
 </div>

@@ -46,15 +46,7 @@ export class ListPrestamosComponent implements OnInit {
  
 
   ngOnInit(): void {
-   this.getInventarios() 
-   
-   this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
-    if (typeof data[sortHeaderId] === 'string') {
-      return data[sortHeaderId].toLocaleLowerCase();
-    }
-  
-    return data[sortHeaderId];
-  };
+   this.getInventarios()   
   }
 
   getInventarios(){
@@ -63,8 +55,7 @@ export class ListPrestamosComponent implements OnInit {
         if(param['struct']){          
           this.inventarioService.getOutputsByStructPrestamo(param['struct']).subscribe(
             (data:any)=>{
-              //console.log(data)
-                //console.log(data.data)
+              console.log(data)
                   this.inventarioData = data['inventario'];
                   this.estructurasDestino = data['structsDestino'];
                   this.estructuraActual = data['structOrigin'][0];

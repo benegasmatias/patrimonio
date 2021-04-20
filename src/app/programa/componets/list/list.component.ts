@@ -71,13 +71,6 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargaTabla();
-    this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
-      if (typeof data[sortHeaderId] === 'string') {
-        return data[sortHeaderId].toLocaleLowerCase();
-      }
-    
-      return data[sortHeaderId];
-    };
   }
 
   public cargaTabla(){
@@ -105,10 +98,10 @@ export class ListComponent implements OnInit {
         
         if(data['inputs'].length!=0){
         this.spinnerInput=false
-          
-      }else{
-        this.noInputs=true
-      }
+            
+        }else{
+          this.noInputs=true
+        }
  
       },
       err =>{

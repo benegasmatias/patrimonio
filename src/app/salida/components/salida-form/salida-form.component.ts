@@ -218,16 +218,15 @@ export class SalidaFormComponent implements OnInit {
     )
     }
     else{
-      //console.log(this.formdest.value.expected_date)
       var fecha= this.datePipe.transform(this.formdest.value.expected_date,"yyyy-MM-dd");
-
       this.formdest.setValue({
         typedest: this.formdest.value.typedest,
         phone_number: this.formdest.value.phone_number,
         receiver_name: this.formdest.value.receiver_name,
         expected_date: fecha,
       })
-      
+      var fecha2= this.datePipe.transform(this.form.value.created,"yyyy-MM-dd HH:mm:SS");
+      this.form.controls['created'].setValue(fecha2);
       this.outputService.addOutputPrest(this.form.value, this.formdest.value).subscribe(
         data=>{
           console.log(data);

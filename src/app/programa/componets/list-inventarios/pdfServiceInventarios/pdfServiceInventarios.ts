@@ -23,7 +23,7 @@ export class pdfServiceInventarios {
 
       var docDefinition = {
         content: [
-          { text: 'Informe de Prestamos: '+ estructura.typeStruct.name+'-'+estructura.name + "   \n"+f.getDay()+'/'+f.getMonth()+'/'+ f.getFullYear(), margin: [0, 20, 0, 8] },
+          { text: 'Informe de Inventarios: '+ estructura.typeStruct.name+'-'+estructura.name + "   \n"+f.getDay()+'/'+f.getMonth()+'/'+ f.getFullYear(), margin: [0, 20, 0, 8] },
           {
             style: 'tableExample',
             table: {

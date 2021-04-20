@@ -33,7 +33,7 @@ export class ListInventariosComponent implements OnInit {
   iventarioData=[]
   estructuraActual='';
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private loginService: LoginService,private pdfService: pdfServiceInventarios,) {}
-   displayedColumns: string[] = [ 'name_element', 'description','marca', 'stock','action'];
+   displayedColumns: string[] = [ 'name_element', 'description','marca',/*'ingreso', */ 'stock'/*,'egreso' */,'action'];//AGREGAR INGRESO Y EGRESO
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -44,13 +44,6 @@ export class ListInventariosComponent implements OnInit {
     if(this.verifica()){
       this.displayedColumns.pop();
     }
-    this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
-      if (typeof data[sortHeaderId] === 'string') {
-        return data[sortHeaderId].toLocaleLowerCase();
-      }
-    
-      return data[sortHeaderId];
-    };
   }
 
   getInventarios(){
@@ -79,8 +72,7 @@ export class ListInventariosComponent implements OnInit {
               this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
                 if (typeof data[sortHeaderId] === 'string') {
                   return data[sortHeaderId].toLocaleLowerCase();
-                }
-              
+                }              
                 return data[sortHeaderId];
               };
             },
