@@ -38,7 +38,7 @@ export class ListPrestamosComponent implements OnInit {
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService,private pdfService: PdfService, private loginService: LoginService) {
   }
 
-   displayedColumns: string[] = ['name_element', 'description','quantity_out','mark','destination_id','created', 'estado','action', ];
+   displayedColumns: string[] = ['name_element', 'description','mark','quantity_out','destination_id','created', 'estado','action', ];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

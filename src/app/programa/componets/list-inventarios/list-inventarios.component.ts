@@ -33,7 +33,7 @@ export class ListInventariosComponent implements OnInit {
   iventarioData=[]
   estructuraActual='';
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private loginService: LoginService,private pdfService: pdfServiceInventarios,) {}
-   displayedColumns: string[] = [ 'name_element', 'description','marca',/*'ingreso', */ 'stock'/*,'egreso' */,'action'];//AGREGAR INGRESO Y EGRESO
+   displayedColumns: string[] = [ 'name_element', 'description','marca','ingreso','egreso', 'stock' ,'action'];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -52,7 +52,7 @@ export class ListInventariosComponent implements OnInit {
         if(param['struct']){
           this.inventarioService.getIventariosByStruct(param['struct']).subscribe(
             data=>{
-                console.log(data);
+              console.log(data);
                 
               this.iventarioData = data['inventario'];
               this.estructuraActual= data['struct'];
@@ -78,8 +78,8 @@ export class ListInventariosComponent implements OnInit {
             },
             err=>{
               console.log(err)
-              this.loginService.logout();
-              window.location.assign("https://sedacreditaciones.com/app/patrimonio")  
+              //this.loginService.logout();
+              //window.location.assign("https://sedacreditaciones.com/app/patrimonio")  
             }
           )
         }

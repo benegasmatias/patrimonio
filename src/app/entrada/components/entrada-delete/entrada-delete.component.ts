@@ -24,6 +24,7 @@ export class EntradaDeleteComponent implements OnInit {
         inputelements.push(element._joinData.id)
       });    
       this.inputService.deleteInput({input_id: input, input_elements:inputelements }).subscribe(data=>{
+        console.log(data);
           this.dialogref.close({confirm:true})
         },
         err=>{
