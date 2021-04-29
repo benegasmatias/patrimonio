@@ -83,11 +83,9 @@ export class PdfService {
                 //{ text: 'Fecha de Prestamo', style: 'tableHeader' }, 
                 { text: 'Autoriza', style: 'tableHeader' },
                 { text: 'Retira', style: 'tableHeader' },
-                { text: 'Cantidad', style: 'tableHeader' }, 
+                { text: 'Egreso', style: 'tableHeader' }, 
                 { text: 'Materiales', style: 'tableHeader' }, 
-
                 { text: 'Marca', style: 'tableHeader' }, 
-
                 { text: 'Area que Solicita', style: 'tableHeader' }, 
                 { text: 'Institucion a la que se Destina', style: 'tableHeader' },
                 { text: 'Fecha de Devolucion', style: 'tableHeader' },

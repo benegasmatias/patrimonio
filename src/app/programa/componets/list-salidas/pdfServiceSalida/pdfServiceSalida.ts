@@ -94,7 +94,7 @@ export class pdfServiceSalida {
                 [
                 { text: 'Fecha de '+ tipoSalida, style: 'tableHeader' },
                 { text: 'Autoriza', style: 'tableHeader' },  
-                { text: 'Cantidad', style: 'tableHeader' }, 
+                { text: 'Egreso', style: 'tableHeader' }, 
                 { text: 'Articulo', style: 'tableHeader' },                 
                 { text: 'Descripcion', style: 'tableHeader' },
 

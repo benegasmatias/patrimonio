@@ -118,7 +118,6 @@ export class ListInventariosComponent implements OnInit {
 
   generaPdf(){
     let datos=  this.dataSource.filteredData
-    console.log(datos)
     this.pdfService.generatePdf(datos,this.estructuraActual);      
   }  
 }
