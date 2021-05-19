@@ -30,7 +30,7 @@ elementos=[]
 cantElementos=0;
 spinnerInput= false
 noInputs=false
-displayedColumns: string[] = [ 'name_element', 'description','mark_name','estado'];
+displayedColumns: string[] = [ 'name_element', 'description','mark_name','name_category','estado'];
 
 dataSource: MatTableDataSource<Elementos>;
 
@@ -46,6 +46,7 @@ dataSource: MatTableDataSource<Elementos>;
   public cargaTabla(){
     this.elementos=[];
     this.servicioInventario.getAllElements().subscribe((data:any)=>{
+      console.log(data)
       this.elementos= data.list_elem;
       this.dataSource = new MatTableDataSource(this.elementos);
       this.dataSource.paginator = this.paginator;

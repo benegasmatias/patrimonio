@@ -65,8 +65,8 @@
     </mat-form-field>  
 
   
-    <div class="mat-elevation-z8" style="margin-left: 150px;">
-      <table mat-table [dataSource]="dataSource" matSort >
+    <div class="mat-elevation-z8" style="margin-left: 100px; width: 800px;">
+      <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- name_element Column -->
         <ng-container matColumnDef="name_element">
@@ -87,6 +87,14 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header > Marca </th>
           <td mat-cell *matCellDef="let row" > 
               {{row.mark_name}}
+          </td>
+        </ng-container>
+
+        <!-- name_category -->
+        <ng-container matColumnDef="name_category" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header > Categoria </th>
+          <td mat-cell *matCellDef="let row" > 
+              {{row.name_category}}
           </td>
         </ng-container>
 
