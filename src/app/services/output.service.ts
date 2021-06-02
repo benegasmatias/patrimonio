@@ -20,5 +20,9 @@ export class OutputService {
     return this.http.get(`${this.API_URI}/availabilities.json`);
   }
 
+  addOutputNoData(output){
+    return this.http.post(`${this.API_URI}/outputs/nodata.json`,{output:output});
+  }
+
 
 }

@@ -34,6 +34,8 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   programaa : Programa;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+
+  public tipoCarga= 2; //1-carga normal //2-carga sin datos
  
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private loginService: LoginService, protected route: Router,private serviceStruct:StructService, private dialog: MatDialog) {
@@ -69,7 +71,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   }
   
   destinNav(destinoNav){
-  // console.log(this.ruta) 
+  console.log(destinoNav) 
   this.fillerNav=[];
   //console.log(destinoNav)
   //console.log(destinoNav.name)
@@ -81,45 +83,85 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
       this.estructuras=data['structs']
       this.muestrabutton=false;
 
-      for(let i=0;i<this.estructuras.length;i++){
-        this.fillerNav.push(  { 
-            name: `${this.estructuras[i].name}`,
-            icon: 'account_balance_wallet',
-            subMenu:
-              [
-               {
-                 name: 'Listar Entradas',
-                 route: `programa/${this.estructuras[i].id}`,
-               },
-               {
-                 name: 'Generar Entrada',
-                 route: `entrada/add/${destinoNav.id}/${this.estructuras[i].id}`,
-               },
-               {
-                name: 'Listar Inventarios',
-                route: `programa/inventarios/${this.estructuras[i].id}`,
-              },
-              {
-                name: 'Listar Salidas',
-                route: `programa/salidas/${this.estructuras[i].id}`,
-              },
-              {
-                name: 'Listar Prestamos',
-                route: `programa/prestamos/${this.estructuras[i].id}`,
-              },
-              {
-                name: 'Configuracion',
-                route: `programa/configuracion/${this.estructuras[i].id}`,
-              }
-              ]
-           })
+      if(this.tipoCarga==1){
+        for(let i=0;i<this.estructuras.length;i++){
+          this.fillerNav.push(  { 
+              name: `${this.estructuras[i].name}`,
+              icon: 'account_balance_wallet',
+              subMenu:
+                [
+                 {
+                   name: 'Listar Entradas',
+                   route: `programa/${this.estructuras[i].id}`,
+                 },
+                 {
+                   name: 'Generar Entrada',
+                   route: `entrada/add/${destinoNav.id}/${this.estructuras[i].id}`,
+                 },
+                 {
+                  name: 'Listar Inventarios',
+                  route: `programa/inventarios/${this.estructuras[i].id}`,
+                },
+                {
+                  name: 'Listar Salidas',
+                  route: `programa/salidas/${this.estructuras[i].id}`,
+                },
+                {
+                  name: 'Listar Prestamos',
+                  route: `programa/prestamos/${this.estructuras[i].id}`,
+                },
+                {
+                  name: 'Configuracion',
+                  route: `programa/configuracion/${this.estructuras[i].id}`,
+                }
+                ]
+             })
+  
+             if(!this.verifica()){
+              this.fillerNav[i].subMenu.splice(1,1);
+              this.fillerNav[i].subMenu.splice(4,1);
+             }
+  
+        }
+      }
 
-           if(!this.verifica()){
-            this.fillerNav[i].subMenu.splice(1,1);
-            this.fillerNav[i].subMenu.splice(4,1);
-           }
-
-     }
+      if(this.tipoCarga==2){
+        for(let i=0;i<this.estructuras.length;i++){
+          this.fillerNav.push(  { 
+              name: `${this.estructuras[i].name}`,
+              icon: 'account_balance_wallet',
+              subMenu:
+                [
+                 {
+                   name: 'Listar Entradas',
+                   route: `programa/${this.estructuras[i].id}`,
+                 },
+                 {
+                   name: 'Generar Entrada',
+                   route: `entrada/add/${destinoNav.id}/${this.estructuras[i].id}`,
+                 },
+                 {
+                  name: 'Listar Inventarios',
+                  route: `programa/inventarios/${this.estructuras[i].id}`,
+                },
+                {
+                  name: 'Listar Salidas',
+                  route: `programa/salidas/${this.estructuras[i].id}`,
+                },
+                {
+                  name: 'Configuracion',
+                  route: `programa/configuracion/${this.estructuras[i].id}`,
+                }
+                ]
+             })
+  
+             if(!this.verifica()){
+              this.fillerNav[i].subMenu.splice(1,1);
+              this.fillerNav[i].subMenu.splice(4,1);
+             }
+  
+        }
+      }
     },
     err=>{
       this.loginService.logout();
@@ -162,8 +204,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
 
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
 
-  nuevoStruct(){
-    
+  nuevoStruct(id){
     this.dialogConfig.data = {
       data: '',
     };
@@ -173,22 +214,11 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
 
     dialogRef.afterClosed().subscribe((data:any) => {
       if (data.valor == 'confirm' ) {
-        console.log(data.nombre)
+        console.log(this.destinosNav)
 
-        this.serviceStruct.addStruct({type_struct_id:this.datobuton.id, origin_struct_id:1, name: data.nombre})
+        this.serviceStruct.addStruct({type_struct_id:id, origin_struct_id:1, name: data.nombre})
           .subscribe((data:any)=>{
-
-            this.serviceStruct.getTypeStructs().subscribe(
-              data=>{
-                this.destinosNav = data['types_structs']
-                this.spinnerNav = false
-                
-                let x= this.destinosNav.find((element:any )=> element.id= this.datobuton.id)
-                this.destinNav(x);
-              },
-              err=>console.log(err)
-            )
-        
+            this.destinNav(this.datobuton);        
           },
           err=>{
             console.log(err)
@@ -208,6 +238,9 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     return (aux=="admin" || aux=="user");
   } 
 
+}
+
+
   // private cargarUser (){
 
   //   let user = JSON.parse(sessionStorage.getItem('currentUser'))
@@ -216,4 +249,18 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   //     imagen : "assets/img/logo.png"
   //   }
   // }
-}
+//aux
+            // this.serviceStruct.getTypeStructs().subscribe(
+            //   data=>{                
+            //     console.log(this.destinosNav)
+            //     //console.log(data)
+            //     //this.destinosNav = data['types_structs']
+            //     this.spinnerNav = false
+            // let x= this.destinosNav.find((element:any )=> element.id= this.datobuton.id)
+            // this.destinNav(x);
+
+            //   },
+            //   err=>console.log(err)
+            // )
+            // let x= this.destinosNav.find((element:any )=> element.id= this.datobuton.id)
+            // this.destinNav(x);

@@ -49,6 +49,10 @@ export class SalidaFormComponent implements OnInit {
     expected_date: new FormControl('', Validators.required),
   });
 
+
+  public tipoCarga= 2; //1-carga normal //2-carga sin datos
+
+
   constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<SalidaFormComponent>,private dialog:MatDialog,private outputService:OutputService,private structService:StructService,private serviceOirign:OriginService, private datePipe: DatePipe, private loginService:LoginService) { }
 
   ngOnInit(): void {
@@ -86,8 +90,23 @@ export class SalidaFormComponent implements OnInit {
         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       })
 
+      if(this.tipoCarga==2){
+        this.form.controls['destination_id'].clearValidators();
+        this.form.controls['availability_id'].clearValidators();
+        this.form.controls['autoriza'].clearValidators();
+        this.form.controls['description'].clearValidators();
+        this.form.controls['retira'].clearValidators();
+        this.form.controls['created'].clearValidators();
 
-      console.log(this.form.value,this.data.origin_id)
+        this.form.controls['destination_id'].setValue(null);
+        this.form.controls['availability_id'].setValue(null);
+        this.form.controls['autoriza'].setValue(null);
+        this.form.controls['description'].setValue(null);
+        this.form.controls['retira'].setValue(null);
+        this.form.controls['created'].setValue(null);
+      }
+
+      console.log(this.form.value)
   }
   getOrigenes(){
     this.spinnertypOrigenDestino=true
@@ -203,42 +222,59 @@ export class SalidaFormComponent implements OnInit {
   }
 
   save(){
-    if(this.form.get('availability_id').value!=5){
-      var fecha= this.datePipe.transform(this.form.value.created,"yyyy-MM-dd HH:mm:SS");
-      this.form.controls['created'].setValue(fecha);
-    this.outputService.addOutput(this.form.value).subscribe(
-      data=>{
-          this.dialogref.close({confirm:true})
-      },
-      err=>{
-        console.log(err);
-        this.loginService.logout();
-        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+    if(this.tipoCarga==1){
+      if(this.form.get('availability_id').value!=5){
+        var fecha= this.datePipe.transform(this.form.value.created,"yyyy-MM-dd HH:mm:SS");
+        this.form.controls['created'].setValue(fecha);
+        this.outputService.addOutput(this.form.value).subscribe(
+          data=>{
+              this.dialogref.close({confirm:true})
+          },
+          err=>{
+            console.log(err);
+            this.loginService.logout();
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+          }
+        )
       }
-    )
+      else{
+        var fecha= this.datePipe.transform(this.formdest.value.expected_date,"yyyy-MM-dd");
+        this.formdest.setValue({
+          typedest: this.formdest.value.typedest,
+          phone_number: this.formdest.value.phone_number,
+          receiver_name: this.formdest.value.receiver_name,
+          expected_date: fecha,
+        })
+        var fecha2= this.datePipe.transform(this.form.value.created,"yyyy-MM-dd HH:mm:SS");
+        this.form.controls['created'].setValue(fecha2);
+        this.outputService.addOutputPrest(this.form.value, this.formdest.value).subscribe(
+          data=>{
+            console.log(data);
+            this.dialogref.close({confirm:true})
+          },
+          (err:any)=>{
+            console.log(err);
+            this.loginService.logout();
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+          }
+        )
+      }
     }
-    else{
-      var fecha= this.datePipe.transform(this.formdest.value.expected_date,"yyyy-MM-dd");
-      this.formdest.setValue({
-        typedest: this.formdest.value.typedest,
-        phone_number: this.formdest.value.phone_number,
-        receiver_name: this.formdest.value.receiver_name,
-        expected_date: fecha,
-      })
-      var fecha2= this.datePipe.transform(this.form.value.created,"yyyy-MM-dd HH:mm:SS");
-      this.form.controls['created'].setValue(fecha2);
-      this.outputService.addOutputPrest(this.form.value, this.formdest.value).subscribe(
+    else
+    if(this.tipoCarga==2){
+      console.log(this.form.value)
+      this.outputService.addOutputNoData(this.form.value).subscribe(
         data=>{
-          console.log(data);
-          this.dialogref.close({confirm:true})
+            this.dialogref.close({confirm:true})
         },
-        (err:any)=>{
+        err=>{
           console.log(err);
           this.loginService.logout();
           window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
       )
     }
+
 
     
   }
