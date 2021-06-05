@@ -34,7 +34,7 @@ export class EntradaFormComponent implements OnInit {
   @ViewChild('menuaux4') menuaux4;
 
   //arreglo de categorias
-  public arraycateg: categ[]=[];  
+  public arraycateg: categ[]=[];
 
   //alerts
   alertExito=false
@@ -57,7 +57,7 @@ tipoDestino=''
 
 
   stock:any = []
-  
+
   keyword = 'name_element';
   data = [];
 
@@ -91,7 +91,7 @@ tipoDestino=''
     stock: new FormControl(this.stock),
     marca: new FormControl('')
   });
- 
+
 
 
   constructor(
@@ -105,7 +105,7 @@ tipoDestino=''
       private activatedRoute:ActivatedRoute,
       private loginService: LoginService
       ) {
-      
+
        }
 
 
@@ -117,16 +117,16 @@ tipoDestino=''
     this.spinnerDestino=true;
     this.spinnerDestinoStruct=false;
     this.spinnerCategory=true;
- 
+
     this.spinnerElement=true;
     //alert
     this.alertExito=false;
- 
+
     //Recupera El Destino
     this.serviceStruct.getTypeStructs().subscribe(
       data=>{
            this.destinos = data['types_structs']
-           this.spinnerDestino=false 
+           this.spinnerDestino=false
 
            this.activatedRoute.params.subscribe(param=>{
             console.log(param)
@@ -142,32 +142,32 @@ tipoDestino=''
 
           })
 
-    
+
       },
       err=>{
         console.log(err)
         this.loginService.logout();
         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
-    )      
-    
+    )
+
     this.serviceCategorias.getCategorias().subscribe(
       (data:any) => {
         let tomaresultado=[];
-        tomaresultado = data.categorysOfElements; 
+        tomaresultado = data.categorysOfElements;
         tomaresultado=tomaresultado.sort(this.comparar);
 
         let arregloaux=[];
 
         tomaresultado.forEach(n=>{
           if(n.father_category_id== null)
-            {                            
+            {
               let d={  type: "padre", id_category: n.id_category, name_category:n.name_category, hijo: []}
               this.arraycateg.push(d);
               arregloaux.push(d);
             }
-        })                
-        
+        })
+
         tomaresultado.forEach((n, index)=>{
           if(n.father_category_id!=null){
 
@@ -178,11 +178,11 @@ tipoDestino=''
               arregloaux=auxasig;
             }
             else{
-              let aux= tomaresultado.splice(index,1);              
+              let aux= tomaresultado.splice(index,1);
               tomaresultado.push(aux[0]);
               console.log(tomaresultado);
             }
-          }          
+          }
         })
         //let aux= this.arraycateg;
         this.spinnerCategory=false;
@@ -195,14 +195,14 @@ tipoDestino=''
         this.loginService.logout();
         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       });
-      
-      this.getMarcas()         
-    
+
+      this.getMarcas()
+
   }//end
 
   //aux de categorias
   CargaRec(result, categorias: categ[],arregloaux, num){
-    
+
     categorias.forEach(cat => {
       if(cat.id_category == result.father_category_id)
       {
@@ -253,9 +253,9 @@ tipoDestino=''
       }
     )
 
-          
+
   }
- 
+
   addProveedor(): void {
 		const dialogref = this.dialog.open(DialogProveedorComponent, {
       data: {title: 'Nuevo Proveedor'}
@@ -282,9 +282,9 @@ tipoDestino=''
       this.loginService.logout();
       window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
-    
+
   }
-  
+
   addElement(): void {
 		const dialogref = this.dialog.open(ElementFormComponent, {
       data: {title: 'Nuevo Elemento'}
@@ -314,7 +314,7 @@ tipoDestino=''
         )
       }
     });
-    
+
 	}
 
   getElementByMark(){
@@ -337,14 +337,14 @@ tipoDestino=''
           this.loginService.logout();
           window.location.assign("https://sedacreditaciones.com/app/patrimonio")
         }
-          
+
       )}
       else
     if(this.form.get('categoria').value.id_category==-1 && this.form.get('marca').value){
       this.serviceElement.getElementByMarca(this.form.get('marca').value).subscribe(
         data=>{
           console.log(data)
-         
+
            this.data = data['elements']
            if(this.data.length==0){
             this.spinnerNoElement=true;
@@ -367,7 +367,7 @@ tipoDestino=''
            if(this.data.length==0){
             this.spinnerNoElement=true;
             this.spinnerElement=true;
-          
+
            }else{
             this.spinnerElement=true;
            }
@@ -391,7 +391,7 @@ tipoDestino=''
       this.serviceElement.getElementByMarca(this.form.get('marca').value).subscribe(
         data=>{
           console.log(data)
-         
+
            this.data = data['elements']
            if(this.data.length==0){
             this.spinnerNoElement=true;
@@ -456,7 +456,7 @@ tipoDestino=''
     this.spinnerDestinoStruct = true;
     console.log(this.destinos)
 
-   
+
 
     //let select = <HTMLInputElement>document.getElementById('selecEstructura')
     if(struct_id){
@@ -480,44 +480,42 @@ tipoDestino=''
               this.estructuras = data['structs']
               this.spinnerDestinoStruct = false
             },
-    
+
             err =>{
               console.log(err)
               this.loginService.logout();
               window.location.assign("https://sedacreditaciones.com/app/patrimonio")
-            } 
+            }
           )
         } else {
           this.spinnerDestinoStruct = false
           this.estructuras = []
         }
       }
-   
+
   }
 
   enviar() {
+    console.log(this.form.value)
     this.spinnerGuardar=true;
-    
     this.serviceInput.addInput(this.form.value).subscribe(
       data=>{
-        console.log(data)
         this.alertExito=true;
-        this.stock = []
-        this.elementosSelecionados = []
+        this.stock = [];
+        this.elementosSelecionados = [];
+        this.contadorSeleccion=0;
         this.categoriaseleccionada= {  type: '',
         id_category: -1,
         name_category:'-----',
-        hijo: [] };
-
+        hijo: []
+        };
         this.form.get('number_refer').setValue('')
-       // this.form.get('typeStruct_id').setValue('')
-      //  this.form.get('struct_id').setValue('')
         this.form.get('categoria').setValue(this.categoriaseleccionada)
+        this.form.get('stock').setValue(this.stock)
         this.form.get('provider_id').setValue('')
-
-
-
+        this.form.get('marca').setValue('')
         this.spinnerGuardar=false;
+        console.log(this.form.value)
       },
       err=>{
         console.log(err)
@@ -571,15 +569,15 @@ tipoDestino=''
 
         }
       }
-     
+
     },
     err=>{
       this.loginService.logout();
       window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
-    
-   } 
-    
+
+   }
+
   }
 
   onChangeSearch(val: string) {
@@ -589,7 +587,7 @@ tipoDestino=''
   }
 
   onFocused(e) {
-    // do something when input is focused  
+    // do something when input is focused
   }
 
   public categoriaseleccionada: categ = null;
@@ -602,7 +600,7 @@ tipoDestino=''
       struct_id: this.form.value.struct_id ,
       provider_id: this.form.value.provider_id,
       stock: this.form.value.stock ,
-      marca: this.form.value.marca 
+      marca: this.form.value.marca
      })
      this.getElementByCategory();
    }
@@ -619,7 +617,7 @@ tipoDestino=''
      struct_id: this.form.value.struct_id ,
      provider_id: this.form.value.provider_id,
      stock: this.form.value.stock ,
-     marca: this.form.value.marca 
+     marca: this.form.value.marca
     })
     this.getElementByCategory();
    }
@@ -630,6 +628,6 @@ export interface categ{
   type: string,
   id_category: number,
   name_category:string,
-  hijo: categ[] 
+  hijo: categ[]
 }
 

@@ -51,6 +51,14 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   }
 
   ngOnInit(): void {
+
+    // this.loginService.create({
+    //   email:'patrimonio2020p@gmail.com',
+    //   password:'patrimonio.p2021',
+    //   rol_id:2
+    // }).subscribe((data)=>{
+    //   console.log(data)
+    // })
     this.spinnerNav = true
   
     this.serviceStruct.getTypeStructs().subscribe(

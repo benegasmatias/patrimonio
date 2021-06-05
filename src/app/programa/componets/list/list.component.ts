@@ -44,7 +44,7 @@ export interface InputData {
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
- 
+
 })
 
 
@@ -80,9 +80,15 @@ export class ListComponent implements OnInit {
     this.title = params['id'];
     this.serviceInput.getInputByStruct(params['id']).subscribe(
       data=>{
+        console.log(data)
         this.inputs = data['inputs']
         this.inputs.forEach(element => {
-          element.name_element= element.elements[0].name_element;
+          if(element.elements.length>0){
+            element.name_element= element.elements[0].name_element;
+          }
+          else
+            element.name_element= '';
+
         });
         this.dataSource = new MatTableDataSource(this.inputs);
         this.dataSource.paginator = this.paginator;
@@ -92,17 +98,17 @@ export class ListComponent implements OnInit {
           if (typeof data[sortHeaderId] === 'string') {
             return data[sortHeaderId].toLocaleLowerCase();
           }
-        
+
           return data[sortHeaderId];
         };
-        
+
         if(data['inputs'].length!=0){
         this.spinnerInput=false
-            
+
         }else{
           this.noInputs=true
         }
- 
+
       },
       err =>{
         console.log(err)
@@ -114,7 +120,7 @@ export class ListComponent implements OnInit {
   });
     if(this.verifica()){
       this.displayedColumns.pop();
-      this.displayedColumns.pop();      
+      this.displayedColumns.pop();
     }
   }
 
@@ -141,7 +147,7 @@ export class ListComponent implements OnInit {
       data: {title: 'Elementos',input}
 		});
   }
-  
+
   eliminaEntrada(input:any): void{
     const dialogref = this.dialog.open(EntradaDeleteComponent, {
       data: {title: 'Eliminar Entrada',
@@ -152,7 +158,7 @@ export class ListComponent implements OnInit {
     dialogref.afterClosed().subscribe(result => {
       if (result.confirm) {
         this.ngOnInit();
-      }      
+      }
     })
 
   }
@@ -168,7 +174,7 @@ export class ListComponent implements OnInit {
 
   verifica(){
     let aux= this.loginService.getRol();
-    return (aux=="guest");    
+    return (aux=="guest");
   }
 }
 

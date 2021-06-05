@@ -1,6 +1,6 @@
 <!-- <mat-list dense>
 
-    <mat-list-item *ngFor="let input of inputs"> 
+    <mat-list-item *ngFor="let input of inputs">
     <p matLine>
         <span> {{input.id}} </span>
         <span class="demo-2"> -- {{input.nombre}} </span>
@@ -28,7 +28,7 @@
         <th scope="col">Proveedor</th>
         <th scope="col">Fecha de creacion</th>
         <th>Elementos</th>
-     
+
       </tr>
     </thead>
     <tbody>
@@ -38,12 +38,12 @@
         <td>{{input.provider.name}}</td>
         <td>{{input.created| date:'short':'-0300'}}</td>
         <td><button (click)="verEntrada(input)" class="btn btn-info">Ver <span class="badge badge-light">{{input.elements.length}}</span></button></td>
-  
+
       </tr>
-     
-    
+
+
     </tbody>
- 
+
   </table>
 
 
@@ -74,7 +74,7 @@
     <!-- Fecha de creacion Column -->
     <ng-container matColumnDef="created">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA DE CREACION </th>
-      <td mat-cell *matCellDef="let row">{{ row.created | date:'short' }} </td>
+      <td mat-cell *matCellDef="let row">{{ row.created | date:'dd-MM-yyyy' }} </td>
     </ng-container>
 
     <!-- PROVEEDOR Column -->
@@ -82,7 +82,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> PRIMER ELEMENTO </th>
       <!-- <td mat-cell *matCellDef="let row" > {{row.provider.name}} </td> -->
       <!-- <td mat-cell *matCellDef="let row"> {{row.elements[0].name_element}} </td> -->
-      <td mat-cell *matCellDef="let row"> {{row.name_element}} </td>      
+      <td mat-cell *matCellDef="let row"> {{row.name_element}} </td>
     </ng-container>
 
        <!-- Button element Column -->
@@ -97,17 +97,17 @@
         <td mat-cell *matCellDef="let row">
           <button mat-icon-button (click)="eliminaEntrada(row)" aria-label="Eliminar Entrada" style="color:rgb(231, 52, 46);">
             <mat-icon style="font-size: 30px;">delete_forever</mat-icon>
-          </button>  
+          </button>
         </td>
       </ng-container>
- 
+
       <!-- modificar element Column -->
       <ng-container matColumnDef="modify" *ngIf="!verifica()">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> EDITAR </th>
         <td mat-cell *matCellDef="let row">
           <button mat-icon-button (click)="edit(row)" aria-label="Modificar Entrada" style="color:rgb(68, 231, 46);">
             <mat-icon style="font-size: 30px;">edit</mat-icon>
-          </button>  
+          </button>
         </td>
       </ng-container>
 

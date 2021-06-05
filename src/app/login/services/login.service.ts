@@ -12,11 +12,11 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   login(user) {
-   
+
     return this.http.post(`${this.API_URI}/users/login.json`, user);
   }
   logout() {
-    
+
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('currentUser');
     return;
