@@ -17,19 +17,19 @@
 
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
-  
+
       <!-- ID Column -->
       <!-- <ng-container matColumnDef="id_element">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
         <td mat-cell *matCellDef="let row"> {{row.id_element}} </td>
       </ng-container> -->
-  
+
       <!-- Progress Column -->
       <ng-container matColumnDef="name_element">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
         <td mat-cell *matCellDef="let row"> {{row.name_element}} </td>
       </ng-container>
-  
+
       <!-- DESCRIPCION Column -->
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPCION </th>
@@ -37,19 +37,19 @@
       </ng-container>
 
       <!-- MARCA Column -->
-      <ng-container matColumnDef="marca">
+      <ng-container matColumnDef="mark_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> MARCA </th>
         <td mat-cell *matCellDef="let row"> {{row.mark_name}} </td>
       </ng-container>
-      
+
       <!-- Color Column -->
-      <ng-container matColumnDef="ingreso">
+      <ng-container matColumnDef="stock_inicial">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> INGRESO </th>
         <td mat-cell *matCellDef="let row" > {{row.stock_inicial}} </td>
       </ng-container>
-  
+
       <!-- Color Column -->
-      <ng-container matColumnDef="egreso">
+      <ng-container matColumnDef="stock_out">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> EGRESO </th>
         <td mat-cell *matCellDef="let row" > {{row.stock_out}} </td>
       </ng-container>
@@ -66,16 +66,16 @@
           exit_to_app
           </span> </td>
       </ng-container>
-  
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
+
       <!-- Row shown when there is no matching data. -->
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
       </tr>
     </table>
-  
+
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
 
@@ -83,7 +83,7 @@
     <span class="closebtn " onclick="this.parentElement.style.display='none';">&times;</span>
     Exito. Se genero una salida!
   </div>
-  
+
 </div>
 
 <div class="text-center" *ngIf="noInventarios">

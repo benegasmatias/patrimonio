@@ -51,22 +51,17 @@ export interface InputData {
 
 export class ListComponent implements OnInit {
   cantElementos=0;
-
-
   spinnerInput= false
   noInputs=false
-
-  hola=true
   title;
-
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService, private loginService: LoginService) { }
   inputs=[]
   displayedColumns: string[] = [ 'number_refer', 'created','name_element','elements','actions', 'modify'];
   dataSource: MatTableDataSource<InputData>;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
 
   ngOnInit(): void {
@@ -91,8 +86,10 @@ export class ListComponent implements OnInit {
 
         });
         this.dataSource = new MatTableDataSource(this.inputs);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        setTimeout(()=>{
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }, 300);
 
         this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
           if (typeof data[sortHeaderId] === 'string') {

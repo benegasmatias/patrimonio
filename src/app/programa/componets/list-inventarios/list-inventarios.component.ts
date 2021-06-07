@@ -13,10 +13,12 @@ import {pdfServiceInventarios} from './pdfServiceInventarios/pdfServiceInventari
 
 
 export interface IventarioData {
-  id_element: string;
-  name_element: string;
-  description: string;
-  stock: string;
+  id_element: number,
+  name_element: string,
+  description: string,
+  stock: number,
+  stock_inicial: number,
+  stock_out: number,
 }
 @Component({
   selector: 'app-list-inventarios',
@@ -30,16 +32,16 @@ export class ListInventariosComponent implements OnInit {
   salidaGenerada=false
 
   //Fin alerts
-  iventarioData=[]
+  iventarioData: IventarioData[]=[]
   estructuraActual='';
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private loginService: LoginService,private pdfService: pdfServiceInventarios,) {}
-   displayedColumns: string[] = [ 'name_element', 'description','marca','ingreso','egreso', 'stock' ,'action'];
+   displayedColumns: string[] = [ 'name_element', 'description','mark_name','stock_inicial','stock_out', 'stock' ,'action'];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.getInventarios()
     if(this.verifica()){
       this.displayedColumns.pop();
@@ -52,12 +54,9 @@ export class ListInventariosComponent implements OnInit {
         if(param['struct']){
           this.inventarioService.getIventariosByStruct(param['struct']).subscribe(
             data=>{
-              console.log(data);
-                
               this.iventarioData = data['inventario'];
               this.estructuraActual= data['struct'];
-              console.log(this.estructuraActual)
-
+              console.log(this.iventarioData)
               if(this.iventarioData.length!=0){
                 this.inventarioss=true
                 this.noInventarios=false
@@ -72,14 +71,14 @@ export class ListInventariosComponent implements OnInit {
               this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
                 if (typeof data[sortHeaderId] === 'string') {
                   return data[sortHeaderId].toLocaleLowerCase();
-                }              
+                }
                 return data[sortHeaderId];
               };
             },
             err=>{
               console.log(err)
               this.loginService.logout();
-              window.location.assign("https://sedacreditaciones.com/app/patrimonio")  
+              window.location.assign("https://sedacreditaciones.com/app/patrimonio")
             }
           )
         }
@@ -106,19 +105,19 @@ export class ListInventariosComponent implements OnInit {
         this.salidaGenerada=true
         this.getInventarios()
 			}else {
-        
+
       }
 		});
   }
 
   verifica(){
     let aux= this.loginService.getRol();
-    return (aux=="guest");    
+    return (aux=="guest");
   }
 
   generaPdf(){
     let datos=  this.dataSource.filteredData
-    this.pdfService.generatePdf(datos,this.estructuraActual);      
-  }  
+    this.pdfService.generatePdf(datos,this.estructuraActual);
+  }
 }
 
