@@ -14,6 +14,9 @@ export class ElementoService {
   getElementos(){
     return this.http.get(`${this.API_URI}/elements.json`);
   }
+  getOneElemento(id_elem){
+    return this.http.get(`${this.API_URI}/elements/one/${id_elem}.json`);
+  }
 
   addElement(element){
     return this.http.post(`${this.API_URI}/elements.json`,element)
@@ -24,16 +27,16 @@ export class ElementoService {
     {
     return this.http.get(`${this.API_URI}/elements/category/${id_category}.json`);
     }
-    
+
   }
   getElementosByCategoryAndMark(id_Category,id_mark){
     return this.http.get(`${this.API_URI}/elements/category/${id_Category}/mark/${id_mark}.json`);
   }
   getElementByMarca(id_mark){
-    return this.http.get(`${this.API_URI}/elements/mark/${id_mark}.json`); 
+    return this.http.get(`${this.API_URI}/elements/mark/${id_mark}.json`);
   }
 
   getMarkbyId(id_mark){
-    return this.http.get(`${this.API_URI}/marks/getid/${id_mark}.json`); 
+    return this.http.get(`${this.API_URI}/marks/getid/${id_mark}.json`);
   }
 }

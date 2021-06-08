@@ -186,8 +186,6 @@ tipoDestino=''
         })
         //let aux= this.arraycateg;
         this.spinnerCategory=false;
-
-        console.log(this.arraycateg)
       },
       error => {
         console.log(error)
@@ -196,7 +194,7 @@ tipoDestino=''
         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       });
 
-      this.getMarcas()
+    this.getMarcas()
 
   }//end
 
@@ -296,22 +294,24 @@ tipoDestino=''
         alert("El elemento fue creado. Ya se puede incluir a la entrada.")
         this.spinnerElement=false;
         this.spinnerNoElement = false;
-        this.serviceElement.getElementos().subscribe(
-          data=>{
-            this.data = data['elements']
-            if(this.data.length==0){
-              this.spinnerNoElement=true;
-              this.spinnerElement=true;
-            }else{
-              this.spinnerElement=true;
+        console.log(element.data.id_element)
+        this.serviceElement.getOneElemento(element.data.id_element).subscribe(
+            data=>{
+              console.log(data)
+              this.data = data['elements']
+              if(this.data.length==0){
+                this.spinnerNoElement=true;
+                this.spinnerElement=true;
+              }else{
+                this.spinnerElement=true;
+              }
+            },
+            err=>{
+              console.log(err)
+              this.loginService.logout();
+              window.location.assign("https://sedacreditaciones.com/app/patrimonio")
             }
-          },
-          err=>{
-            console.log(err)
-            this.loginService.logout();
-            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
-          }
-        )
+          )
       }
     });
 

@@ -46,12 +46,12 @@ export class ElementFormComponent implements OnInit {
     mark_id: new FormControl(''),
     category_of_element_id: new FormControl([], Validators.required)
   });
-  
-  get form_name_element() { 
+
+  get form_name_element() {
     return this.form.controls.name_element.hasError('maxlength');
   }
 
-  get form_description() { 
+  get form_description() {
     return this.form.controls.description.hasError('maxlength');
   }
 
@@ -67,20 +67,20 @@ export class ElementFormComponent implements OnInit {
         this.categoriasss = [];
 
         let tomaresultado=[];
-        tomaresultado = data.categorysOfElements; 
+        tomaresultado = data.categorysOfElements;
         tomaresultado=tomaresultado.sort(this.comparar);
 
         let arregloaux=[];
 
         tomaresultado.forEach(n=>{
           if(n.father_category_id== null)
-            {                            
+            {
               let d={  type: "padre", id_category: n.id_category, name_category:n.name_category, hijo: []}
               this.categoriasss.push(d);
               arregloaux.push(d);
             }
-        })                
-        
+        })
+
         tomaresultado.forEach((n, index)=>{
           if(n.father_category_id!=null){
 
@@ -91,11 +91,11 @@ export class ElementFormComponent implements OnInit {
               arregloaux=auxasig;
             }
             else{
-              let aux= tomaresultado.splice(index,1);              
+              let aux= tomaresultado.splice(index,1);
               tomaresultado.push(aux[0]);
               console.log(tomaresultado);
             }
-          }          
+          }
         })
         //let aux= this.arraycateg;
         this.spinnerCategory=false;
@@ -126,7 +126,7 @@ export class ElementFormComponent implements OnInit {
   }
 
   CargaRec(result, categorias: any[],arregloaux, num){
-    
+
     categorias.forEach(cat => {
       if(cat.id_category == result.father_category_id)
       {
@@ -166,28 +166,23 @@ export class ElementFormComponent implements OnInit {
       description: this.form.value.description,
       mark_id: this.form.value.mark_id,
       category_of_element_id: z,
-    }); 
-
-    console.log(this.form.value)
+    });
     this.elementoService.addElement(this.form.value).subscribe(
-      (data: any) => {
-        //console.log(data) 
+      (data: any) => {  
+        this.dialogref.close({ confirm: true ,data:data.element})
       },
       err=>{
         this.loginService.logout();
         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
-
-    this.dialogref.close({ confirm: true })
-
+    //this.dialogref.close({ confirm: true })
   }
 
   cancelar(){
     this.dialogref.close({ confirm: false })
   }
   //Chips
-
   onCatRemoved(avaRem: string) {
    // const ava = this.form.value.availabilitys;
    const cat = this.form.value.category_of_element_id;
@@ -216,7 +211,7 @@ export class ElementFormComponent implements OnInit {
     dialogref.afterClosed().subscribe(result => {
       this.spinnerMarks = true
       if (result.confirm) {
-        
+
         this.marcaService.getMarcas().subscribe(
           data => {
             console.log(data)
@@ -251,7 +246,7 @@ export class ElementFormComponent implements OnInit {
       name_element: this.form.value.name_element ,
       description: this.form.value.description ,
       mark_id: this.form.value.mark_id ,
-      category_of_element_id: arrayaux,  
+      category_of_element_id: arrayaux,
     })
   }
   selectvoid(){

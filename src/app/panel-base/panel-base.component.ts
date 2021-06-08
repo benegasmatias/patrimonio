@@ -36,7 +36,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   private _mobileQueryListener: () => void;
 
   public tipoCarga= 2; //1-carga normal //2-carga sin datos
- 
+
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private loginService: LoginService, protected route: Router,private serviceStruct:StructService, private dialog: MatDialog) {
     // this.cargarUser()
@@ -51,16 +51,8 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   }
 
   ngOnInit(): void {
-
-    // this.loginService.create({
-    //   email:'patrimonio2020p@gmail.com',
-    //   password:'patrimonio.p2021',
-    //   rol_id:2
-    // }).subscribe((data)=>{
-    //   console.log(data)
-    // })
     this.spinnerNav = true
-  
+
     this.serviceStruct.getTypeStructs().subscribe(
       data=>{
         this.destinosNav = data['types_structs']
@@ -70,21 +62,21 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
         this.loginService.logout();
         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
-    )    
+    )
    }
 
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
-  
+
   destinNav(destinoNav){
-  console.log(destinoNav) 
+  console.log(destinoNav)
   this.fillerNav=[];
   //console.log(destinoNav)
   //console.log(destinoNav.name)
   this.datobuton= destinoNav;
-    
+
   this.serviceStruct.getStructs(destinoNav.id).subscribe(
     data=>{
       this.fillerNav=[];
@@ -93,7 +85,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
 
       if(this.tipoCarga==1){
         for(let i=0;i<this.estructuras.length;i++){
-          this.fillerNav.push(  { 
+          this.fillerNav.push(  {
               name: `${this.estructuras[i].name}`,
               icon: 'account_balance_wallet',
               subMenu:
@@ -124,18 +116,18 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
                 }
                 ]
              })
-  
+
              if(!this.verifica()){
               this.fillerNav[i].subMenu.splice(1,1);
               this.fillerNav[i].subMenu.splice(4,1);
              }
-  
+
         }
       }
 
       if(this.tipoCarga==2){
         for(let i=0;i<this.estructuras.length;i++){
-          this.fillerNav.push(  { 
+          this.fillerNav.push(  {
               name: `${this.estructuras[i].name}`,
               icon: 'account_balance_wallet',
               subMenu:
@@ -162,12 +154,12 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
                 }
                 ]
              })
-  
+
              if(!this.verifica()){
               this.fillerNav[i].subMenu.splice(1,1);
               this.fillerNav[i].subMenu.splice(4,1);
              }
-  
+
         }
       }
     },
@@ -189,7 +181,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     if(aux=="admin" || aux=="user"){
       this.muestrabutton=true;
       this.fillerNav=[];
-      this.fillerNav.push({ 
+      this.fillerNav.push({
         name: `Categorias`,
         icon: 'folder',
         route:'categorias'
@@ -202,7 +194,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
     if(aux=="admin" || aux=="user"){
       this.muestrabutton=true;
       this.fillerNav=[];
-      this.fillerNav.push({ 
+      this.fillerNav.push({
         name: `Elementos`,
         icon: 'folder',
         route:'list-elementos'
@@ -226,7 +218,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
 
         this.serviceStruct.addStruct({type_struct_id:id, origin_struct_id:1, name: data.nombre})
           .subscribe((data:any)=>{
-            this.destinNav(this.datobuton);        
+            this.destinNav(this.datobuton);
           },
           err=>{
             console.log(err)
@@ -244,7 +236,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   verifica(){
     let aux=this.loginService.getRol();
     return (aux=="admin" || aux=="user");
-  } 
+  }
 
 }
 
@@ -259,7 +251,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   // }
 //aux
             // this.serviceStruct.getTypeStructs().subscribe(
-            //   data=>{                
+            //   data=>{
             //     console.log(this.destinosNav)
             //     //console.log(data)
             //     //this.destinosNav = data['types_structs']

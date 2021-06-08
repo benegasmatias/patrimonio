@@ -24,9 +24,7 @@ import { EntradaDeleteComponent } from './components/entrada-delete/entrada-dele
 import { EntradaEditComponent } from './components/entrada-edit/entrada-edit.component';
 
 import {MatMenuModule} from '@angular/material/menu';
-
-
-import {MatToolbarModule} from '@angular/material/toolbar'; 
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [EntradaComponent, EntradaFormComponent,DialogCantElementComponent, EntradaDetalleComponent,EntradaDeleteComponent,EntradaEditComponent],
@@ -45,7 +43,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     AutocompleteLibModule,
     MatDialogModule,
     MatMenuModule,
-    MatToolbarModule    
+    MatToolbarModule
   ]
 })
 export class EntradaModule { }

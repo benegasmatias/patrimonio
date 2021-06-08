@@ -1,6 +1,6 @@
 
 <div class="container titulo" style="width: 100%;">
-    <hr />  
+    <hr />
     <div class="row">
       <div class="container">
 
@@ -11,11 +11,85 @@
         <div class="row">
           <h2 style="font-size: small;">Toda modificacion sobre las categorias seran efectuadas una vez se oprima el boton de guardado (Al fin de la pagina)</h2>
         </div>
+              <!-- Vista Previa -->
+      <div class="row">
+        <div class="col-2">
+          <h6>Vista previa de Categorias</h6>
+        </div>
+        <div class="col-8">
+          <div class="form__div_container">
+            <!--Categorias-->
+            <div class="row categbut" >
+              <div class="col-5 form__div">
+                <mat-toolbar style="padding-left:0%; padding-right: 0%;" >
+                  <button mat-raised-button [matMenuTriggerFor]="categorias" class="buttoncat" type="button">
+                    Categorias
+                  </button>
+                </mat-toolbar>
+
+                <mat-menu #categorias="matMenu" >
+                                  <button mat-menu-item type="button"> - </button>
+
+                                  <div *ngFor="let categ of arraycateg">
+                                      <button  type="button" *ngIf="categ.hijo.length==0" mat-menu-item >{{ categ.name_category }}</button>
+                                      <button type="button" *ngIf="categ.hijo.length!=0" [matMenuTriggerFor]="submenu" [matMenuTriggerData]="{categorias: categ}" mat-menu-item >{{ categ.name_category }}</button>
+                                  </div>
+                </mat-menu>
+
+                <mat-menu #submenu="matMenu" >
+                                      <ng-template matMenuContent let-categorias="categorias">
+                                          <div *ngFor="let hijo of categorias.hijo" >
+                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item >{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item >{{ hijo.name_category }}</button>
+                                          </div>
+                                      </ng-template>
+                </mat-menu>
+
+                <mat-menu #menuaux="matMenu" >
+                                      <ng-template matMenuContent let-categorias="categorias">
+                                          <div *ngFor="let hijo of categorias.hijo" >
+                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item >{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux2" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item >{{ hijo.name_category }}</button>
+                                          </div>
+                                      </ng-template>
+                </mat-menu>
+
+                <mat-menu #menuaux2="matMenu" >
+                                      <ng-template matMenuContent let-categorias="categorias">
+                                          <div *ngFor="let hijo of categorias.hijo" >
+                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item >{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux3" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item >{{ hijo.name_category }}</button>
+                                          </div>
+                                      </ng-template>
+                </mat-menu>
+
+                <mat-menu #menuaux3="matMenu" >
+                                      <ng-template matMenuContent let-categorias="categorias">
+                                          <div *ngFor="let hijo of categorias.hijo" >
+                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item >{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux4" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item>{{ hijo.name_category }}</button>
+                                          </div>
+                                      </ng-template>
+                </mat-menu>
+
+                <mat-menu #menuaux4="matMenu" >
+                                      <ng-template matMenuContent let-categorias="categorias">
+                                          <div *ngFor="let hijo of categorias.hijo" >
+                                              <button type="button" mat-menu-item>{{ hijo.name_category }}</button>
+                                          </div>
+                                      </ng-template>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Carga de nuevos elementos -->
-      <div class="row carga">                          
+      <div class="row carga">
             <!-- Input de texto -->
-            <div class="col-8" [formGroup]= form style="height: 50%;" >          
-              <h2 >Nuevas Categorias</h2>          
+            <div class="col-8" [formGroup]= form style="height: 50%;" >
+              <h2 >Nuevas Categorias</h2>
               <mat-form-field appearance="outline" class="inputcateg">
                 <mat-label>Nueva Categoria</mat-label>
                 <input matInput formControlName="categoria" value="" placeholder="Nombre de Categoria">
@@ -43,28 +117,29 @@
                 Arrastrar Elemento
               </li>
               </div>
-            </div>          
+            </div>
       </div>
-   
+
       <hr>
+
 
       <!-- Listado de Elementos -->
       <div class="row" >
-            <div 
+            <div
               class="cat col-md-12">
               <div class="dropzone box box-yellow" style="overflow: scroll;">
                 <!-- The dropzone also uses the list template -->
                 <div class="row">
-                  <div class="col-5"> 
+                  <div class="col-5">
                     <h3>Listado de Categorias</h3>
                   </div>
-                  <div class="col-7">
+                  <div class="col-7" class="cuad">
                     <!--Eliminado de elementos -->
                     <div class="dropzone box box-yellow ">
                       <h3>Arrastrar aqui para eliminar Categorias</h3>
                       <div [dndList]="{allowedTypes: ['padre','hijo']}"
                       [dndModel]="nestedCateg.dropzones[1]"
-                      [dndPlaceholder]="placeholder" class="cat col-md-12"
+                      [dndPlaceholder]="placeholder" class="cat col-md-9"
                       (dndInserted)="eliminaCategoria($event)">
                       </div>
                     </div>
@@ -75,17 +150,17 @@
 
                 <div [dndList]="{allowedTypes: ['padre']}"
                   [dndModel]="nestedCateg.dropzones[0]"
-                  [dndPlaceholder]="placeholder" class="cat col-md-12">
-                  <div *ngFor="let item of nestedCateg.dropzones[0]">
+                  [dndPlaceholder]="placeholder" class="cat col-md-9" class="cuad">
+                  <div *ngFor="let item of nestedCateg.dropzones[0]" class="cuad">
                     <container *ngIf="item.type === 'padre'"
                       [list]="nestedCateg.dropzones[0]"
-                      [model]="item"></container>
+                      [model]="item" class="cuad"></container>
                     <div *ngIf="item.type === 'hijo'"
                       [dndType]="item.type"
                       [dndDraggable]
-                      (dndMoved)="removeItem(item, nestedCateg.dropzones[0])"                      
+                      (dndMoved)="removeItem(item, nestedCateg.dropzones[0])"
                       [dndObject]="item"
-                      class="cat col-md-12">{{item.name_category}}</div>
+                      class="cat col-md-9 " class="cuad">{{item.name_category}}</div>
                   </div>
                 </div>
               </div>
