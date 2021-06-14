@@ -2,9 +2,9 @@
     <form [formGroup]="form" >
 
         <div class="container">
-       
+
             <div class="row ">
-       
+
                 <div class="m-1 card">
                     <div  mat-dialog-title>Nuevo Elemento</div>
                     <hr>
@@ -26,9 +26,9 @@
                         >{{ desc.value.length }} / 255</mat-hint
                       >
                     </mat-form-field>
-            
+
                     <div class="form__div">
-                     
+
                             <mat-form-field class="form__div_input" appearance="outline">
                                 <mat-label><div *ngIf="!spinnerMarks">
                                     Marcas
@@ -39,21 +39,21 @@
                                   </div></mat-label>
                                 <select matNativeControl formControlName="mark_id">
                                     <option value="" selected></option>
-                                    <option *ngFor="let man of marcas" [ngValue]='man.id'> {{ man.name}} </option> 
+                                    <option *ngFor="let man of marcas" [ngValue]='man.id'> {{ man.name}} </option>
                                 </select>
                             </mat-form-field>
-                            
-                          
+
+
                                 <a  (click)="addMarca()"><span style="position: relative; top: 12px;" class=" buttonMas material-icons ">
-                                    add_circle_outline 
+                                    add_circle_outline
                                     </span></a>
-                          
-                 
-                   
+
+
+
                     </div>
 
                     <div class="container" style="padding-left: 0%;">
-                      <div class="row" style="padding-left: 0%;">                      
+                      <div class="row" style="padding-left: 0%;">
                         <div class="col-6" style="padding-left: 0%;">
                         <div class="form__div">
                                                           <mat-toolbar>
@@ -61,16 +61,16 @@
                                                                 Seleccion Categoria
                                                             </button>
                                                             </mat-toolbar>
-                                                      
+
                                                             <mat-menu #categorias="matMenu">
                                                               <button mat-menu-item (click)="selectvoid()"> - </button>
-                      
-                                                              <div *ngFor="let categ of categoriasss">            
+
+                                                              <div *ngFor="let categ of categoriasss">
                                                                   <button *ngIf="categ.hijo.length==0" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>
-                                                                  <button *ngIf="categ.hijo.length!=0" [matMenuTriggerFor]="submenu" [matMenuTriggerData]="{categorias: categ}" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>                                                        
+                                                                  <button *ngIf="categ.hijo.length!=0" [matMenuTriggerFor]="submenu" [matMenuTriggerData]="{categorias: categ}" mat-menu-item (click)="select(categ)">{{ categ.name_category }}</button>
                                                               </div>
                                                             </mat-menu>
-                                  
+
                                                               <mat-menu #submenu="matMenu" >
                                                                   <ng-template matMenuContent let-categorias="categorias">
                                                                       <div *ngFor="let hijo of categorias.hijo" >
@@ -79,7 +79,7 @@
                                                                       </div>
                                                                   </ng-template>
                                                               </mat-menu>
-                                  
+
                                                               <mat-menu #menuaux="matMenu" >
                                                                   <ng-template matMenuContent let-categorias="categorias">
                                                                       <div *ngFor="let hijo of categorias.hijo" >
@@ -88,7 +88,7 @@
                                                                       </div>
                                                                   </ng-template>
                                                               </mat-menu>
-                                  
+
                                                               <mat-menu #menuaux2="matMenu" >
                                                                   <ng-template matMenuContent let-categorias="categorias">
                                                                       <div *ngFor="let hijo of categorias.hijo" >
@@ -97,7 +97,7 @@
                                                                       </div>
                                                                   </ng-template>
                                                               </mat-menu>
-                                  
+
                                                               <mat-menu #menuaux3="matMenu" >
                                                                   <ng-template matMenuContent let-categorias="categorias">
                                                                       <div *ngFor="let hijo of categorias.hijo" >
@@ -106,7 +106,7 @@
                                                                       </div>
                                                                   </ng-template>
                                                               </mat-menu>
-                                  
+
                                                               <mat-menu #menuaux4="matMenu" >
                                                                   <ng-template matMenuContent let-categorias="categorias">
                                                                       <div *ngFor="let hijo of categorias.hijo" >
@@ -115,7 +115,7 @@
                                                                   </ng-template>
                                                               </mat-menu>
                         </div>
-                                                      
+
                         </div>
                         <div class="col-6">
                           <mat-form-field  class="form__div" appearance="outline" style="width: 100%; margin-bottom: 0%; padding-top: 8px">
@@ -144,14 +144,14 @@
                     </div>
 
                 </div>
-              
-    
+
+
             </div>
-                 
+
         </div>
 
 
-           
+
     </form>
 </mat-dialog-content>
 

@@ -23,4 +23,11 @@ export class InputService {
   deleteInput(input){
     return this.http.post(`${this.API_URI}/inputs/delete.json`,input)
   }
+
+  getObservation(inp_elem_id){
+    return this.http.get(`${this.API_URI}/inventario/observation/${inp_elem_id}.json`)
+  }
+  setObservation(data){
+    return this.http.post(`${this.API_URI}/inventario/observation.json`,data)
+  }
 }

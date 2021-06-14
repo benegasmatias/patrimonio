@@ -64,14 +64,14 @@ export class SalidaFormComponent implements OnInit {
       },
       err=>{
         this.loginService.logout();
-        window.location.assign("https://sedacreditaciones.com/app/patrimonio")      
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
     this.getOrigenes()
       //nombre de elemento
     this.elemento = this.data.element.name_element
 
-    
+
     //set El id de elemento y origen
     this.form.get('origin_id').setValue(this.data.origin_id)
     this.form.get('element_id').setValue(this.data.element.id_element)
@@ -154,7 +154,7 @@ export class SalidaFormComponent implements OnInit {
         data=>{
           this.destinos = data['structs']
           this.spinnerDestino= true
-      
+
         // console.log(this.data.origin_id)
           for(let i=0;i<this.destinos.length;i++){
             if(this.data.origin_id==this.destinos[i].id){
@@ -172,9 +172,9 @@ export class SalidaFormComponent implements OnInit {
       this.muestratipodest=false;
     }
   }
-  
- 
- 
+
+
+
  addDestino(){
 
     const dialogref = this.dialog.open(StructComponent, {
@@ -184,11 +184,11 @@ export class SalidaFormComponent implements OnInit {
 		dialogref.afterClosed().subscribe(result => {
 			console.log(result);
 			if (result) {
-        // this.salidaGenerada=true 
+        // this.salidaGenerada=true
         // this.getInventarios()
         this.getStrct()
 			}else {
-        
+
       }
 		});
   }
@@ -276,7 +276,7 @@ export class SalidaFormComponent implements OnInit {
     }
 
 
-    
+
   }
 
 }

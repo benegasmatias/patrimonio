@@ -1,12 +1,12 @@
 table {
     width: 100%;
   }
-  
+
   .mat-form-field {
     font-size: 14px;
     width: 100%;
   }
-  
+
   td, th {
     width: 25%;
   }
@@ -14,21 +14,33 @@ table {
       display: inline-block;
       width: 95%;
         margin-left: 2em;
-        
+
   }
-  
+
 .buscar{
   width: 50% !important;
   margin-left: 25%;
 
 }
-.salida{
-  color: rgb(234, 91, 43); 
-  background-color: rgb(231, 54, 46);
-  cursor: pointer;
-}
+// .salida{
+//   color: rgb(234, 91, 43);
+//   background-color: rgb(231, 54, 46);
+//   cursor: pointer;
+// }
 
 
 .columnafin{
   padding-left: 30px;
 }
+
+  hr {
+    clear: none;
+    visibility: visible;
+}
+
+.salida{
+//color: #af0606;
+color: rgb(231, 54, 46);
+cursor: pointer;
+}
+

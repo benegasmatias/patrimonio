@@ -21,7 +21,7 @@ export class CategoriasComponent implements OnInit {
   public dialogo;
   public dialogConfig;
   public elimina = false;
-
+  public varguardado=false;
   public agregarCat= true;
   public muestraalerta=false;
 
@@ -61,6 +61,7 @@ public nestedCateg = {
 
   ngOnInit(): void {
     this.cargaArreglo();
+
   }
 
   cargaArreglo(){
@@ -102,6 +103,9 @@ public nestedCateg = {
         /////////////////////////////////////////////////////////////////////////
         //vista previa rapida
         this.CategoriasVistaPrev(data);
+        setTimeout(()=>{
+          this.varguardado=true;
+        }, 1000);
 
       },
       error => {
@@ -260,8 +264,9 @@ DeshacerCambios(){
 }
 
   public GuardaCategorias(){
-
+    this.varguardado=false;
     this.serviceCategoria.modificaCategorias(this.nestedCateg.dropzones[0]).subscribe((data: any)=>{
+
       this.nestedCateg.dropzones[0]=[];
 
       let tomaresultado=[];
@@ -299,8 +304,8 @@ DeshacerCambios(){
     },
     error=>{
       console.log(error)
-      this.loginService.logout();
-      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+      // this.loginService.logout();
+      // window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
 
 

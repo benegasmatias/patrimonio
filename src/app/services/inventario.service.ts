@@ -16,9 +16,15 @@ export class InventarioService {
     return this.http.get(`${this.API_URI}/inventario/struct/${struct_id}.json`);
   }
 
+
+
   //donacion y entregas
   getOutputsByStruct(struct_id){
     return this.http.get(`${this.API_URI}/outputs/struct-lista/${struct_id}.json`);
+  }
+
+  getOutputsByStructNodata(struct_id){
+    return this.http.get(`${this.API_URI}/outputs/struct-lista-nodata/${struct_id}.json`);
   }
 
   //prestamos

@@ -31,16 +31,16 @@
                                   <button mat-menu-item type="button"> - </button>
 
                                   <div *ngFor="let categ of arraycateg">
-                                      <button  type="button" *ngIf="categ.hijo.length==0" mat-menu-item >{{ categ.name_category }}</button>
-                                      <button type="button" *ngIf="categ.hijo.length!=0" [matMenuTriggerFor]="submenu" [matMenuTriggerData]="{categorias: categ}" mat-menu-item >{{ categ.name_category }}</button>
+                                      <button  type="button" *ngIf="categ.hijo.length==0" mat-menu-item title="{{categ.name_category}}">{{ categ.name_category }}</button>
+                                      <button type="button" *ngIf="categ.hijo.length!=0" [matMenuTriggerFor]="submenu" [matMenuTriggerData]="{categorias: categ}" mat-menu-item title="{{categ.name_category}}" >{{ categ.name_category }}</button>
                                   </div>
                 </mat-menu>
 
                 <mat-menu #submenu="matMenu" >
                                       <ng-template matMenuContent let-categorias="categorias">
                                           <div *ngFor="let hijo of categorias.hijo" >
-                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item >{{ hijo.name_category }}</button>
-                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item >{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item title="{{hijo.name_category}}">{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item title="{{hijo.name_category}}" >{{ hijo.name_category }}</button>
                                           </div>
                                       </ng-template>
                 </mat-menu>
@@ -48,8 +48,8 @@
                 <mat-menu #menuaux="matMenu" >
                                       <ng-template matMenuContent let-categorias="categorias">
                                           <div *ngFor="let hijo of categorias.hijo" >
-                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item >{{ hijo.name_category }}</button>
-                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux2" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item >{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item title="{{hijo.name_category}}">{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux2" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item title="{{hijo.name_category}}">{{ hijo.name_category }}</button>
                                           </div>
                                       </ng-template>
                 </mat-menu>
@@ -57,8 +57,8 @@
                 <mat-menu #menuaux2="matMenu" >
                                       <ng-template matMenuContent let-categorias="categorias">
                                           <div *ngFor="let hijo of categorias.hijo" >
-                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item >{{ hijo.name_category }}</button>
-                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux3" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item >{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item title="{{hijo.name_category}}">{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux3" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item title="{{hijo.name_category}}">{{ hijo.name_category }}</button>
                                           </div>
                                       </ng-template>
                 </mat-menu>
@@ -66,8 +66,8 @@
                 <mat-menu #menuaux3="matMenu" >
                                       <ng-template matMenuContent let-categorias="categorias">
                                           <div *ngFor="let hijo of categorias.hijo" >
-                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item >{{ hijo.name_category }}</button>
-                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux4" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item>{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length==0" mat-menu-item title="{{hijo.name_category}}">{{ hijo.name_category }}</button>
+                                              <button type="button" *ngIf="hijo.hijo.length!=0" [matMenuTriggerFor]="menuaux4" [matMenuTriggerData]="{categorias: hijo}" mat-menu-item title="{{hijo.name_category}}">{{ hijo.name_category }}</button>
                                           </div>
                                       </ng-template>
                 </mat-menu>
@@ -75,7 +75,7 @@
                 <mat-menu #menuaux4="matMenu" >
                                       <ng-template matMenuContent let-categorias="categorias">
                                           <div *ngFor="let hijo of categorias.hijo" >
-                                              <button type="button" mat-menu-item>{{ hijo.name_category }}</button>
+                                              <button type="button" mat-menu-item title="{{hijo.name_category}}">{{ hijo.name_category }}</button>
                                           </div>
                                       </ng-template>
                 </mat-menu>

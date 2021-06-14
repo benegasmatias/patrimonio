@@ -5,13 +5,13 @@
 .example-viewport {
     height: 4em;
     width: 27em;
-   
+
   }
 
   .example-viewportt {
     height: 25em;
     width: 25em;
-   
+
   }
 
 .form__div_container{
@@ -42,7 +42,7 @@
     padding: 2px;
   }
   dt  span{
-    
+
     font-weight:700;
     margin-left: 3px;
   }
@@ -53,7 +53,7 @@
 .form__div{
   display: inline-block;
   width: 100%;
-  
+
 }
 .autocomplete{
   display: inline-block;
@@ -66,7 +66,7 @@
 //   color: #fff;
 //   border: 0;
 //   width: 2em;
-  
+
 // }
 
 // .form__div button:hover {
@@ -82,17 +82,17 @@
 
   div.row.categbut{
     padding-bottom: 0% !important;
-    padding-top: 0% !important;     
+    padding-top: 0% !important;
   }
 
-  hr {
-    clear: none;
-    visibility: visible;
-}
+//   hr {
+//     clear: none;
+//     visibility: visible;
+// }
 
 
   .button{
-    width: 100%; 
+    width: 100%;
     text-align: center;
     color: rgba($color: #f19730, $alpha: 1.0);
     justify-content: end;
@@ -104,6 +104,6 @@
     background-color: rgba($color: #9c9797a1, $alpha: 1.0);
     border-color: #000000; /*set the color you want here*/
     justify-content: end;
-    width: 100%; 
+    width: 100%;
     text-align: center;
   }

@@ -8,8 +8,11 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 
 import { SalidaFormComponent } from 'src/app/salida/components/salida-form/salida-form.component';
+import { EnvioFormComponent } from 'src/app/salida/components/envio-form/envio-form.component';
+
 import { MatDialog } from '@angular/material/dialog';
 import {pdfServiceInventarios} from './pdfServiceInventarios/pdfServiceInventarios';
+import { Console } from 'console';
 
 
 export interface IventarioData {
@@ -18,6 +21,7 @@ export interface IventarioData {
   description: string,
   stock: number,
   stock_inicial: number,
+  observation:string,
   stock_out: number,
 }
 @Component({
@@ -35,7 +39,7 @@ export class ListInventariosComponent implements OnInit {
   iventarioData: IventarioData[]=[]
   estructuraActual='';
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private loginService: LoginService,private pdfService: pdfServiceInventarios,) {}
-   displayedColumns: string[] = [ 'name_element', 'description','mark_name','stock_inicial','stock_out', 'stock' ,'action'];
+   displayedColumns: string[] = [ 'name_element', 'description','mark_name','stock_inicial','stock_out', 'stock','observation' ,'action','addobserv'];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -54,9 +58,9 @@ export class ListInventariosComponent implements OnInit {
         if(param['struct']){
           this.inventarioService.getIventariosByStruct(param['struct']).subscribe(
             data=>{
+              console.log(data)
               this.iventarioData = data['inventario'];
               this.estructuraActual= data['struct'];
-              console.log(this.iventarioData)
               if(this.iventarioData.length!=0){
                 this.inventarioss=true
                 this.noInventarios=false
@@ -107,6 +111,18 @@ export class ListInventariosComponent implements OnInit {
 			}else {
 
       }
+		});
+  }
+
+  addObservacion(element){
+    const dialogref = this.dialog.open(EnvioFormComponent, {
+      data: {title: 'Agregar/Editar Observaciones',element:element,origin_id:this.struct_id}
+		});
+
+		dialogref.afterClosed().subscribe(result => {
+			if (result.confirm== true) {
+        this.getInventarios()
+			}
 		});
   }
 

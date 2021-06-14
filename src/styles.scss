@@ -7,7 +7,6 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
- 
     background: #fbfbfb;
 
 }
@@ -37,14 +36,14 @@ text-align: center;
   }
 
 
-   
+
     .form__button_guardar{
      display: inline-block;
      margin-top: 5px;
      margin-left: 24%;
      width: 50%;
      }
- 
+
     .form__div_input{
       display: inline;
       width: 90%;
@@ -56,7 +55,7 @@ text-align: center;
       margin-left: 1%;
       margin-bottom: 3%;
     }
-  
+
     @media only screen and (max-width: 850px){
       .form{
         width: 100%;
@@ -69,7 +68,7 @@ text-align: center;
       .form__button_guardar{
         display: inline-block;
         margin-left: 1%;
-       
+
         width: 95%;
         transition: 1s;
         }
@@ -92,14 +91,14 @@ text-align: center;
         .form__button_guardar{
           display: inline-block;
           margin-left: 1%;
-         
+
           width: 95%;
           transition: 1s;
           }
     }
 
 
-    
+
     @media only screen and (min-width: 850px){
       .form{
         display: inline-block;
@@ -127,12 +126,12 @@ text-align: center;
     background: #f4f6f8;
   }
 
-      //#f4f6f8    
+      //#f4f6f8
   .container label {
   color: #777;
   font-size: 14px;
   }
-  
+
   .container input[type=text],.container input[type=email],.container input[type=password],  .container label select,input [type="hide ? 'password' : 'text'"] {
   background: #f4f6f8;
   font-size: 15px;

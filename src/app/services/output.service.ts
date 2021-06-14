@@ -24,5 +24,7 @@ export class OutputService {
     return this.http.post(`${this.API_URI}/outputs/nodata.json`,{output:output});
   }
 
-
+  editOutputNoData(output){
+    return this.http.post(`${this.API_URI}/outputs/edit-nodata.json`,output);
+  }
 }

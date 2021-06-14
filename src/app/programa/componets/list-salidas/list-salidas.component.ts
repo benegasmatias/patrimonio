@@ -7,6 +7,7 @@ import {MatSort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import {pdfServiceSalida} from './pdfServiceSalida/pdfServiceSalida';
 import { LoginService } from 'src/app/login/services/login.service';
+import { EditNodatComponent } from 'src/app/salida/components/editNodat-form/editNodat-form.component';
 
 export interface IventarioData {
   id_element: string;
@@ -15,7 +16,7 @@ export interface IventarioData {
   stock_out: string;
   destination_id: string;
   created: string;
-  
+
 
 }
 @Component({
@@ -26,26 +27,34 @@ export interface IventarioData {
 export class ListSalidasComponent implements OnInit {
   inventarioss=false
   noInventarios=false
-
+  inventarioss2=false
+  noInventarios2=false
   //Fin alerts
 
   iventarioData=[]
+  iventarioData2=[]
   estructurasDestino=[]
   availabilities=[];
   estructuraActual=[];
-  
+
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private pdfService: pdfServiceSalida, private loginService: LoginService) {}
 
    displayedColumns: string[] = ['name_element', 'description','marca','quantity_out','destination_id', 'availability_id','created'];
+   displayedColumns2: string[] = ['name_element', /*'description',*/'marca','quantity_out','editobserv'];
+
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
    @ViewChild(MatSort, {static: true}) sort: MatSort;
- 
+
+   dataSource2: MatTableDataSource<IventarioData>;
+   @ViewChild(MatPaginator, {static: true}) paginator2: MatPaginator;
+   @ViewChild(MatSort, {static: true}) sort2: MatSort;
+
 
   ngOnInit(): void {
-   this.getInventarios()     
+   this.getInventarios()
   }
 
   getInventarios(){
@@ -55,24 +64,22 @@ export class ListSalidasComponent implements OnInit {
         if(param['struct']){
           this.inventarioService.getOutputsByStruct(param['struct']).subscribe(
             data=>{
-              //console.log(data)
                   this.iventarioData = data['inventario']
                   this.estructurasDestino = data['structsDestino']
                   this.availabilities = data['availabilities'];
                   this.estructuraActual = data['structOrigin'][0];
-                  this.iventarioData.forEach(element => { 
+                  this.iventarioData.forEach(element => {
                     let aux:any=[];
                     aux= this.availabilities.find(elem=> elem.id==element.availability_id );
                     element.availability_id = aux.name_availability;
                   });
-
-                  this.iventarioData.forEach(element => {
-                    let aux:any=[];
-                    aux= this.estructurasDestino.find(elem=> elem.id==element.destination_id);
-                    element.destination_id= aux.name;
-                  });
-
                   if(this.iventarioData.length!=0){
+                    console.log(this.iventarioData)
+                    this.iventarioData.forEach(element => {
+                      let aux:any=[];
+                      aux= this.estructurasDestino.find(elem=> elem.id==element.destination_id);
+                      element.destination_id= aux.name;
+                    });
                     this.inventarioss=true
                     this.noInventarios=false
                   }else{
@@ -91,9 +98,32 @@ export class ListSalidasComponent implements OnInit {
               window.location.assign("https://sedacreditaciones.com/app/patrimonio")
             }
           )
+
+
+          this.inventarioService.getOutputsByStructNodata(param['struct']).subscribe((data:any)=>{
+            console.log(data)
+            this.iventarioData2 = data['inventario']
+            this.estructuraActual = data['structOrigin'][0];
+
+            if(this.iventarioData2.length!=0){
+              this.inventarioss2=true
+              this.noInventarios2=false
+            }else{
+              this.inventarioss2=false
+              this.noInventarios2=true
+            }
+            this.dataSource2 = new MatTableDataSource(this.iventarioData2);
+            this.dataSource2.paginator = this.paginator2;
+            this.dataSource2.sort = this.sort2;
+          },
+          err=>{
+            console.log(err)
+          })
         }
       }
      )
+
+
   }
 
   applyFilter(event: Event) {
@@ -107,6 +137,20 @@ export class ListSalidasComponent implements OnInit {
     }
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  applyFilter2(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if(filterValue.trim().toLowerCase().match(/^\d{4}/) && filterValue.trim().toLowerCase().length==4){
+      this.dataSource2.filter= filterValue.trim().toLowerCase() +'-';
+      (event.target as HTMLInputElement).value= this.dataSource2.filter;
+    }
+    else{
+      this.dataSource2.filter = filterValue.trim().toLowerCase();
+    }
+    if (this.dataSource2.paginator) {
+      this.dataSource2.paginator.firstPage();
     }
   }
 
@@ -124,9 +168,9 @@ export class ListSalidasComponent implements OnInit {
         });
         this.pdfService.generatePdf(datos,this.estructuraActual['name'],n,0);
       }
-    }       
-    
-  }  
+    }
+
+  }
 
   generaPdfEntregas(){
     if(this.dataSource.filter.slice(5))
@@ -142,8 +186,27 @@ export class ListSalidasComponent implements OnInit {
         });
         this.pdfService.generatePdf(datos,this.estructuraActual['name'],n,1);
       }
-    }       
-    
-  }  
+    }
+
+  }
+
+  editEnvio(element){
+    console.log(element);
+
+    const dialogref = this.dialog.open(EditNodatComponent, {
+      data: {title: 'Editar Cantidad',element:element,origin_id:this.struct_id}
+		});
+
+		dialogref.afterClosed().subscribe(result => {
+			if (result.confirm== true) {
+        this.getInventarios()
+			}
+		});
+  }
+
+  verifica(){
+    let aux= this.loginService.getRol();
+    return (aux=="guest");
+  }
 }
 
