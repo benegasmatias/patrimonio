@@ -563,6 +563,8 @@ tipoDestino=''
           },
           err=>{
             console.log(err)
+            this.loginService.logout();
+            window.location.assign("https://sedacreditaciones.com/app/patrimonio")
           })
 
 

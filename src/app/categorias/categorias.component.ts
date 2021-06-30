@@ -238,9 +238,9 @@ public nestedCateg = {
 
 //Deshacer Cambios
 
-DeshacerCambios(){
-  this.cargaArreglo();
-}
+  DeshacerCambios(){
+    this.cargaArreglo();
+  }
 
 
 //////////////////Drag and drop/////////////////////////////////
@@ -261,7 +261,7 @@ DeshacerCambios(){
         this.agregarCat=true;
 
     //this.nestedCateg.dropzones[0].push({     type: "hijo", id_category: -1, hijo: [] ,name_category:"Categoria generica"})
-}
+  }
 
   public GuardaCategorias(){
     this.varguardado=false;
@@ -304,8 +304,8 @@ DeshacerCambios(){
     },
     error=>{
       console.log(error)
-      // this.loginService.logout();
-      // window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+      this.loginService.logout();
+      window.location.assign("https://sedacreditaciones.com/app/patrimonio")
     });
 
 

@@ -17,9 +17,17 @@ export class CategoriasService {
     return this.http.post(`${this.API_URI}/categorys-of-elements.json`,archivo);
   }
 
-  modificaCategorias(archivo){  
+  modificaCategorias(archivo){
     return this.http.post(`${this.API_URI}/categorys-of-elements/category.json`,archivo);
-    
+  }
+
+  getCategoriasOne(element_id){
+    return this.http.get(`${this.API_URI}/categorys-of-elements/t/${element_id}.json`);
+  }
+
+  editElementCategory(archivo){
+    return this.http.post(`${this.API_URI}/categorys-of-elements/edit-elem.json`,archivo);
+
   }
 
 }

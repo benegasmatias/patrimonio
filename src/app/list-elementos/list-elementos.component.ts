@@ -14,6 +14,9 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import{ FormElementosComponent} from './form-elementos/form-elementos.component';
+import{ FormEditComponent} from './form-edit/form-edit.component';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-categorias',
   templateUrl: './list-elementos.component.html',
@@ -30,15 +33,18 @@ elementos=[]
 cantElementos=0;
 spinnerInput= false
 noInputs=false
-displayedColumns: string[] = [ 'name_element', 'description','mark_name','name_category','estado'];
+displayedColumns: string[] = [ 'name_element', 'description','mark_name'/*,'name_category'*/,'estado','edit'];
 
 dataSource: MatTableDataSource<Elementos>;
 
 @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 @ViewChild(MatSort, {static: true}) sort: MatSort;
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
 ///////////////////////////////////////////////////////////////////////////////
-  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService,private loginService: LoginService, private servicioInventario: InventarioService) { }
+  constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute,private serviceInput:InputService,private loginService: LoginService, private servicioInventario: InventarioService,private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.cargaTabla();
@@ -46,7 +52,6 @@ dataSource: MatTableDataSource<Elementos>;
   public cargaTabla(){
     this.elementos=[];
     this.servicioInventario.getAllElements().subscribe((data:any)=>{
-      console.log(data)
       this.elementos= data.list_elem;
       this.dataSource = new MatTableDataSource(this.elementos);
       this.dataSource.paginator = this.paginator;
@@ -62,7 +67,6 @@ dataSource: MatTableDataSource<Elementos>;
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.dataSource.filter)
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -70,7 +74,7 @@ dataSource: MatTableDataSource<Elementos>;
 
   verifica(){
     let aux= this.loginService.getRol();
-    return (aux=="guest");    
+    return (aux=="guest");
   }
 
   estado(row,tipo){
@@ -82,6 +86,28 @@ dataSource: MatTableDataSource<Elementos>;
     dialogref.afterClosed().subscribe((result:any) => {
       if(result.confirm)
         this.cargaTabla();
+    });
+
+  }
+
+  editElem(row){
+    const dialogref = this.dialog.open(FormEditComponent, {
+      data: {title: 'Edicion Elemento', row:row},
+      width: '600px',
+    });
+    dialogref.afterClosed().subscribe((result:any) => {
+      if(result.confirm){
+        this.cargaTabla();
+        this.alert('Modificacion Guardada');
+      }
+    });
+  }
+
+  alert(msj) {
+    this._snackBar.open(msj, 'OK', {
+      duration: 2000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
     });
 
   }
