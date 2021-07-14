@@ -49,6 +49,7 @@ export class ListInventariosComponent implements OnInit {
     this.getInventarios()
     if(this.verifica()){
       this.displayedColumns.pop();
+      this.displayedColumns.pop();
     }
   }
 

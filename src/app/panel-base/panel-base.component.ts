@@ -63,6 +63,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
     )
+
    }
 
 
@@ -120,6 +121,8 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
              if(!this.verifica()){
               this.fillerNav[i].subMenu.splice(1,1);
               this.fillerNav[i].subMenu.splice(4,1);
+              if(this.fillerNav[i].subMenu.length==4)
+              this.fillerNav[i].subMenu.pop();
              }
 
         }
@@ -158,6 +161,8 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
              if(!this.verifica()){
               this.fillerNav[i].subMenu.splice(1,1);
               this.fillerNav[i].subMenu.splice(4,1);
+              if(this.fillerNav[i].subMenu.length==4)
+              this.fillerNav[i].subMenu.pop();
              }
 
         }

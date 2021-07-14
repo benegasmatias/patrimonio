@@ -55,6 +55,9 @@ export class ListSalidasComponent implements OnInit {
 
   ngOnInit(): void {
    this.getInventarios()
+   if(this.verifica()){
+    this.displayedColumns2.pop();
+  }
   }
 
   getInventarios(){
