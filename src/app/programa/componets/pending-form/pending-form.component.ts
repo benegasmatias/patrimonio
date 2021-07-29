@@ -36,7 +36,7 @@ export class PendingFormComponent implements OnInit {
     });
    }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.inventarioservice.getPrestamo(this.data.row.pend_id).subscribe((dat:any)=>{
       console.log(dat)
       this.form.setValue({
@@ -48,7 +48,7 @@ export class PendingFormComponent implements OnInit {
         return_quantity: dat.pending[0].return_quantity ,
         quantity_out: this.data.row.quantity_out,
       })
-      
+
       console.log(this.data.row)
     },
     err=>{
@@ -67,17 +67,17 @@ export class PendingFormComponent implements OnInit {
 
   save(){
     var fecha= this.datePipe.transform(this.form.value.return_date,"yyyy-MM-dd");
-    this.inventarioservice.updatePrestamo({return_quantity: this.form.value.return_quantity, 
+    this.inventarioservice.updatePrestamo({return_quantity: this.form.value.return_quantity,
       return_description: this.form.value.return_description, return_date: fecha, pend_id: parseInt(this.data.row.pend_id,10) }).subscribe((data:any)=>{
-        console.log(data)
+        this.dialogref.close({confirm:true, })
       },
       err=>{console.log(err)
         this.loginService.logout();
-        window.location.assign("https://sedacreditaciones.com/app/patrimonio")      
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       }
       );
 
-    this.dialogref.close({confirm:true, })
+
   }
 
 

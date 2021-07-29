@@ -70,6 +70,13 @@
         <td mat-cell *matCellDef="let row"  class="columnafin"> {{ row.created | date:'yyyy-MM-dd' }} </td>
       </ng-container>
 
+      <ng-container matColumnDef="editobserv" *ngIf="!verifica()">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> EDITAR </th>
+        <td mat-cell *matCellDef="let row" > <span (click)="editEnvio(row)" class="material-icons salida">
+          text_snippet
+          </span> </td>
+      </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 

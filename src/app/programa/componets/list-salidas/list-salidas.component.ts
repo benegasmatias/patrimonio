@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {pdfServiceSalida} from './pdfServiceSalida/pdfServiceSalida';
 import { LoginService } from 'src/app/login/services/login.service';
 import { EditNodatComponent } from 'src/app/salida/components/editNodat-form/editNodat-form.component';
+import { ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 
 export interface IventarioData {
   id_element: string;
@@ -40,7 +41,7 @@ export class ListSalidasComponent implements OnInit {
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private pdfService: pdfServiceSalida, private loginService: LoginService) {}
 
-   displayedColumns: string[] = ['name_element', 'description','marca','quantity_out','destination_id', 'availability_id','created'];
+   displayedColumns: string[] = ['name_element', 'description','marca','quantity_out','destination_id', 'availability_id','created','editobserv'];
    displayedColumns2: string[] = ['name_element', /*'description',*/'marca','quantity_out','editobserv'];
 
    dataSource: MatTableDataSource<IventarioData>;
@@ -77,7 +78,6 @@ export class ListSalidasComponent implements OnInit {
                     element.availability_id = aux.name_availability;
                   });
                   if(this.iventarioData.length!=0){
-                    console.log(this.iventarioData)
                     this.iventarioData.forEach(element => {
                       let aux:any=[];
                       aux= this.estructurasDestino.find(elem=> elem.id==element.destination_id);
@@ -104,7 +104,6 @@ export class ListSalidasComponent implements OnInit {
 
 
           this.inventarioService.getOutputsByStructNodata(param['struct']).subscribe((data:any)=>{
-            console.log(data)
             this.iventarioData2 = data['inventario']
             this.estructuraActual = data['structOrigin'][0];
 
@@ -194,8 +193,6 @@ export class ListSalidasComponent implements OnInit {
   }
 
   editEnvio(element){
-    console.log(element);
-
     const dialogref = this.dialog.open(EditNodatComponent, {
       data: {title: 'Editar Cantidad',element:element,origin_id:this.struct_id}
 		});

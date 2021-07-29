@@ -35,7 +35,7 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
-  public tipoCarga= 2; //1-carga normal //2-carga sin datos
+  public tipoCarga= 1; //1-carga normal //2-carga sin datos
 
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private loginService: LoginService, protected route: Router,private serviceStruct:StructService, private dialog: MatDialog) {

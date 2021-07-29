@@ -50,7 +50,7 @@ export class SalidaFormComponent implements OnInit {
   });
 
 
-  public tipoCarga= 2; //1-carga normal //2-carga sin datos
+  public tipoCarga= 1; //1-carga normal //2-carga sin datos
 
 
   constructor(@Inject (MAT_DIALOG_DATA) public data : any,public dialogref: MatDialogRef<SalidaFormComponent>,private dialog:MatDialog,private outputService:OutputService,private structService:StructService,private serviceOirign:OriginService, private datePipe: DatePipe, private loginService:LoginService) { }
@@ -105,8 +105,6 @@ export class SalidaFormComponent implements OnInit {
         this.form.controls['retira'].setValue(null);
         this.form.controls['created'].setValue(null);
       }
-
-      console.log(this.form.value)
   }
   getOrigenes(){
     this.spinnertypOrigenDestino=true
@@ -131,14 +129,12 @@ export class SalidaFormComponent implements OnInit {
     this.destinos=[];
     this.masDestino= false;
     this.muestratipodest=true;
-    console.log(this.origenes)
     if(this.form.get('availability_id').value==2){//Donacion
       this.structService.getStructsByOrigin(this.origenes[1].id).subscribe(//origen externo
         data=>{
           this.destinos = data['structs']
           this.spinnerDestino= true
           this.masDestino= true;
-         // console.log(this.data.origin_id)
           for(let i=0;i<this.destinos.length;i++){
             if(this.data.origin_id==this.destinos[i].id){
               this.destinos.splice(i,1)
@@ -168,7 +164,7 @@ export class SalidaFormComponent implements OnInit {
         }
       )
     }
-    else if(this.form.get('availability_id').value==5){
+    else if(this.form.get('availability_id').value==5){ //prestamo
       this.muestratipodest=false;
     }
   }
@@ -177,20 +173,61 @@ export class SalidaFormComponent implements OnInit {
 
  addDestino(){
 
+   if(this.form.value.availability_id=='2'){
     const dialogref = this.dialog.open(StructComponent, {
       data: {title: 'Nuevo Destino',availability_id:this.form.get('availability_id').value,origin_id:this.origenes[1].id}
 		});
 
 		dialogref.afterClosed().subscribe(result => {
-			console.log(result);
-			if (result) {
-        // this.salidaGenerada=true
-        // this.getInventarios()
-        this.getStrct()
-			}else {
+        console.log(result);
+        if (result) {
+          // this.salidaGenerada=true
+          // this.getInventarios()
+          this.getStrct()
+        }else {
 
-      }
-		});
+        }
+      });
+   }
+   else{
+     if(this.form.value.availability_id=='4'){
+      const dialogref = this.dialog.open(StructComponent, {
+        data: {title: 'Nuevo Destino',availability_id:this.form.get('availability_id').value,origin_id:this.origenes[0].id}
+      });
+
+      dialogref.afterClosed().subscribe(result => {
+        console.log(result);
+        if (result) {
+          // this.salidaGenerada=true
+          // this.getInventarios()
+          this.getStrct()
+        }else {
+
+        }
+      });
+     }
+     else{
+       if(this.formdest.value.typedest!=''){
+          const dialogref = this.dialog.open(StructComponent, {
+            data: {title: 'Nuevo Destino',availability_id:this.form.get('availability_id').value,origin_id:this.origenes[(this.formdest.value.typedest)-1].id}
+          });
+
+          dialogref.afterClosed().subscribe(result => {
+            console.log(result);
+            if (result) {
+              // this.salidaGenerada=true
+              // this.getInventarios()
+              this.getStrct()
+            }else {
+
+            }
+          });
+       }
+     }
+
+   }
+
+
   }
 
   getTypodest(){
@@ -228,6 +265,7 @@ export class SalidaFormComponent implements OnInit {
         this.form.controls['created'].setValue(fecha);
         this.outputService.addOutput(this.form.value).subscribe(
           data=>{
+            console.log(data)
               this.dialogref.close({confirm:true})
           },
           err=>{
