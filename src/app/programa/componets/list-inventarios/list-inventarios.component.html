@@ -1,4 +1,4 @@
-<div [hidden]="!inventarioss">
+<div [hidden]="!inventarioss" *ngIf="!spinnerInv">
   <br>
   <div class="row">
     <div class="col-10">
@@ -7,12 +7,12 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
       </mat-form-field>
     </div>
-    <!-- <div class="col-2">
+    <div class="col-2">
       <button mat-stroked-button class="btn btn-primary"
       (click)="generaPdf()">
         Generar Informe
       </button>
-    </div> -->
+    </div>
   </div>
 
   <div class="mat-elevation-z8">
@@ -99,6 +99,12 @@
 
 </div>
 
-<div class="text-center" *ngIf="noInventarios">
+<div class="text-center" *ngIf="noInventarios && !spinnerInv">
   <h1>No existen inventarios para mostrar..!</h1>
+</div>
+
+<div style="margin-left: 45%; margin-top: 20%;" *ngIf="spinnerInv">
+  <mat-spinner
+    [mode]="'indeterminate'">
+  </mat-spinner>
 </div>

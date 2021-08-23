@@ -12,7 +12,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 
 
-import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -26,15 +26,16 @@ import {pdfServiceSalida} from './componets/list-salidas/pdfServiceSalida/pdfSer
 import {pdfServiceInventarios} from './componets/list-inventarios/pdfServiceInventarios/pdfServiceInventarios';
 
 import{ MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
-import {ReactiveFormsModule} from '@angular/forms'; 
+import {ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   declarations: [ProgramaComponent, ListComponent, ListInventariosComponent,ListSalidasComponent,ListPrestamosComponent,ConfigComponent],
   imports: [
     CommonModule,
     ProgramaRoutingModule,
     MatListModule,MatDialogModule,MatButtonModule,MatTableModule,CdkTableModule,MatInputModule,MatPaginatorModule,MatSortModule
-    ,MatDatepickerModule,ReactiveFormsModule,MatIconModule,MatFormFieldModule
+    ,MatDatepickerModule,ReactiveFormsModule,MatIconModule,MatFormFieldModule,MatProgressSpinnerModule
   ],
   providers:[
     PdfService,

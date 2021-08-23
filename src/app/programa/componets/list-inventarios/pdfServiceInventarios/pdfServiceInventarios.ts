@@ -5,7 +5,7 @@ export class pdfServiceInventarios {
     pdfMake: any;
     private datePipe: DatePipe;
     constructor( ) { }
-  
+
     async loadPdfMaker() {
       if (!this.pdfMake) {
         const pdfMakeModule = await import('pdfmake/build/pdfmake');
@@ -14,18 +14,66 @@ export class pdfServiceInventarios {
         this.pdfMake.vfs = pdfFontsModule.default.pdfMake.vfs;
       }
     }
-  
-    async generatePdf(data, estructura) {      
-      await this.loadPdfMaker();      
+
+    async generatePdf(data, estructura) {
+      await this.loadPdfMaker();
       this.datePipe= new DatePipe('en-US');
       let f= new Date();
       let g=this.datePipe.transform(f,'d/M/y')
-      console.log(f)
-      console.log(g)
-
+      let fecha;
+      switch(f.getMonth()){
+        case 0:{
+          fecha="Enero";
+          break;
+        }
+        case 1:{
+          fecha="Febrero";
+          break;
+        }
+        case 2:{
+          fecha="Marzo";
+          break;
+        }
+        case 3:{
+          fecha="Abril";
+          break;
+        }
+        case 4:{
+          fecha="Mayo";
+          break;
+        }
+        case 5:{
+          fecha="Junio";
+          break;
+        }
+        case 6:{
+          fecha="Julio";
+          break;
+        }
+        case 7:{
+          fecha="Agosto";
+          break;
+        }
+        case 8:{
+          fecha="Septiembre";
+          break;
+        }
+        case 9:{
+          fecha="Octubre";
+          break;
+        }
+        case 10:{
+          fecha="Noviembre";
+          break;
+        }
+        case 11:{
+          fecha="Diciembre";
+          break;
+        }
+      }
       var docDefinition = {
         content: [
-          { text: 'Informe de Inventarios: '+ estructura.typeStruct.name+'-'+estructura.name + "   \n"+ g, margin: [0, 20, 0, 8] },
+          { text: 'Informe de Inventarios: '+ estructura.typeStruct.name+'-'+estructura.name + "   \n"+ fecha+ "  "+ f.getFullYear(), margin: [0, 20, 0, 8] },
           {
             style: 'tableExample',
             table: {
@@ -35,9 +83,11 @@ export class pdfServiceInventarios {
                   { text: 'Elemento', style: 'tableHeader' },
                   { text: 'Marca', style: 'tableHeader' },
                   { text: 'Descripcion', style: 'tableHeader' },
-                  { text: 'Ingreso', style: 'tableHeader' },                
-                  { text: 'Egreso', style: 'tableHeader' },                
-                  { text: 'Stock', style: 'tableHeader' },                
+                  { text: 'Ingreso', style: 'tableHeader' },
+                  { text: 'Egreso', style: 'tableHeader' },
+                  { text: 'Stock', style: 'tableHeader' },
+                  { text: 'Observacion', style: 'tableHeader' },
+
                 ],
               ]
             },
@@ -94,27 +144,20 @@ export class pdfServiceInventarios {
           alignment: 'justify'
         }
       };
-      data.forEach((element:any) => {  
-        console.log(element)
+      console.log(data)
+      data.forEach((element:any) => {
           docDefinition.content[1].table.body.push(
             [
-              // { text: 'Elemento', style: 'tableHeader' },
-              // { text: 'Marca', style: 'tableHeader' },
-              // { text: 'Descripcion', style: 'tableHeader' },
-              // { text: 'Ingreso', style: 'tableHeader' },                
-              // { text: 'Egreso', style: 'tableHeader' },     
-              // { text: 'Stock', style: 'tableHeader' },      
               element.name_element,
               element.mark_name,
               element.description,
               element.stock_inicial,
               element.stock_out,
               element.stock,
-
+              element.observation,
             ]);
 
       });
       this.pdfMake.createPdf(docDefinition).open();
     }
-  
   }

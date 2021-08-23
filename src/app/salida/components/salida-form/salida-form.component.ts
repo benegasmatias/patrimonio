@@ -242,11 +242,11 @@ export class SalidaFormComponent implements OnInit {
           this.masDestino= true;
 
       // console.log(this.data.origin_id)
-        for(let i=0;i<this.destinos.length;i++){
-          if(this.data.origin_id==this.destinos[i].id){
-            this.destinos.splice(i,1)
-          }
-        }
+        // for(let i=0;i<this.destinos.length;i++){
+        //   if(this.data.origin_id==this.destinos[i].id){
+        //     this.destinos.splice(i,1)
+        //   }
+        // }
       },err=>{
         this.loginService.logout();
         window.location.assign("https://sedacreditaciones.com/app/patrimonio")

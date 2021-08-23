@@ -26,54 +26,60 @@
         <div  style="width: 1.5rem; height: 1.5rem;"class="spinner-grow text-light  " role="status"></div>
         </h2>
 
-    
-    <div *ngIf="!spinnerNav" class="nav__div_button col-8">
-  
-        <li  *ngFor="let destinoNav of destinosNav; let i = index" (click)="destinNav(destinoNav)" [attr.data-index]="i"  class="nav__li_button"><span class="material-icons">
-          assignment
-        </span>{{destinoNav.name| uppercase}}</li>
-        
-        <li (click)="categorias()" class="nav__li_button" style="text-transform: uppercase; font-size: 12px;"> Categorias</li>
-        <li (click)="elementos()" class="nav__li_button" style="text-transform: uppercase; font-size: 12px;"> Elementos</li>
- 
-<!-- 
-      <li (click)="entrada()" class="nav__li_button "><span class="material-icons">
-        input
-        </span>Entradas</li>
-      <li (click)="elementos()" class="nav__li_button "><span class="material-icons">
-          article
-        </span>Elementos</li> -->
+    <div class="col" style="width: auto; flex-basis: auto; flex-grow: unset;">
+      <button class="btn  text-white nav__button_menu" [matMenuTriggerFor]="menu2" style="margin-left: 50px; float: right;" >
+        <div class="d-flex flex-row m-0 p-0" class="nav__li_button">
+          <!-- <img src="{{datoUser.imagen}}" style="background-color: white;" width="30" height="30"
+            class="d-inline-block m-auto rounded-circle" alt="" loading="lazy"> -->
+          <!-- <p [hidden]="mobileQuery.matches" class="my-auto ml-1 p-0">{{datoUser.name}} </p> -->
+          <!-- <p>Desplegar</p> -->
+          <span class="material-icons">
+            assignment
+          </span>
+          <mat-icon [hidden]="mobileQuery.matches" class="my-auto p-0">arrow_drop_down</mat-icon>
+        </div>
+      </button>
+
+      <mat-menu #menu2="matMenu">
+        <button mat-menu-item *ngFor="let destinoNav of destinosNav; let i = index" (click)="destinNav(destinoNav)" [attr.data-index]="i">
+          <span class="material-icons">
+            assignment
+          </span>
+            {{destinoNav.name| uppercase}}
+        </button>
+      </mat-menu>
+
+
     </div>
 
+    <div class="col" style="width: auto;">
+      <ol>
+        <li (click)="categorias()" class="nav__li_button" style="text-transform: uppercase; font-size: 12px; padding-bottom: 0px;"> Categorias</li>
+        <li (click)="elementos()" class="nav__li_button" style="text-transform: uppercase; font-size: 12px; padding-bottom: 0px;"> Elementos</li>
+      </ol>
+    </div>
 
-    <!-- <div class="nav__responsive_div_button col-6 mx-auto">
-      <a (click)="programa()" class="nav__responsive_a_button"><span class="material-icons">
-          assignment
-        </span></a>
-      <br>
-      <a (click)="entrada()" class="nav__responsive_a_button">Calderon gay</a>
-      <a (click)="elementos()" class="nav__responsive_a_button">Elementos</a>
-    </div> -->
-
-    <button class="btn  text-white nav__button_menu" [matMenuTriggerFor]="menu" style="margin-left: 50px;">
-      <div class="d-flex flex-row m-0 p-0">
-        <!-- <img src="{{datoUser.imagen}}" style="background-color: white;" width="30" height="30"
-          class="d-inline-block m-auto rounded-circle" alt="" loading="lazy"> -->
-        <!-- <p [hidden]="mobileQuery.matches" class="my-auto ml-1 p-0">{{datoUser.name}} </p> -->
-        <mat-icon [hidden]="mobileQuery.matches" class="my-auto p-0">arrow_drop_down</mat-icon>
-      </div>
-    </button>
-
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Usuario</span>
+    <div class="col">
+      <button class="btn  text-white nav__button_menu" [matMenuTriggerFor]="menu" style="margin-left: 50px; float: right;">
+        <div class="d-flex flex-row m-0 p-0">
+          <!-- <img src="{{datoUser.imagen}}" style="background-color: white;" width="30" height="30"
+            class="d-inline-block m-auto rounded-circle" alt="" loading="lazy"> -->
+          <!-- <p [hidden]="mobileQuery.matches" class="my-auto ml-1 p-0">{{datoUser.name}} </p> -->
+          <mat-icon [hidden]="mobileQuery.matches" class="my-auto p-0">arrow_drop_down</mat-icon>
+        </div>
       </button>
-      <button mat-menu-item (click)="logout()">
-        <mat-icon>close</mat-icon>
-        <span>Cerrar sesión</span>
-      </button>
-    </mat-menu>
+
+      <mat-menu #menu="matMenu">
+        <!-- <button mat-menu-item>
+          <mat-icon>dialpad</mat-icon>
+          <span>Usuario</span>
+        </button> -->
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>close</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+      </mat-menu>
+    </div>
 
   </mat-toolbar>
 
@@ -84,7 +90,7 @@
 
       <!-- items sideNav-->
       <mat-selection-list #shoes [multiple]="false" class="m-0 p-0">
-        <mat-accordion class="p-0 m-0"> 
+        <mat-accordion class="p-0 m-0">
           <p  *ngFor="let nav of fillerNav" class="m-0">
 
             <mat-list-option *ngIf="!nav.subMenu; else elseBlock" class="btnSideNav m-0" routerLink="{{nav.route}}"
@@ -111,8 +117,8 @@
                   <span style="padding-left: 3rem;"> {{sub.name}}</span>
                 </mat-list-option>
 
-                <!-- 
-          
+                <!--
+
         <p *ngFor="let nav of sub" class="m-0">
 
           <mat-list-option *ngIf="!sub.subMenu; else elseBlock" class="btnSideNav m-0"  routerLink="{{nav.route}}"  (click)="mobileQuery.matches ? snav.toggle() : ''">
@@ -121,22 +127,22 @@
               <p class="my-auto ml-2">{{nav.name}}</p>
             </div>
           </mat-list-option>
-  
+
           <ng-template #elseBlock>
-            
+
           <mat-expansion-panel  class="mat-elevation-z0 btnSideNav m-0">
-  
+
             <mat-expansion-panel-header  [collapsedHeight]="'48px'" [expandedHeight]="'48px'" class="m-0 btnSideNav">
               <div class="row">
                 <mat-icon class="my-auto" style="margin-left: 15px;">{{nav.icon}}</mat-icon>
                 <p class="my-auto ml-2">{{nav.name}}</p>
               </div>
             </mat-expansion-panel-header>
-  
+
             <mat-list-option  *ngFor="let sub of nav.subMenu" class="m-0 content"  routerLink="{{sub.route}}"  (click)="mobileQuery.matches ? snav.toggle() : ''">
               <span style="padding-left: 3rem;"> {{sub.name}}</span>
             </mat-list-option>
-  
+
           </mat-expansion-panel>
         </ng-template>
           </p>
@@ -144,8 +150,8 @@
 
               </mat-expansion-panel>
 
-            </ng-template> 
-            
+            </ng-template>
+
 
           </p>
 
@@ -157,7 +163,7 @@
             id="creaCategoria"
             (click)="nuevoStruct(datobuton.id)">
             Añadir {{datobuton.name}}
-          </button>  
+          </button>
           </mat-list-option>
 
         </mat-accordion>
@@ -170,3 +176,31 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
+
+
+<!-- <div *ngIf="!spinnerNav" class="nav__div_button col-8" style="overflow-x: scroll;">
+
+  <li  *ngFor="let destinoNav of destinosNav; let i = index" (click)="destinNav(destinoNav)" [attr.data-index]="i"  class="nav__li_button" >
+    <span class="material-icons">
+      assignment
+    </span>
+      {{destinoNav.name| uppercase}}
+  </li>
+
+  <li (click)="categorias()" class="nav__li_button" style="text-transform: uppercase; font-size: 12px;"> Categorias</li>
+  <li (click)="elementos()" class="nav__li_button" style="text-transform: uppercase; font-size: 12px;"> Elementos</li>
+
+  <button class="btn  text-white nav__button_menu" [matMenuTriggerFor]="menu2" style="margin-left: 50px; float: right;">
+    <div class="d-flex flex-row m-0 p-0">
+      <mat-icon [hidden]="mobileQuery.matches" class="my-auto p-0">arrow_drop_down</mat-icon>
+    </div>
+  </button>
+
+  <mat-menu #menu2="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>aaaaaaaaaaaaaaaaaaaaaa</span>
+    </button>
+
+  </mat-menu>
+</div> -->

@@ -13,7 +13,7 @@ import { StructService } from 'src/app/services/struct.service';
   selector: 'app-config',
   templateUrl: './config.component.html',
   styleUrls: ['./config.component.scss']
- 
+
 })
 
 
@@ -52,11 +52,10 @@ export class ConfigComponent implements OnInit {
 
   edit(){
     this.spinnerGuardar=true;
-    console.log(this.form.get('name').value)
     this.structService.editStruct({
       struct_id: this.struct.id,
       name: this.form.get('name').value
-    }).subscribe((data:any)=>{      
+    }).subscribe((data:any)=>{
       this.spinnerGuardar=false;
       window.location.assign("https://sedacreditaciones.com/app/patrimonio")
       //window.location.assign("/panel")
@@ -71,7 +70,7 @@ export class ConfigComponent implements OnInit {
       this.spinnerEliminar=true;
       this.structService.deleteStruct({
         struct_id: this.struct.id,
-      }).subscribe((data:any)=>{      
+      }).subscribe((data:any)=>{
         console.log(data)
         this.spinnerEliminar=false;
         window.location.assign("https://sedacreditaciones.com/app/patrimonio")
@@ -86,7 +85,7 @@ export class ConfigComponent implements OnInit {
 
   verifica(){
     let aux= this.loginService.getRol();
-    return (aux=="guest");    
+    return (aux=="guest");
   }
 }
 

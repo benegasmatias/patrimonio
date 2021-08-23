@@ -1,8 +1,8 @@
-<div class="text-center" *ngIf="noInventarios">
+<div class="text-center" *ngIf="noInventarios && !spinnerSal">
   <h1>No existen inventarios para mostrar en Salidas..!</h1>
 </div>
 
-<div [hidden]="!inventarioss">
+<div [hidden]="!inventarioss" *ngIf="!spinnerSal">
   <br>
   <div class="row">
     <div class="col-9">
@@ -12,17 +12,17 @@
         <mat-hint><strong>Para filtrar respecto a un mes, insertar en el cuadro de busqueda de la forma: "año-mes", ej: 2020-01</strong></mat-hint>
       </mat-form-field>
     </div>
-    <!-- <div class="col-3">
+    <div class="col-3">
       <button mat-stroked-button class="btn btn-primary"
       (click)="generaPdfDonaciones()">
-        Generar Informe Donaciones
+        Informe Donaciones
       </button>
       <br><br>
       <button mat-stroked-button class="btn btn-primary"
       (click)="generaPdfEntregas()">
-        Generar Informe Entregas
+        Informe Entregas
       </button>
-    </div> -->
+    </div>
   </div>
   <br>
   <br>
@@ -77,6 +77,13 @@
           </span> </td>
       </ng-container>
 
+      <ng-container matColumnDef="delete" *ngIf="!verifica()">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ELIMINAR </th>
+        <td mat-cell *matCellDef="let row" > <span (click)="deleteOut(row)" class="material-icons salida">
+          delete_forever
+          </span> </td>
+      </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -94,31 +101,26 @@
 <hr />
 
 
-<div class="text-center" *ngIf="noInventarios2">
+<div class="text-center" *ngIf="noInventarios2 && !spinnerSal">
   <h1>No existen salidas para mostrar con solo cantidad de salida..!</h1>
 </div>
 
-<div [hidden]="!inventarioss2">
+<div [hidden]="!inventarioss2" *ngIf="!spinnerSal">
   <br>
   <div class="row">
     <div class="col-9">
       <mat-form-field class="buscar" >
         <mat-label>Buscar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Busqueda" #input2>
+        <input matInput (keyup)="applyFilter2($event)" placeholder="Busqueda" #input2>
         <mat-hint><strong>Para filtrar respecto a un mes, insertar en el cuadro de busqueda de la forma: "año-mes", ej: 2020-01</strong></mat-hint>
       </mat-form-field>
     </div>
-    <!-- <div class="col-3">
+    <div class="col-3">
       <button mat-stroked-button class="btn btn-primary"
-      (click)="generaPdfDonaciones()">
-        Generar Informe Donaciones
+      (click)="generaPdf()">
+        Informe Salidas-SD
       </button>
-      <br><br>
-      <button mat-stroked-button class="btn btn-primary"
-      (click)="generaPdfEntregas()">
-        Generar Informe Entregas
-      </button>
-    </div> -->
+    </div>
   </div>
   <br>
   <br>
@@ -150,10 +152,22 @@
         <td mat-cell *matCellDef="let row"> {{row.quantity_out}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="created"  >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  class="columnafin"> FECHA </th>
+        <td mat-cell *matCellDef="let row"  class="columnafin"> {{ row.created | date:'yyyy-MM-dd' }} </td>
+      </ng-container>
+
       <ng-container matColumnDef="editobserv" *ngIf="!verifica()">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> EDITAR </th>
         <td mat-cell *matCellDef="let row" > <span (click)="editEnvio(row)" class="material-icons salida">
           text_snippet
+          </span> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete" *ngIf="!verifica()">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ELIMINAR </th>
+        <td mat-cell *matCellDef="let row" > <span (click)="deleteOutNodat(row)" class="material-icons salida">
+          delete_forever
           </span> </td>
       </ng-container>
 
@@ -169,4 +183,11 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
 
+</div>
+
+
+<div style="margin-left: 45%; margin-top: 20%;" *ngIf="spinnerSal">
+  <mat-spinner
+    [mode]="'indeterminate'">
+  </mat-spinner>
 </div>

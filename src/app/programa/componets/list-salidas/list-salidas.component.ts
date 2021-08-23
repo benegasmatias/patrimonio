@@ -37,12 +37,13 @@ export class ListSalidasComponent implements OnInit {
   estructurasDestino=[]
   availabilities=[];
   estructuraActual=[];
+  spinnerSal=false;
 
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService, private pdfService: pdfServiceSalida, private loginService: LoginService) {}
 
-   displayedColumns: string[] = ['name_element', 'description','marca','quantity_out','destination_id', 'availability_id','created','editobserv'];
-   displayedColumns2: string[] = ['name_element', /*'description',*/'marca','quantity_out','editobserv'];
+   displayedColumns: string[] = ['name_element', 'description','marca','quantity_out','destination_id', 'availability_id','created','editobserv','delete'];
+   displayedColumns2: string[] = ['name_element', /*'description',*/'marca','quantity_out','created','editobserv','delete'];
 
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
@@ -57,12 +58,15 @@ export class ListSalidasComponent implements OnInit {
   ngOnInit(): void {
    this.getInventarios()
    if(this.verifica()){
+    this.displayedColumns.pop();
+    this.displayedColumns.pop();
+    this.displayedColumns2.pop();
     this.displayedColumns2.pop();
   }
   }
 
   getInventarios(){
-
+    this.spinnerSal=true;
     this.activatedRoute.params.subscribe(
       param=>{
         if(param['struct']){
@@ -92,8 +96,11 @@ export class ListSalidasComponent implements OnInit {
 
                   this.struct_id = param['struct']
                   this.dataSource = new MatTableDataSource(this.iventarioData);
-                  this.dataSource.paginator = this.paginator;
-                  this.dataSource.sort = this.sort;
+                  setTimeout(()=>{
+                    this.dataSource.paginator = this.paginator;
+                    this.dataSource.sort = this.sort;
+                  }, 300);
+                  this.spinnerSal=false;
             },
             err=>{
               console.log(err)
@@ -115,12 +122,16 @@ export class ListSalidasComponent implements OnInit {
               this.noInventarios2=true
             }
             this.dataSource2 = new MatTableDataSource(this.iventarioData2);
-            this.dataSource2.paginator = this.paginator2;
-            this.dataSource2.sort = this.sort2;
+            setTimeout(()=>{
+              this.dataSource2.paginator = this.paginator2;
+              this.dataSource2.sort = this.sort2;
+            }, 300);
+            this.spinnerSal=false;
           },
           err=>{
             console.log(err)
           })
+
         }
       }
      )
@@ -157,7 +168,8 @@ export class ListSalidasComponent implements OnInit {
   }
 
   generaPdfDonaciones(){
-    if(this.dataSource.filter.slice(5))
+    this.spinnerSal=true;
+    if(this.dataSource.filter.match(/^[0-9]{4}-[0-9]{2}/))
     {
       var aux;
       var n = parseInt(this.dataSource.filter.slice(5), aux)
@@ -168,14 +180,29 @@ export class ListSalidasComponent implements OnInit {
           if(element.availability_id=='donacion')
             datos.push(element);
         });
-        this.pdfService.generatePdf(datos,this.estructuraActual['name'],n,0);
+        if(datos.length!=0){
+          this.pdfService.generatePdf(datos,this.estructuraActual['name'],n,0);
+          this.spinnerSal=false;
+        }
+      }
+    }
+    else{
+      var datos=[];
+      this.dataSource.filteredData.forEach((element:any) => {
+        if(element.availability_id=='donacion')
+          datos.push(element);
+      });
+      if(datos.length!=0){
+        this.pdfService.generatePdf(datos,this.estructuraActual['name'],null,0);
+        this.spinnerSal=false;
       }
     }
 
   }
 
   generaPdfEntregas(){
-    if(this.dataSource.filter.slice(5))
+    this.spinnerSal=true;
+    if(this.dataSource.filter.match(/^[0-9]{4}-[0-9]{2}/))
     {
       var aux;
       var n = parseInt(this.dataSource.filter.slice(5), aux)
@@ -186,10 +213,45 @@ export class ListSalidasComponent implements OnInit {
           if(element.availability_id=='entrega')
             datos.push(element);
         });
-        this.pdfService.generatePdf(datos,this.estructuraActual['name'],n,1);
+        if(datos.length!=0){
+          this.pdfService.generatePdf(datos,this.estructuraActual['name'],n,1);
+          this.spinnerSal=false;
+        }
       }
     }
+    else{
+      var datos=[];
+      this.dataSource.filteredData.forEach((element:any) => {
+        if(element.availability_id=='entrega')
+          datos.push(element);
+      });
+      if(datos.length!=0){
+        this.pdfService.generatePdf(datos,this.estructuraActual['name'],null,1);
+        this.spinnerSal=false;
+      }
+    }
+  }
 
+  generaPdf(){
+    this.spinnerSal=true;
+    if(this.dataSource2.filter.match(/^[0-9]{4}-[0-9]{2}/))
+    {
+      var aux;
+      var n = parseInt(this.dataSource2.filter.slice(5), aux)
+      if(typeof n == 'number' && n<=12)
+      {
+        if(this.dataSource2.filteredData.length!=0){
+          this.pdfService.generatePdf(this.dataSource2.filteredData,this.estructuraActual['name'],n,2);
+          this.spinnerSal=false;
+        }
+      }
+    }
+    else{
+      if(this.dataSource2.filteredData.length!=0){
+        this.pdfService.generatePdf(this.dataSource2.filteredData,this.estructuraActual['name'],null,2);
+        this.spinnerSal=false;
+      }
+    }
   }
 
   editEnvio(element){
@@ -207,6 +269,38 @@ export class ListSalidasComponent implements OnInit {
   verifica(){
     let aux= this.loginService.getRol();
     return (aux=="guest");
+  }
+
+  deleteOut(row){
+    if(confirm("¿Seguro que desea eliminar?")){
+      this.inventarioService.deleteOutput({
+        output_id:row.output_id,
+        type: 1
+      }).subscribe((data)=>{
+        this.getInventarios();
+      },
+      err=>{
+        console.log(err)
+        this.loginService.logout();
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+      });
+    }
+  }
+
+  deleteOutNodat(row){
+    if(confirm("¿Seguro que desea eliminar?")){
+      this.inventarioService.deleteOutput({
+        output_id:row.output_id,
+        type: 3
+      }).subscribe((data)=>{
+        this.getInventarios();
+      },
+      err=>{
+        console.log(err)
+        this.loginService.logout();
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+      });
+    }
   }
 }
 

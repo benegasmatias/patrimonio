@@ -45,7 +45,7 @@ export class LoginService {
     return sessionStorage.getItem('accessToken');
   }
   isLogged() {
-    console.log(sessionStorage.getItem('accessToken'));
+    //console.log(sessionStorage.getItem('accessToken'));
     return sessionStorage.getItem('accessToken') != null;
   }
 

@@ -56,4 +56,8 @@ export class InventarioService {
     return this.http.get(`${this.API_URI}/elements/delete/${id_elem}.json`);
   }
 
+
+  deleteOutput(data){
+    return this.http.post(`${this.API_URI}/outputs/delete-out.json`,data);
+  }
 }

@@ -66,12 +66,13 @@ public nestedCateg = {
 
   cargaArreglo(){
     this.nestedCateg.dropzones[0]=[];
+    this.arraycateg=[];
+
     this.serviceCategoria.getCategorias().subscribe(
       (data:any) => {
         let tomaresultado=[];
         tomaresultado = data.categorysOfElements;
-        tomaresultado=tomaresultado.sort(this.comparar);
-
+        // tomaresultado=tomaresultado.sort(this.comparar);
         let arregloaux=[];
 
         tomaresultado.forEach(n=>{
@@ -95,14 +96,13 @@ public nestedCateg = {
             else{
               let aux= tomaresultado.splice(index,1);
               tomaresultado.push(aux[0]);
-              console.log(tomaresultado);
             }
           }
         })
-
         /////////////////////////////////////////////////////////////////////////
         //vista previa rapida
         this.CategoriasVistaPrev(data);
+        //console.log(this.nestedCateg.dropzones[0])
         setTimeout(()=>{
           this.varguardado=true;
         }, 1000);
@@ -119,14 +119,12 @@ public nestedCateg = {
   CategoriasVistaPrev(data:any){
     let tomaresultado=[];
     tomaresultado = data.categorysOfElements;
-    tomaresultado=tomaresultado.sort(this.comparar);
-
     let arregloaux=[];
 
     tomaresultado.forEach(n=>{
       if(n.father_category_id== null)
         {
-          let d={  type: "padre", id_category: n.id_category, name_category:n.name_category, hijo: []}
+          let d={  type: "padre", id_category: n.id_category, name_category:n.name_category, hijo: [], color: "black"}
           this.arraycateg.push(d);
           arregloaux.push(d);
         }
@@ -144,14 +142,14 @@ public nestedCateg = {
         else{
           let aux= tomaresultado.splice(index,1);
           tomaresultado.push(aux[0]);
-          console.log(tomaresultado);
         }
       }
     })
-    //let aux= this.arraycateg;
+    this.nestedCateg.dropzones[0]= this.arraycateg;
   }
-    //carga recursiva de elementos de la categoria
+    //carga recursiva de elementreacs de la categoria
   CargaRec(result, categorias: algo[],arregloaux, num){
+    // categorias.sort(this.comparar)
 
     categorias.forEach(cat => {
       if(cat.id_category == result.father_category_id)
@@ -201,11 +199,37 @@ public nestedCateg = {
   }
 
   CargaRecPrev(result, categorias: categ[],arregloaux, num){
+    // categorias.sort(this.comparar)
 
     categorias.forEach(cat => {
       if(cat.id_category == result.father_category_id)
       {
         let color="black";
+        let index;
+
+        index= num % 5;
+
+        switch(index){
+          case 0:{
+            color="green";
+            break;
+          }
+          case 1:{
+            color="blue";
+            break;
+          }
+          case 2:{
+            color="red";
+            break;
+          }
+          case 3:{
+            color="brown";
+            break;
+          }
+          case 4:{
+            color="indigo";
+          }
+        }
         let d;
         if(num<8){
           d={ type: "padre", id_category: result.id_category, name_category:result.name_category, hijo:[] ,color: color};
@@ -219,11 +243,12 @@ public nestedCateg = {
       }
       else
         if(cat.hijo!=[])
-          this.CargaRec(result,cat.hijo,arregloaux, num+1)
+          this.CargaRecPrev(result,cat.hijo,arregloaux, num+1)
     });
     return(arregloaux);
   }
-  comparar ( a, b ){ return a.id_category - b.id_category; }
+
+  comparar ( a, b ){ return a.name_category - b.name_category; }
 
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
 
@@ -267,37 +292,37 @@ public nestedCateg = {
     this.varguardado=false;
     this.serviceCategoria.modificaCategorias(this.nestedCateg.dropzones[0]).subscribe((data: any)=>{
 
-      this.nestedCateg.dropzones[0]=[];
+      // this.nestedCateg.dropzones[0]=[];
 
-      let tomaresultado=[];
-      tomaresultado = data;
-      tomaresultado=tomaresultado.sort(this.comparar);
-      let arregloaux=[];
+      // let tomaresultado=[];
+      // tomaresultado = data;
+      // tomaresultado=tomaresultado.sort(this.comparar);
+      // let arregloaux=[];
 
-      tomaresultado.forEach(n=>{
-        if(n.father_category_id== null)
-          {
-            let d={  type: "padre", id_category: n.id_category, name_category:n.name_category, hijo: []}
-            this.nestedCateg.dropzones[0].push(d);
-            arregloaux.push(d);
-          }
-      })
-      tomaresultado.forEach((n, index)=>{
-        if(n.father_category_id!=null){
+      // tomaresultado.forEach(n=>{
+      //   if(n.father_category_id== null)
+      //     {
+      //       let d={  type: "padre", id_category: n.id_category, name_category:n.name_category, hijo: []}
+      //       this.nestedCateg.dropzones[0].push(d);
+      //       arregloaux.push(d);
+      //     }
+      // })
+      // tomaresultado.forEach((n, index)=>{
+      //   if(n.father_category_id!=null){
 
-          let x=arregloaux.find(element => element.id_category == n.father_category_id)
-          if((x!=undefined)){
-            let auxasig;
-            auxasig=this.CargaRec(n,this.nestedCateg.dropzones[0],arregloaux,0);
-            arregloaux=auxasig;
-          }
-          else{
-            let aux= tomaresultado.splice(index,1);
-            tomaresultado.push(aux[0]);
-            console.log(tomaresultado);
-          }
-        }
-      })
+      //     let x=arregloaux.find(element => element.id_category == n.father_category_id)
+      //     if((x!=undefined)){
+      //       let auxasig;
+      //       auxasig=this.CargaRec(n,this.nestedCateg.dropzones[0],arregloaux,0);
+      //       arregloaux=auxasig;
+      //     }
+      //     else{
+      //       let aux= tomaresultado.splice(index,1);
+      //       tomaresultado.push(aux[0]);
+      //       console.log(tomaresultado);
+      //     }
+      //   }
+      // })
 
       this.muestraalerta=true;
       this.cargaArreglo();

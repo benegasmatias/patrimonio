@@ -34,7 +34,7 @@ export class ListInventariosComponent implements OnInit {
   noInventarios=false
   //alerts
   salidaGenerada=false
-
+  spinnerInv=false;
   //Fin alerts
   iventarioData: IventarioData[]=[]
   estructuraActual='';
@@ -54,6 +54,7 @@ export class ListInventariosComponent implements OnInit {
   }
 
   getInventarios(){
+    this.spinnerInv=true;
     this.activatedRoute.params.subscribe(
       param=>{
         if(param['struct']){
@@ -79,6 +80,7 @@ export class ListInventariosComponent implements OnInit {
                 }
                 return data[sortHeaderId];
               };
+              this.spinnerInv=false;
             },
             err=>{
               console.log(err)
@@ -134,7 +136,9 @@ export class ListInventariosComponent implements OnInit {
 
   generaPdf(){
     let datos=  this.dataSource.filteredData
+    this.spinnerInv=true;
     this.pdfService.generatePdf(datos,this.estructuraActual);
+    this.spinnerInv=false;
   }
 }
 

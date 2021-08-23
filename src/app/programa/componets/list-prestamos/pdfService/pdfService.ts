@@ -5,7 +5,7 @@ export class PdfService {
     pdfMake: any;
     private datePipe: DatePipe;
     constructor( ) { }
-  
+
     async loadPdfMaker() {
       if (!this.pdfMake) {
         const pdfMakeModule = await import('pdfmake/build/pdfmake');
@@ -14,60 +14,115 @@ export class PdfService {
         this.pdfMake.vfs = pdfFontsModule.default.pdfMake.vfs;
       }
     }
-  
-    async generatePdf(data, estructura, mes) {      
-      await this.loadPdfMaker();      
+
+    async generatePdf(data, estructura, mes) {
+      await this.loadPdfMaker();
       this.datePipe= new DatePipe('en-US');
       let f= new Date();
+      console.log(f)
       var fecha="";
-      switch(mes){
-        case 1:{
-          fecha="Enero";
-          break;
+      if(mes){
+        switch(mes){
+          case 1:{
+            fecha="Enero";
+            break;
+          }
+          case 2:{
+            fecha="Febrero";
+            break;
+          }
+          case 3:{
+            fecha="Marzo";
+            break;
+          }
+          case 4:{
+            fecha="Abril";
+            break;
+          }
+          case 5:{
+            fecha="Mayo";
+            break;
+          }
+          case 6:{
+            fecha="Junio";
+            break;
+          }
+          case 7:{
+            fecha="Julio";
+            break;
+          }
+          case 8:{
+            fecha="Agosto";
+            break;
+          }
+          case 9:{
+            fecha="Septiembre";
+            break;
+          }
+          case 10:{
+            fecha="Octubre";
+            break;
+          }
+          case 11:{
+            fecha="Noviembre";
+            break;
+          }
+          case 12:{
+            fecha="Diciembre";
+            break;
+          }
         }
-        case 2:{
-          fecha="Febrero";
-          break;
-        }
-        case 3:{
-          fecha="Marzo";
-          break;
-        }
-        case 4:{
-          fecha="Abril";
-          break;
-        }
-        case 5:{
-          fecha="Mayo";
-          break;
-        }
-        case 6:{
-          fecha="Junio";
-          break;
-        }
-        case 7:{
-          fecha="Julio";
-          break;
-        }
-        case 8:{
-          fecha="Agosto";
-          break;
-        }
-        case 9:{
-          fecha="Septiembre";
-          break;
-        }
-        case 10:{
-          fecha="Octubre";
-          break;
-        }
-        case 11:{
-          fecha="Noviembre";
-          break;
-        }
-        case 12:{
-          fecha="Diciembre";
-          break;
+      }
+      else{
+        switch(f.getMonth()){
+          case 0:{
+            fecha="Enero";
+            break;
+          }
+          case 1:{
+            fecha="Febrero";
+            break;
+          }
+          case 2:{
+            fecha="Marzo";
+            break;
+          }
+          case 3:{
+            fecha="Abril";
+            break;
+          }
+          case 4:{
+            fecha="Mayo";
+            break;
+          }
+          case 5:{
+            fecha="Junio";
+            break;
+          }
+          case 6:{
+            fecha="Julio";
+            break;
+          }
+          case 7:{
+            fecha="Agosto";
+            break;
+          }
+          case 8:{
+            fecha="Septiembre";
+            break;
+          }
+          case 9:{
+            fecha="Octubre";
+            break;
+          }
+          case 10:{
+            fecha="Noviembre";
+            break;
+          }
+          case 11:{
+            fecha="Diciembre";
+            break;
+          }
         }
       }
 
@@ -80,16 +135,17 @@ export class PdfService {
               headerRows: 1,
               body: [
                 [
-                //{ text: 'Fecha de Prestamo', style: 'tableHeader' }, 
+                //{ text: 'Fecha de Prestamo', style: 'tableHeader' },
                 { text: 'Autoriza', style: 'tableHeader' },
                 { text: 'Retira', style: 'tableHeader' },
-                { text: 'Egreso', style: 'tableHeader' }, 
-                { text: 'Materiales', style: 'tableHeader' }, 
-                { text: 'Marca', style: 'tableHeader' }, 
-                { text: 'Area que Solicita', style: 'tableHeader' }, 
-                { text: 'Institucion a la que se Destina', style: 'tableHeader' },
+                { text: 'Egreso', style: 'tableHeader' },
+                { text: 'Materiales', style: 'tableHeader' },
+                { text: 'Marca', style: 'tableHeader' },
+                { text: 'Area que Solicita', style: 'tableHeader' },
+                { text: 'Destino', style: 'tableHeader' },
+                // Institucion a la que se Destina
                 { text: 'Fecha de Devolucion', style: 'tableHeader' },
-                
+
               ],
               ]
             },
@@ -146,8 +202,7 @@ export class PdfService {
           alignment: 'justify'
         }
       };
-      data.forEach((element:any) => {  
-        console.log(element)
+      data.forEach((element:any) => {
         if(element.return_date){
           docDefinition.content[1].table.body.push(
             [
@@ -178,20 +233,19 @@ export class PdfService {
               element.typeDestino,//Area que Solicita
               element.destination_id,//Institucion a la que se Destina
               this.datePipe.transform(element.expected_date,"dd-MM-yyyy")+" (Estimado)",//Fecha de Devolucion
-            ]);          
+            ]);
         }
       });
       this.pdfMake.createPdf(docDefinition).open();
     }
-  
+
   }
 
-  // { text: 'Fecha de Prestamo', style: 'tableHeader' }, 
+  // { text: 'Fecha de Prestamo', style: 'tableHeader' },
   // { text: 'Autoriza', style: 'tableHeader' },
   // { text: 'Retira', style: 'tableHeader' },
-  // { text: 'Cantidad', style: 'tableHeader' }, 
-  // { text: 'Materiales', style: 'tableHeader' }, 
-  // { text: 'Area que Solicita', style: 'tableHeader' }, 
+  // { text: 'Cantidad', style: 'tableHeader' },
+  // { text: 'Materiales', style: 'tableHeader' },
+  // { text: 'Area que Solicita', style: 'tableHeader' },
   // { text: 'Institucion a la que se Destina', style: 'tableHeader' },
   // { text: 'Fecha de Devolucion', style: 'tableHeader' },
-  

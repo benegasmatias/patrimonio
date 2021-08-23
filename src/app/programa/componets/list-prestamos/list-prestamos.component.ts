@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InventarioService } from 'src/app/services/inventario.service';  
+import { InventarioService } from 'src/app/services/inventario.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -17,7 +17,7 @@ export interface IventarioData {
   stock_out: string;
   destination_id: string;
   created: string;
-  
+
 }
 @Component({
   selector: 'app-list-prestamos',
@@ -27,35 +27,40 @@ export interface IventarioData {
 export class ListPrestamosComponent implements OnInit {
   inventarioss=false
   noInventarios=false
-  
+
   //Fin alerts
 
   inventarioData=[]
   estructurasDestino=[]
   estructuraActual=[];
-  availabilities=[];    
+  availabilities=[];
+  spinnerPrest=false;
 
   constructor(private dialog:MatDialog,private activatedRoute:ActivatedRoute, private inventarioService:InventarioService,private pdfService: PdfService, private loginService: LoginService) {
   }
 
-   displayedColumns: string[] = ['name_element', 'description','mark','quantity_out','destination_id','created', 'estado','action', ];
+   displayedColumns: string[] = ['name_element', 'description','mark','quantity_out','destination_id','created', 'estado','action','delete' ];
    dataSource: MatTableDataSource<IventarioData>;
    struct_id=''
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
    @ViewChild(MatSort, {static: true}) sort: MatSort;
- 
+
 
   ngOnInit(): void {
-   this.getInventarios()   
+   this.getInventarios()
+   if(this.verifica()){
+    this.displayedColumns.pop();
+    this.displayedColumns.pop();
+  }
   }
 
   getInventarios(){
+    this.spinnerPrest=true;
     this.activatedRoute.params.subscribe(
       param=>{
-        if(param['struct']){          
+        if(param['struct']){
           this.inventarioService.getOutputsByStructPrestamo(param['struct']).subscribe(
             (data:any)=>{
-              console.log(data)
                   this.inventarioData = data['inventario'];
                   this.estructurasDestino = data['structsDestino'];
                   this.estructuraActual = data['structOrigin'][0];
@@ -87,9 +92,10 @@ export class ListPrestamosComponent implements OnInit {
                     if (typeof data[sortHeaderId] === 'string') {
                       return data[sortHeaderId].toLocaleLowerCase();
                     }
-                  
+
                     return data[sortHeaderId];
                   };
+                  this.spinnerPrest=false;
             },
             err=>{
               console.log(err)
@@ -107,6 +113,7 @@ export class ListPrestamosComponent implements OnInit {
 
     const filterValue = (event.target as HTMLInputElement).value;
     if(filterValue.trim().toLowerCase().match(/^\d{4}/) && filterValue.trim().toLowerCase().length==4){
+
       this.dataSource.filter= filterValue.trim().toLowerCase() +'-';
       (event.target as HTMLInputElement).value= this.dataSource.filter;
     }
@@ -129,11 +136,10 @@ export class ListPrestamosComponent implements OnInit {
         dialogref.afterClosed().subscribe(result => {
           if(result){
             if (result.confirm) {
-              console.log(result.data);
               this.getInventarios()
             }
           }
-  
+
         });
       }
     }
@@ -145,7 +151,6 @@ export class ListPrestamosComponent implements OnInit {
       dialogref.afterClosed().subscribe(result => {
         if(result){
           if (result.confirm) {
-            console.log(result.data);
             this.getInventarios()
           }
         }
@@ -155,7 +160,8 @@ export class ListPrestamosComponent implements OnInit {
   }
 
   generaPdf(){
-    if(this.dataSource.filter.slice(5))
+    this.spinnerPrest=true;
+    if(this.dataSource.filter.match(/^[0-9]{4}-[0-9]{2}/))
     {
       var aux;
       var n = parseInt(this.dataSource.filter.slice(5), aux)
@@ -170,7 +176,7 @@ export class ListPrestamosComponent implements OnInit {
         // });
         this.dataSource.filteredData.forEach((element:any) => {
           // if(element.return_date)//elimina para sacar limitacion de devuelto
-          this.inventarioService.getPrestamo(element.pend_id).subscribe((dat:any)=>{              
+          this.inventarioService.getPrestamo(element.pend_id).subscribe((dat:any)=>{
             datos.push({
               expected_date: dat.pending[0].expected_date ,
               phone_number: dat.pending[0].phone_number ,
@@ -188,13 +194,15 @@ export class ListPrestamosComponent implements OnInit {
               typeDestino: element.typeDestino,
               autoriza: element.autoriza,
               mark_name: element.mark_name,
-            });   
+            });
             // if(contador==datos.length){
             //   this.pdfService.generatePdf(datos,this.estructuraActual,n);
             // }
             if(this.dataSource.filteredData.length==datos.length){
               //this.dataSource.filteredData.length==datos.length para sacar limitacion de devuelto
+
               this.pdfService.generatePdf(datos,this.estructuraActual,n);
+              this.spinnerPrest=false;
             }
           },
           err=>{
@@ -205,13 +213,51 @@ export class ListPrestamosComponent implements OnInit {
 
         });
       }
-    }       
-    
-  }  
+
+    }
+    else{
+      var aux;
+      var datos: DatosPDf[]=[];
+      this.dataSource.filteredData.forEach((element:any) => {
+        this.inventarioService.getPrestamo(element.pend_id).subscribe((dat:any)=>{
+          datos.push({
+            expected_date: dat.pending[0].expected_date ,
+            phone_number: dat.pending[0].phone_number ,
+            receiver_name: dat.pending[0].receiver_name ,
+            return_date: dat.pending[0].return_date ,
+            return_description: dat.pending[0].return_description ,
+            return_quantity: dat.pending[0].return_quantity ,
+            availability_id: element.availability_id,
+            created: element.created,            ​
+            description: element.description,
+            destination_id: element.destination_id,
+            name_element: element.name_element,
+            origin_id: element.origin_id,
+            quantity_out: element.quantity_out,
+            typeDestino: element.typeDestino,
+            autoriza: element.autoriza,
+            mark_name: element.mark_name,
+          });
+
+          if(this.dataSource.filteredData.length==datos.length){
+            this.pdfService.generatePdf(datos,this.estructuraActual,null);
+            this.spinnerPrest=false;
+          }
+        },
+        err=>{
+          console.log(err);
+          this.loginService.logout();
+          window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+        })
+
+      });
+    }
+
+  }
 
   verifica(){
     let aux= this.loginService.getRol();
-    return (aux=="guest");    
+    return (aux=="guest");
   }
 
   verificabutt(row){
@@ -224,6 +270,22 @@ export class ListPrestamosComponent implements OnInit {
       }
       else
         return false;
+  }
+
+  deleteOut(row){
+    if(confirm("¿Seguro que desea eliminar?")){
+      this.inventarioService.deleteOutput({
+        output_id:row.output_id,
+        type: 2
+      }).subscribe((data)=>{
+        this.getInventarios();
+      },
+      err=>{
+        console.log(err)
+        this.loginService.logout();
+        window.location.assign("https://sedacreditaciones.com/app/patrimonio")
+      });
+    }
   }
 }
 
