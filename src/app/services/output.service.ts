@@ -27,4 +27,12 @@ export class OutputService {
   editOutputNoData(output){
     return this.http.post(`${this.API_URI}/outputs/edit-nodata.json`,output);
   }
+
+  getAllOutputStatistics(){
+    return this.http.get(`${this.API_URI}/outputs/statistics-all.json`);
+  }
+
+  getStructOutputStatistics(struct_id){
+    return this.http.get(`${this.API_URI}/outputs/statistics/${struct_id}.json`);
+  }
 }

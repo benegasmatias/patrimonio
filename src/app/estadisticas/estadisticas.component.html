@@ -1,0 +1,35 @@
+<div style="margin-left: 45%; margin-top: 20%;" *ngIf="spinnerGen">
+  <mat-spinner
+    [mode]="'indeterminate'">
+  </mat-spinner>
+</div>
+
+<div [hidden]='spinnerGen'>
+  <canvas id="myChart" width="700" height="400" style="margin: auto;"></canvas>
+  <br>
+  <br>
+  <br>
+  <select style="width: 30%; margin: auto;display: flex;"class="form-select" aria-label="Seleccion tipo de estructura" (change)="getStructs($event.target.value)">
+
+    <option selected value="0">-</option>
+    <option *ngFor="let type of typeStructs" [value]='type.id'>
+      {{type.name}}</option>
+  </select>
+  <br>
+  <div  [hidden]='spinnerStruct'>
+    <div id="padreCanvas" *ngIf="structs">
+
+      <!-- <canvas id="myChartStruct" width="700" height="400" style="margin: auto;"
+      ></canvas> -->
+    </div>
+    <div class="text-center" *ngIf="!structs.length">
+      <h1>No existen datos para mostrar..!</h1>
+    </div>
+  </div>
+  <div style="margin-left: 45%; margin-top: 20%;" *ngIf="spinnerStruct">
+    <mat-spinner
+      [mode]="'indeterminate'">
+    </mat-spinner>
+  </div>
+
+</div>

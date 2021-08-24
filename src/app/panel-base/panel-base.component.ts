@@ -72,10 +72,8 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   }
 
   destinNav(destinoNav){
-  console.log(destinoNav)
   this.fillerNav=[];
-  //console.log(destinoNav)
-  //console.log(destinoNav.name)
+
   this.datobuton= destinoNav;
 
   this.serviceStruct.getStructs(destinoNav.id).subscribe(
@@ -205,6 +203,16 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
         route:'list-elementos'
       })
     }
+  }
+
+  estadisticas(){
+    this.muestrabutton=true;
+    this.fillerNav=[];
+    this.fillerNav.push({
+      name: `Estadisticas`,
+      icon: 'folder',
+      route:'estadisticas'
+    })
   }
 
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;

@@ -14,7 +14,6 @@ import { LoginService } from '../../../login/services/login.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import { element } from 'protractor';
 
 export interface provider{
   id:string;

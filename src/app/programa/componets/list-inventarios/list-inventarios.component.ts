@@ -12,8 +12,6 @@ import { EnvioFormComponent } from 'src/app/salida/components/envio-form/envio-f
 
 import { MatDialog } from '@angular/material/dialog';
 import {pdfServiceInventarios} from './pdfServiceInventarios/pdfServiceInventarios';
-import { Console } from 'console';
-
 
 export interface IventarioData {
   id_element: number,

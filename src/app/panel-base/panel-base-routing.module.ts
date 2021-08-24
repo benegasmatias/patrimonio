@@ -15,6 +15,7 @@ const routes: Routes = [
       { path: 'entrada', loadChildren: () => import('../entrada/entrada.module').then(m => m.EntradaModule),canActivate:[authGuard] },
       { path:'categorias',loadChildren:()=>import('../categorias/categorias.module').then(m=>m.CategoriasModule),canActivate:[authGuard]},
       { path:'list-elementos',loadChildren:()=>import('../list-elementos/list-elementos.module').then(m=>m.ListElementosModule),canActivate:[authGuard]},
+      { path:'estadisticas',loadChildren:()=>import('../estadisticas/estadisticas.module').then(m=>m.EstadisticasModule),canActivate:[authGuard]},
 
     ]
   },
@@ -24,6 +25,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  
+
 })
 export class PanelBaseRoutingModule { }
