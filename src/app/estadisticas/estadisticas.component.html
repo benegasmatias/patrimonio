@@ -5,31 +5,128 @@
 </div>
 
 <div [hidden]='spinnerGen'>
-  <canvas id="myChart" width="700" height="400" style="margin: auto;"></canvas>
+  <br>
+  <div class="text-center" >
+    <h1>Salidas:</h1>
+  </div>
+  <mat-card clas="container"style="width: 85%; margin: auto;">
+    <div class="row text-center" *ngIf="!typeStructs.length" style="margin: auto;">
+      <h1>No existen datos para mostrar..!</h1>
+    </div>
+    <div class="row" *ngIf="typeStructs" style=" width: auto;">
+      <div class="col-8 col-sm-8 col-xs-8">
+            <div id="genCanvas" >
+              <!-- <canvas id="myChart" width="700" height="400" style="margin: auto;"></canvas> -->
+
+            </div>
+      </div>
+      <div class="col-4 col-sm-4 col-xs-4 container" >
+        <div class="row">
+              <mat-form-field appearance="outline" class="input-doble" [formGroup]="form">
+                <mat-label>Fecha Desde</mat-label>
+                <input matInput [matDatepicker]="datepicker" formControlName="desde" disabled
+                (dateChange)="validateDesde(formDesde)">
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker disabled="false"></mat-datepicker>
+                <mat-error
+                  *ngIf="formDesde.hasError('errorCheck')">
+                  Seleccionar una fecha menor
+              </mat-error>
+              </mat-form-field>
+        </div>
+
+        <div class="row">
+              <mat-form-field appearance="outline" class="input-doble" [formGroup]="form">
+                <mat-label>Fecha Hasta</mat-label>
+                <input matInput [matDatepicker]="datepicker2" formControlName="hasta" disabled
+                (dateChange)="validateHasta(formHasta)">
+                <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker2 disabled="false"></mat-datepicker>
+                <mat-error
+                  *ngIf="formHasta.hasError('errorCheck')">
+                  Seleccionar una fecha mayor
+                </mat-error>
+              </mat-form-field>
+        </div>
+        <div class="row">
+              <div class="col">
+                <button mat-button (click)="getEstadisticasAll()" [disabled]="!this.form.value.desde && !this.form.value.hasta && this.form.valid" color="primary">Limpiar</button>
+              </div>
+              <div class="col">
+                <button mat-button (click)="getEstadisticasAllFecha()" [disabled]="!this.form.value.desde && !this.form.value.hasta && this.form.valid" color="warn">Buscar</button>
+              </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
   <br>
   <br>
   <br>
   <select style="width: 30%; margin: auto;display: flex;"class="form-select" aria-label="Seleccion tipo de estructura" (change)="getStructs($event.target.value)">
-
-    <option selected value="0">-</option>
+    <option value="0">-</option>
     <option *ngFor="let type of typeStructs" [value]='type.id'>
       {{type.name}}</option>
   </select>
   <br>
-  <div  [hidden]='spinnerStruct'>
-    <div id="padreCanvas" *ngIf="structs">
-
-      <!-- <canvas id="myChartStruct" width="700" height="400" style="margin: auto;"
-      ></canvas> -->
-    </div>
-    <div class="text-center" *ngIf="!structs.length">
-      <h1>No existen datos para mostrar..!</h1>
-    </div>
+  <div class="text-center" *ngIf="structSeleccionado">
+    <h1>Salidas Filtradas:</h1>
   </div>
   <div style="margin-left: 45%; margin-top: 20%;" *ngIf="spinnerStruct">
     <mat-spinner
       [mode]="'indeterminate'">
     </mat-spinner>
   </div>
+  <mat-card clas="container"style="width: 85%; margin: auto;" [hidden]='spinnerStruct' *ngIf="structSeleccionado">
+    <div class="row text-center" *ngIf="!structs.length" style="margin: auto;">
+      <h1>No existen datos para mostrar..!</h1>
+    </div>
+    <div class="row" *ngIf="structs" style=" width: auto;">
+      <div class="col-8 col-sm-8 col-xs-8" style="width: fit-content; display: flex;">
+            <div id="padreCanvas">
+              <!-- <canvas id="myChartStruct" width="700" height="400" style="margin: auto;"
+              ></canvas> -->
+            </div>
+      </div>
+      <div class="col-4 col-sm-4 col-xs-4 container" >
+            <div class="row">
+              <mat-form-field appearance="outline" class="input-doble" [formGroup]="formSt">
+                <mat-label>Fecha Desde</mat-label>
+                <input matInput [matDatepicker]="datepicker3" formControlName="desde" disabled
+                (dateChange)="validateDesdeSt(formDesdeSt)">
+                <mat-datepicker-toggle matSuffix [for]="datepicker3"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker3 disabled="false"></mat-datepicker>
+                <mat-error
+                  *ngIf="formDesdeSt.hasError('errorCheck')">
+                  Seleccionar una fecha menor
+              </mat-error>
+              </mat-form-field>
+            </div>
 
+            <div class="row">
+              <mat-form-field appearance="outline" class="input-doble" [formGroup]="formSt">
+                <mat-label>Fecha Hasta</mat-label>
+                <input matInput [matDatepicker]="datepicker4" formControlName="hasta" disabled
+                (dateChange)="validateHastaSt(formHastaSt)">
+                <mat-datepicker-toggle matSuffix [for]="datepicker4"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker4 disabled="false"></mat-datepicker>
+                <mat-error
+                  *ngIf="formHastaSt.hasError('errorCheck')">
+                  Seleccionar una fecha mayor
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button mat-button (click)="getStructs(structSeleccionado)" [disabled]="!this.formSt.value.desde && !this.formSt.value.hasta && this.formSt.valid" color="primary">Limpiar</button>
+              </div>
+              <div class="col">
+                <button mat-button (click)="getStructsFecha()" [disabled]="!this.formSt.value.desde && !this.formSt.value.hasta && this.formSt.valid" color="warn">Buscar</button>
+              </div>
+            </div>
+      </div>
+    </div>
+  </mat-card>
+  <br>
 </div>
+
+

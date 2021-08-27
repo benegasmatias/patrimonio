@@ -35,4 +35,12 @@ export class OutputService {
   getStructOutputStatistics(struct_id){
     return this.http.get(`${this.API_URI}/outputs/statistics/${struct_id}.json`);
   }
+
+  getAllOutputStatisticsFecha(data){
+    return this.http.post(`${this.API_URI}/outputs/statistics-all/date.json`,data);
+  }
+
+  getStructOutputStatisticsFecha(data){
+    return this.http.post(`${this.API_URI}/outputs/statistics/date.json`,data);
+  }
 }
