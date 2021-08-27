@@ -30,4 +30,20 @@ export class InputService {
   setObservation(data){
     return this.http.post(`${this.API_URI}/inventario/observation.json`,data)
   }
+
+  getAllInputStatistics(){
+    return this.http.get(`${this.API_URI}/inputs/statistics-all.json`);//inputs
+  }
+
+  getStructInputStatistics(struct_id){
+    return this.http.get(`${this.API_URI}/inputs/statistics/${struct_id}.json`);
+  }
+
+  getAllInputStatisticsFecha(data){
+    return this.http.post(`${this.API_URI}/inputs/statistics-all/date.json`,data);
+  }
+
+  getStructInputStatisticsFecha(data){
+    return this.http.post(`${this.API_URI}/inputs/statistics/date.json`,data);
+  }
 }

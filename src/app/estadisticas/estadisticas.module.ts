@@ -12,10 +12,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
-
+import {EstadisticasSalidaComponent} from './components/estadisticas-salidas/estadisticas-salida.component'
+import {EstadisticasEntradaComponent} from './components/estadisticas-entradas/estadisticas-entrada.component'
 
 @NgModule({
-  declarations: [EstadisticasComponent, ],
+  declarations: [EstadisticasComponent, EstadisticasSalidaComponent,EstadisticasEntradaComponent],
   imports: [
     CommonModule,
     EstadisticasRoutingModule,

@@ -206,12 +206,18 @@ export class PanelBaseComponent implements OnDestroy,OnInit {
   }
 
   estadisticas(){
+    console.log("AAAAAAAAAAAAAA")
     this.muestrabutton=true;
     this.fillerNav=[];
     this.fillerNav.push({
-      name: `Estadisticas`,
+      name: `Salidas`,
       icon: 'folder',
-      route:'estadisticas'
+      route:'estadisticas/salidas'
+    })
+    this.fillerNav.push({
+      name: `Entradas`,
+      icon: 'folder',
+      route:'estadisticas/entradas'
     })
   }
 
